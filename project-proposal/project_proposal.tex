@@ -8,26 +8,41 @@
 \usepackage{minted}
 \usepackage{csquotes}
 \usepackage{indentfirst}
+\usepackage{color,soul}
+\usepackage[a4paper, top=0.1cm, bottom=0.1cm, left=1cm, right=1cm]{geometry}
 
-\title{Project Proposal:}
-\author{}
+\title{Project Proposal: Punched Card Reader}
+\author{\href{patrick_mccann@brown.edu}{Patrick McCann}, \href{yiru_liu1@brown.edu}{Yi Lyo}, \href{odomsathshia_tep@brown.edu}{Alexander Thaep}, \href{zhiwen_zheng@brown.edu}{Zhiwen \enquote{Michael} Zheng} \\ (in alphabetical order)}
 \date{\today}
 
 \begin{document}
 
 \maketitle
+% \vspace{-0.5cm}
 
 \subsection*{High-Level Overview}
+Our project proposes the design and implementation of an Arduino-based punched card reader.
+It aims to emulate historical slow I/O devices with a pedagogical emphasis for CSCI 1670 (Operating Systems).
+The reader will pull a punched card through an array of optical sensors, leveraging Pulse-Width Modulation (PWM) to manage the speed of the card's movement.
+The analog readings from the sensors will be interpreted using the Arduino's Analog-to-Digital Converter (ADC) to determine the presence or absence of holes in the card.
+An interrupt service routine (ISR), triggered by a sensor that detects whether a card is inserted, will initiate the reading process.
+The processed data will be transmitted to a host local machine as a string through serial communication.
+A watchdog timer will be implemented as a fail-safe mechanism to reset the system in case of malfunctions and ensure the system's reliability.
 
 \subsection*{Final Deliverables}
 
+
 \subsection*{Component Descriptions}
+
 
 \subsection*{Uncertainties}
 
+
 \subsection*{Preliminary List of Components to be Ordered}
 
+
 \subsection*{References}
+
 
 % If we include the "plain" references in the previous subsection,
 % we may not (or still may) need to include the bibliography.
