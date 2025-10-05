@@ -29,7 +29,7 @@
 *.nlo
 *.nls
 *.out
-*.pdf
+# *.pdf
 *.pyg
 *.run.xml
 *.snm
@@ -42,6 +42,6 @@
 *.xdy
 *.xml
 *blx.bib
-.bak 
+.bak
 .mtc
 build/

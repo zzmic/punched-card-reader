@@ -10,29 +10,37 @@
 \usepackage{indentfirst}
 \usepackage{color,soul}
 \usepackage[a4paper, top=0.1cm, bottom=0.1cm, left=1cm, right=1cm]{geometry}
+\usepackage{titlesec}
+\titlespacing*{\subsection}{0pt}{1ex}{1ex}
 
 \title{Project Proposal: Punched Card Reader}
-\author{\href{patrick_mccann@brown.edu}{Patrick McCann}, \href{yiru_liu1@brown.edu}{Yi Lyo}, \href{odomsathshia_tep@brown.edu}{Alexander Thaep}, \href{zhiwen_zheng@brown.edu}{Zhiwen \enquote{Michael} Zheng} \\ (in alphabetical order)}
+\author{Yi Lyo, Patrick McCann, Alexander Thaep, Zhiwen \enquote{Michael} Zheng \\ (in alphabetical order)}
 \date{\today}
 
 \begin{document}
 
 \maketitle
-% \vspace{-0.5cm}
+\vspace{-1cm}
 
-\subsection*{High-Level Overview}
+\subsection*{Project Overview}
 Our project proposes the design and implementation of an Arduino-based punched card reader.
 It aims to emulate historical slow I/O devices with a pedagogical emphasis for CSCI 1670 (Operating Systems).
 The reader will pull a punched card through an array of optical sensors, leveraging Pulse-Width Modulation (PWM) to manage the speed of the card's movement.
 The analog readings from the sensors will be interpreted using the Arduino's Analog-to-Digital Converter (ADC) to determine the presence or absence of holes in the card.
-An interrupt service routine (ISR), triggered by a sensor that detects whether a card is inserted, will initiate the reading process.
+An interrupt service routine (ISR), triggered by a sensor that detects whether a card is inserted (i.e., the presence of a card), will initiate the reading process.
 The processed data will be transmitted to a host local machine as a string through serial communication.
-A watchdog timer will be implemented as a fail-safe mechanism to reset the system in case of malfunctions and ensure the system's reliability.
+A watchdog timer will be implemented as a fail-safe mechanism to reset the system in the event of malfunctions, thereby ensuring the system's reliability.
 
-\subsection*{Final Deliverables}
+\subsection*{Design Rationale}
+Our project will leverage the Arduino's built-in features, including \textit{Pulse-Width Modulation (PWM)} to control the speed of the card reader and an \textit{Analog-to-Digital Converter (ADC)} to read the analog signals from the optical sensors.
+Based on an event-driven approach, the system will utilize an \textit{Interrupt Service Routine (ISR)} to handle card insertion events, thereby initiating the reading process without requiring continuous polling.
+To ensure system reliability, a \textit{watchdog timer} will be implemented as a fail-safe fallback to reset the system in case of malfunctions.
+Once the data is processed, it will be transmitted to a host local machine via \textit{serial communication}, making the information accessible and fulfilling the device's I/O functionality.
+
+\subsection*{Deliverables and Fulfillment Criteria}
 
 
-\subsection*{Component Descriptions}
+\subsection*{Hardware and Testing Plan}
 
 
 \subsection*{Uncertainties}
