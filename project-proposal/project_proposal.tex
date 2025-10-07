@@ -37,12 +37,19 @@ Based on an event-driven approach, the system will utilize an \textit{Interrupt 
 To ensure system reliability, a \textit{watchdog timer} will be implemented as a fail-safe fallback to reset the system in case of malfunctions. Once the data is processed, it will be transmitted to a host machine via \textit{serial communication}, making the information accessible and fulfilling the device's I/O functionality.
 
 \subsection*{Deliverables and Fulfillment Criteria}
-A fully assembled, self-contained (connected to a host machine) punched card reader prototype will be presented. The prototype will consist of an Arduino Uno R4 WiFi board, an array of optical sensors, and a low-power motor, together with the wires and other auxiliary components that integrate them into a physical entity. The project's success will be evaluated based on explicit criteria. When a punched card is inserted into the device, the prototype should automatically detect the card through (one of) the optical sensors, pull the card through the sensor array at a controlled speed through the low-power motor, and transmit the data encoded by the punches to the host machine through serial communication. On the host machine end, the string displayed in its serial monitor should be consistent with the pattern of holes on the physical card that was read, which, together with the previous behaviors, demonstrates the device's functionality as a reliable I/O peripheral.
+A fully assembled, self-contained (connected to a host machine) punched card reader prototype will be presented. 
+The prototype will consist of an Arduino Uno R4 WiFi board, an array of optical sensors, and a low-power motor, together with the wires and other auxiliary components that integrate them into a physical entity. 
+The project's success will be evaluated based on explicit criteria. 
+When a punched card is inserted into the device, the prototype should automatically detect the card through (one of) the optical sensors, pull the card through the sensor array at a controlled speed through the low-power motor, and transmit the data encoded by the punches to the host machine through serial communication. 
+On the host machine end, the string displayed in its serial monitor should be consistent with the pattern of holes on the physical card that was read, which, together with the previous behaviors, demonstrates the device's functionality as a reliable I/O peripheral.
 
 \subsection*{Hardware and Testing Plan}
 
 \subsection*{Uncertainties}
-There are several challenges that we anticipated, especially in electromechanical integration. On the hardware side, achieving precise but necessary physical alignment between the optical sensor array and the punched card rows and/or columns, while ensuring that the low-power motor pushes the card forward at a reasonable speed without deviating the card away from the track, seems to be a hurdle. On the software side, synchronizing the reading from the ADC and the card's physical position may require non-trivial timing analysis. A fallback solution is to discard the motor and instead manually pull the card to the correct position before reading the immediately following punch, henceforth alleviating both hardware and software concerns.
+There are several challenges that we anticipated, especially in electromechanical integration. 
+On the hardware side, achieving precise but necessary physical alignment between the optical sensor array and the punched card rows and/or columns, while ensuring that the low-power motor pushes the card forward at a reasonable speed without deviating the card away from the track, seems to be a hurdle. 
+On the software side, synchronizing the reading from the ADC and the card's physical position may require non-trivial timing analysis. 
+A fallback solution is to discard the motor and instead manually pull the card to the correct position before reading the immediately following punch, henceforth alleviating both hardware and software concerns.
 
 \subsection*{Preliminary List of Components to be Ordered}
 
