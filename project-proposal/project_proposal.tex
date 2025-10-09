@@ -44,6 +44,13 @@ When a punched card is inserted into the device, the prototype should automatica
 On the host machine end, the string displayed in its serial monitor should be consistent with the pattern of holes on the physical card that was read, which, together with the previous behaviors, demonstrates the device's functionality as a reliable I/O peripheral.
 
 \subsection*{Hardware and Testing Plan}
+\hl{TODO(zzmic): Explain, \textbf{in one to two sentences}, how we will know that each of the components is working.} \\
+The following specifies the hardware components, other than the wires that connect them, that we plan to use and the testing plans we expect to implement:
+\begin{itemize}
+    \item \textit{Arduino Uno R4 WiFi boards:}
+    \item \textit{Array of optical sensors:}
+    \item \textit{Low-power motor:}
+\end{itemize}
 
 \subsection*{Uncertainties}
 There are several challenges that we anticipated, especially in electromechanical integration. 
@@ -52,10 +59,14 @@ On the software side, synchronizing the reading from the ADC and the card's phys
 A fallback solution is to discard the motor and instead manually pull the card to the correct position before reading the immediately following punch, henceforth alleviating both hardware and software concerns.
 
 \subsection*{Preliminary List of Components to be Ordered}
-
+We have a few components, in addition to the Arduino boards and the electronics kits, in mind that need to be ordered:
+\begin{itemize}
+    \item \textit{An array of optical sensors} that (1) detect and read the punches/holes of a punched card and (2) transmit the sensing information to an Arduino board that the sensors are connected to.
+    \item \textit{A low-power motor} that drives a punched card forward in a reasonable speed.
+\end{itemize}
 
 \subsection*{References}
-
+\hl{TODO(zzmic): Add references to the terminologies and components that we're going to use, especially for the \textbf{Hardware and Testing Plan} and \textbf{Preliminary List of Components to be Ordered} subsections.} \\
 
 % If we include the "plain" references in the previous subsection,
 % we may not (or still may) need to include the bibliography.
