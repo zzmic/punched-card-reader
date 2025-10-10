@@ -9,13 +9,15 @@
 \usepackage{csquotes}
 \usepackage{indentfirst}
 \usepackage{color,soul}
-\usepackage[a4paper, top=0.1cm, bottom=0.1cm, left=1cm, right=1cm]{geometry}
+\usepackage[a4paper, top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
 \usepackage{titlesec}
 \titlespacing*{\subsection}{0pt}{1ex}{1ex}
+\usepackage{enumitem}
 
 \title{Project Proposal: Punched Card Reader}
 \author{Yi Lyo, Patrick McCann, Alexander Thaep, Zhiwen \enquote{Michael} Zheng \\ (in alphabetical order)}
-\date{\today}
+\date{October 10, 2025}
+% \date{\today} % https://info.arxiv.org/help/faq/today.html
 
 \begin{document}
 
@@ -44,12 +46,17 @@ When a punched card is inserted into the device, the prototype should automatica
 On the host machine end, the string displayed in its serial monitor should be consistent with the pattern of holes on the physical card that was read, which, together with the previous behaviors, demonstrates the device's functionality as a reliable I/O peripheral.
 
 \subsection*{Hardware and Testing Plan}
-\hl{TODO(zzmic): Explain, \textbf{in one to two sentences}, how we will know that each of the components is working.} \\
 The following specifies the hardware components, other than the wires that connect them, that we plan to use and the testing plans we expect to implement:
 \begin{itemize}
-    \item \textit{Arduino Uno R4 WiFi boards:}
+    \item \textit{Arduino Uno R4 WiFi boards:} 
+    We will check whether the board is functional by, for instance, running the Blink example, which will blink the built-in LED[1]. 
+    Other built-in examples can be run as well for further validations [2].
     \item \textit{Array of optical sensors:}
-    \item \textit{Low-power motor:}
+    We will test each optical sensor by connecting it to an analog input pin and printing its readings to the Serial Monitor using \texttt{analogRead()} [3]. 
+    We will then see if there is a noticeable/sufficient change in the output value as we pull a punched card over the sensor.
+    \item \textit{Low-power motor:} 
+    We will verify the motor's functionality by connecting it to the Arduino through a motor driver and using the \texttt{analogWrite()} function to send various PWM signals to it [4]. 
+    If the motor can operate/rotate at a reasonable rate, corresponding to the PWM values sent, then the motor can be deemed as working.
 \end{itemize}
 
 \subsection*{Uncertainties}
@@ -66,7 +73,13 @@ We have a few components, in addition to the Arduino boards and the electronics 
 \end{itemize}
 
 \subsection*{References}
-\hl{TODO(zzmic): Add references to the terminologies and components that we're going to use, especially for the \textbf{Hardware and Testing Plan} and \textbf{Preliminary List of Components to be Ordered} subsections.} \\
+\hspace{1em} \hl{TODO(zzmic): Add references to the terminologies and components that we're going to use, especially for the \textbf{Hardware and Testing Plan} and \textbf{Preliminary List of Components to be Ordered} subsections.} \hl{TODO(zzmic): "Mimic" the behavior of LaTeX's bibliography management:} \url{https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex}
+\begin{enumerate}[label={[\arabic*]}]
+    \item https://docs.arduino.cc/built-in-examples/basics/Blink/
+    \item https://docs.arduino.cc/built-in-examples/
+    \item https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/
+    \item https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/
+\end{enumerate}
 
 % If we include the "plain" references in the previous subsection,
 % we may not (or still may) need to include the bibliography.
