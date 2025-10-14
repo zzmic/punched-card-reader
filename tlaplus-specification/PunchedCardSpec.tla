@@ -4,7 +4,7 @@ EXTENDS Naturals, Sequences, FiniteSets, TLC
 (* Constants representing the data values and special no-data value. *)
 CONSTANTS
     DataValues, \* Finite set of possible data values.
-    NoData \* Special value representing no data
+    NoData \* Special value representing no data.
 
 (* Assumptions about the constants. *)
 ASSUME
@@ -78,6 +78,6 @@ NoGhostData == (cardPresent = FALSE) => (cardData = NoData)
 (* Invariant ensuring reading only occurs when a card is present. *)
 ReadIfCardPresent == (state = "Reading") => (cardPresent = TRUE)
 --------------------------------------------------------------------------------
-(* Theorem(s) to be checked by TLC. *)
+(* Theorem(s) that enable model checking of invariants. *)
 THEOREM Spec => []TypeInvariant /\ []NoGhostData /\ []ReadIfCardPresent
 ================================================================================
