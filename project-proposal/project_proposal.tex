@@ -9,13 +9,13 @@
 \usepackage{csquotes}
 \usepackage{indentfirst}
 \usepackage{color,soul}
-\usepackage[a4paper, top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\usepackage[a2paper, margin=1in]{geometry}
 \usepackage{titlesec}
 \titlespacing*{\subsection}{0pt}{1ex}{1ex}
 \usepackage{enumitem}
 
 \title{Project Proposal: Punched Card Reader}
-\author{Yi Lyo, Patrick McCann, Alexander Thaep, Zhiwen \enquote{Michael} Zheng \\ (in alphabetical order)}
+\author{Yi Lyo, Patrick McCann, Alexander Thaep, Zhiwen \enquote{Michael} Zheng}
 \date{October 10, 2025}
 % \date{\today} % https://info.arxiv.org/help/faq/today.html
 
@@ -25,60 +25,91 @@
 \vspace{-1cm}
 
 \subsection*{Project Overview}
-Our project proposes the design and implementation of an Arduino-based punched card reader.
-It aims to emulate historical slow I/O devices with a pedagogical emphasis for CSCI 1670 (Operating Systems).
-The reader will pull a punched card through an array of optical sensors, leveraging Pulse-Width Modulation (PWM) to manage the speed of the card's movement.
-The analog readings from the sensors will be interpreted using the Arduino's Analog-to-Digital Converter (ADC) to determine the presence or absence of holes in the card.
-An interrupt service routine (ISR), triggered by a sensor that detects whether a card is inserted (i.e., the presence of a card), will initiate the reading process.
-The processed data will be transmitted to a host machine as a string through serial communication.
-A watchdog timer will be implemented as a fail-safe mechanism to reset the system in the event of malfunctions, thereby ensuring the system's reliability.
+We propose designing and implementing an Arduino-based punched card reader and puncher for our project. This device will help Malte, the instructor of CSCI 1670: Operating Systems, motivate certain OS concepts by demonstrating how slow historical I/O devices were. Please note that the earliest date that we could schedule a meeting with Malte was 10/14. Certain aspects of our design may change once we've met with Malte and have a firmer understanding of Malte's requirements.
+
+The reader will process a stack of punched cards by feeding them through an array of photointerrupters, using \textit{timer interrupts} to drive stepper motors and precisely control the speed of the cards' passage [9].
+The analog readings from the sensors will be fed into the Arduino's \textit{Analog-to-Digital Converter (ADC)} to determine the arrangement of holes on the card.
+An \textit{interrupt service routine (ISR)}, triggered by a sensor that detects whether a card has been inserted or by input from the host machine, will initiate the reading process.
+
+The data read off the punch card will be transmitted to a host machine through serial communication. A program running on the host machine will receive the data and perform useful operations with it, such as displaying it on the screen or writing it to a file.
+A watchdog timer will be implemented as a fail-safe mechanism to reset the system in cases of malfunction, thereby ensuring the system's reliability.
+
+The puncher will be located on the same feed as the reader, and the device will either punch or read, depending on its mode. When in punching mode, the device will receive data from the host machine, automatically feed cards from a stack of blanks, and punch the data onto them.
+
+\subsection*{History}
+Though punched cards can be traced back to even the late 19th century, the most iconic and arguably most ubiquitous punched card design comes from IBM in the early 19th century. The card itself was a thin piece of stiff cardboard measuring 7.375 inches by 3.25 inches packing 80 columns by 12 rows of tiny rectangular holes. Historically, a single card would contain a line of code in a program. So, these stacks of cards would comprise multitudes of encoded programs and data that once made the world go round in the early Information Age. 
+
+As such, punched card readers were once essential equipment for data processing as late as the 1960s. With speed measured in cards per minute, or CPM, early card readers used mechanical brushes that would make electrical contact for the presence of a hole, and no contact for the absence. Later punched card readers would adopt optical sensors to reduce complexity inherent in electromechanical components for more robust readers.
 
 \subsection*{Design Rationale}
-Our project will leverage the Arduino's built-in features, including \textit{Pulse-Width Modulation (PWM)} to control the speed of the card reader and an \textit{Analog-to-Digital Converter (ADC)} to read the analog signals from the optical sensors.
-Based on an event-driven approach, the system will utilize an \textit{Interrupt Service Routine (ISR)} to handle card insertion events, thus initiating the reading process without requiring continuous polling.
-To ensure system reliability, a \textit{watchdog timer} will be implemented as a fail-safe fallback to reset the system in case of malfunctions. Once the data is processed, it will be transmitted to a host machine via \textit{serial communication}, making the information accessible and fulfilling the device's I/O functionality.
+Our project will leverage the Arduino's built-in features, including \textit{Timer Interrupts} to drive a stepper motor, which controls the rate at which the card is fed through the reader, and an \textit{Analog-to-Digital Converter (ADC)} to read the analog signals from the photointerrupters [10]. These two options provide the most well-documented and robust solutions to our problem of parsing the punched card reader.
+
+Based on an event-driven approach, the system will utilize an \textit{Interrupt Service Routine (ISR)} to handle card insertions, thus allowing the device to initiate the reading process without continuous polling.
+
+A \textit{watchdog timer} will be implemented as a fail-safe to reset the system so that, in the event of a malfunction, the software can reboot itself without human intervention. 
+
+Once the data is read, it will be transmitted to a host machine via \textit{serial communication}, making the information accessible and fulfilling the device's input functionality. A program on the computer will process the data, such as printing out the contents of the card on the display or writing it to a file or memory buffer.
+
+In addition, the puncher will receive data from the host machine via \textit{serial communication} and use \textit{timer interrupts} to automatically punch it onto punch cards, thereby fulfilling the device's output functionality.
 
 \subsection*{Deliverables and Fulfillment Criteria}
-A fully assembled, self-contained (connected to a host machine) punched card reader prototype will be presented. 
-The prototype will consist of an Arduino Uno R4 WiFi board, an array of optical sensors, and a low-power motor, together with the wires and other auxiliary components that integrate them into a physical entity. 
+A fully assembled, self-contained punched card reader prototype (though requiring a host machine) will be presented.
+The prototype will consist of an Arduino Uno R4 WiFi board, an array of photointerrupters, and stepper motors, together with the wires and other auxiliary components integrated into a physical device. 
 The project's success will be evaluated based on explicit criteria. 
-When a punched card is inserted into the device, the prototype should automatically detect the card through (one of) the optical sensors, pull the card through the sensor array at a controlled speed through the low-power motor, and transmit the data encoded by the punches to the host machine through serial communication. 
-On the host machine end, the string displayed in its serial monitor should be consistent with the pattern of holes on the physical card that was read, which, together with the previous behaviors, demonstrates the device's functionality as a reliable I/O peripheral.
+When a punched card is inserted into the device, the prototype should detect the card using the photointerrupters, pull it through the sensor array at a controlled speed, and transmit the data encoded by the punches to the host machine via serial communication. 
+The host machine shall receive data consistent with the decoded pattern of holes on the physical card that was read, demonstrating the device's functionality as a reliable I/O peripheral.
+The device will be used to perform a short educational demonstration that matches Malte's specifications (e.g., a realistic I/O rate, easy for onlookers to understand, etc).
+Finally, we will ensure that the device is well-documented and understood by Malte so that it can be easily maintained and reused in future semesters. 
 
 \subsection*{Hardware and Testing Plan}
-The following specifies the hardware components, other than the wires that connect them, that we plan to use and the testing plans we expect to implement:
+The following specifies the hardware components that we plan to use and the testing schema we expect to implement:
 \begin{itemize}
     \item \textit{Arduino Uno R4 WiFi boards:} 
-    We will check whether the board is functional by, for instance, running the Blink example, which will blink the built-in LED[1]. 
-    Other built-in examples can be run as well for further validations [2].
-    \item \textit{Array of optical sensors:}
-    We will test each optical sensor by connecting it to an analog input pin and printing its readings to the Serial Monitor using \texttt{analogRead()} [3]. 
-    We will then see if there is a noticeable/sufficient change in the output value as we pull a punched card over the sensor.
-    \item \textit{Low-power motor:} 
-    We will verify the motor's functionality by connecting it to the Arduino through a motor driver and using the \texttt{analogWrite()} function to send various PWM signals to it [4]. 
-    If the motor can operate/rotate at a reasonable rate, corresponding to the PWM values sent, then the motor can be deemed as working.
+    We will check whether the board is functional by running the Blink example, which will blink the built-in LED[1]. 
+    Other built-in examples can be run as well for further validation [2].
+    \item \textit{Array of photointerrupters:}
+    We will test each photointerrupter by connecting it to an analog input pin and printing its readings to the Serial Monitor using \texttt{analogRead()} [3]. 
+    We will then see if there is a noticeable and sufficient change in the output value as we pull a punched card over the sensor.
+    \item \textit{Low-power motors:} 
+    We will verify each motor's functionality by connecting it to the Arduino and using a standard stepper motor driver sketch. If the motors rotate as expected, then our motors are deemed functional.
+    \item \textit{Solenoids:}
+    We will verify each solenoid's functionality by driving it with the correct voltage and current and confirming that the solenoid actuates. If the solenoid actuates in the correct direction, then our solenoids are deemed functional.
 \end{itemize}
 
 \subsection*{Uncertainties}
-There are several challenges that we anticipated, especially in electromechanical integration. 
-On the hardware side, achieving precise but necessary physical alignment between the optical sensor array and the punched card rows and/or columns, while ensuring that the low-power motor pushes the card forward at a reasonable speed without deviating the card away from the track, seems to be a hurdle. 
-On the software side, synchronizing the reading from the ADC and the card's physical position may require non-trivial timing analysis. 
-A fallback solution is to discard the motor and instead manually pull the card to the correct position before reading the immediately following punch, henceforth alleviating both hardware and software concerns.
+There are several challenges that we anticipate, especially in electromechanical integration:
+\begin{itemize}
+    \item On the hardware side, achieving precise yet necessary physical alignment between the photointerrupter array and the punched card rows and/or columns, while ensuring that the stepper motors push the card forward at a reasonable speed without deviating it from the track, appears to be a hurdle.
+    \item In addition to reading a stack of punched cards, we will also need to design a mechanism that can feed one card at a time through the reader. This may be somewhat difficult.
+    \item To punch the cards, we will also need to design and build a hole punch array. There may be mechanical difficulties in doing this.
+    \item On the software side, synchronizing the reading from the ADC and the card's physical position may require non-trivial timing analysis. 
+\end{itemize}
+
+A fallback solution to difficulties in \textit{motor driving} is to manually pull the card to the correct position before reading the array of punches, thereby alleviating both hardware and software concerns. 
+
+On top of that, a fallback solution to difficulties in \textit{the punch mechanism} would be to forgo the puncher part of this project, and instead, punch cards by hand for the reader to read.
 
 \subsection*{Preliminary List of Components to be Ordered}
-We have a few components, in addition to the Arduino boards and the electronics kits, in mind that need to be ordered:
+We have a few components, in addition to the Arduino board and the electronics kit, that need to be ordered:
 \begin{itemize}
-    \item \textit{An array of optical sensors} that (1) detect and read the punches/holes of a punched card and (2) transmit the sensing information to an Arduino board that the sensors are connected to.
-    \item \textit{A low-power motor} that drives a punched card forward in a reasonable speed.
+    \item \textit{An array of photointerrupters} that (1) detect and read the punches/holes of a punched card and (2) transmit the sensing information to an Arduino board [5].
+    \item \textit{Stepper motors} and \textit{stepper motor drivers (driver boards)} that drive a punched card forward at a reasonable speed [6].
+    \item \textit{Cardstock} to manufacture punched cards [7].
+    \item \textit{Solenoids} to drive the hole punches [8].
 \end{itemize}
 
 \subsection*{References}
-\hspace{1em} \hl{TODO(zzmic): Add references to the terminologies and components that we're going to use, especially for the \textbf{Hardware and Testing Plan} and \textbf{Preliminary List of Components to be Ordered} subsections.} \hl{TODO(zzmic): "Mimic" the behavior of LaTeX's bibliography management:} \url{https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex}
 \begin{enumerate}[label={[\arabic*]}]
-    \item https://docs.arduino.cc/built-in-examples/basics/Blink/
-    \item https://docs.arduino.cc/built-in-examples/
-    \item https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/
-    \item https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/
+    \item \url{https://docs.arduino.cc/built-in-examples/basics/Blink/}
+    \item \url{https://docs.arduino.cc/built-in-examples/}
+    \item \url{https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/}
+    \item \url{https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/}
+    \item \url{https://www.digikey.com/short/dhfpz8qc}
+    \item \url{https://a.co/d/bHqxbUe}
+    \item \url{https://ebay.us/m/qKRkb9}
+    \item \url{https://www.adafruit.com/product/2776}
+    \item \url{https://techweb.rohm.com/product/opto-electronics/photointerrupters/23775/}
+    \item \url{https://www.monolithicpower.com/en/learning/resources/stepper-motors-basics-types-uses?srsltid=AfmBOopcXVb-FUmDtTQElR5hi9FugzaETDaga7aimZ2I1YAvkKzrgd9q}
 \end{enumerate}
 
 % If we include the "plain" references in the previous subsection,
