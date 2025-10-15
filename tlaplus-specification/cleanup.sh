@@ -17,4 +17,3 @@ find . -type f -name "*.tex" -delete
 find . -type f -name "*.pdf" -delete
 
 echo "Cleanup (of TLA+ execution artifacts) complete."
-
