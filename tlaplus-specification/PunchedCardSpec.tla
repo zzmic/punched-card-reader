@@ -69,7 +69,7 @@ DevReadCardComplete ==
     /\ state = "Reading"
     /\ state' = "Idle_Read"
     /\ hostData' = cardData
-    /\ cardData' = NoData
+    /\ cardData' = NoData \* It indicates that the card has been read and removed from the device.
     /\ cardPresent = TRUE
     /\ cardPresent' = FALSE
     /\ deliveries' = Append(deliveries, cardData)
@@ -105,6 +105,9 @@ DeliveriesArePrefixOfInsertions == deliveries = SubSeq(insertions, 1, Len(delive
 
 (* Invariant ensuring that the number of insertions and the number of deliveries do not exceed `MaxNumOfCards`. *)
 InsertionsAndDeliveriesNotExceedingMaxNumOfCards == Len(insertions) <= MaxNumOfCards /\ Len(deliveries) <= MaxNumOfCards
+--------------------------------------------------------------------------------
+(* TODO(zzmic): Specify liveness properties. *)
+
 --------------------------------------------------------------------------------
 (* The main theorem stating that the specification implies all invariants. *)
 THEOREM Spec =>
