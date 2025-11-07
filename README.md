@@ -1,5 +1,22 @@
 # punched-card-reader
 
+## Overview
+This project is an Arduino-based punched card reader that can read and interpret data from punched cards. It aims to motivate certain OS concepts by demonstrating how slow historical I/O devices operated.
+
+## Hardware Requirements
+- [Arduino® UNO R4 WiFi Board](https://store-usa.arduino.cc/products/uno-r4-wifi)
+
+## Project Hierarchy
+```
+punched-card-reader/
+|-- .github/                   # GitHub Actions configuration files.
+|-- docs/                      # Documentation directory.
+|   |-- project-proposal/      # Project proposal documents.
+|   |-- tlaplus-specification/ # TLA+ specification files.
+|-- PunchedCardReader/         # Arduino sketch directory.
+|-- test/                      # Test scripts and related files.
+|-- README.md                  # Project documentation.
+```
 
 ## Compile and Upload Arduino Sketches using Arduino CLI (Optional)
 To update the local cache of available platforms and libraries:
@@ -7,7 +24,7 @@ To update the local cache of available platforms and libraries:
 arduino-cli core update-index
 ```
 
-To install the core for the Arduino UNO R4 Boards:
+To install the core for the Arduino® UNO R4 WiFi board:
 ```bash
 arduino-cli core install arduino:renesas_uno
 ```
@@ -22,7 +39,7 @@ To compile the Arduino sketch located in the `PunchedCardReader` directory:
 arduino-cli compile --fqbn arduino:renesas_uno PunchedCardReader/<sketch_name>.ino
 ```
 
-To upload the compiled sketch to the connected Arduino UNO R4 board:
+To upload the compiled sketch to the connected Arduino® UNO R4 WiFi board:
 ```bash
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno PunchedCardReader/<sketch_name>.ino
 ```
