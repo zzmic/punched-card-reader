@@ -22,9 +22,14 @@ punched-card-reader/
 This repository includes a convenience `Makefile` that wraps the `arduino-cli` commands, given that you have the `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine.
 By default it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
 
+- To list connected Arduino boards:
+  ```bash
+  make board-list
+  ```
+  Make sure to record the port of the connected Arduino® UNO R4 WiFi board (e.g., `/dev/ttyACM0` on Linux, `COM3` on Windows, or `/dev/cu.usbmodemXXXX` on macOS) for use with the `upload` commands.
 - To update the local cache of available platforms and libraries:
   ```bash
-  make core-update
+  make core-update-index
   ```
 - To install the core for the Arduino® UNO R4 WiFi board:
   ```bash
@@ -36,21 +41,24 @@ By default it targets the Arduino® UNO R4 WiFi board and the default sketch at 
   ```
 - To compile the default sketch `PunchedCardReader/PunchedCardReader.ino`:
   ```bash
-  make compile-punching-card-reader
+  make compile-punched-card-reader
   ```
 - To upload the compiled sketch `PunchedCardReader/PunchedCardReader.ino` to the connected Arduino® UNO R4 WiFi board:
   ```bash
-  make upload-punching-card-reader
+  make upload-punched-card-reader PORT=<serial-port>
   ```
-- To work with alternative sketches, supply the path to the sketch via the `FILE` variable (e.g. `make compile FILE=PunchedCardReader/Blink.ino`):
+- To work with alternative sketches, supply the path to the sketch via the `FILE` variable:
   ```bash
   make compile FILE=PunchedCardReader/<sketch-name>.ino
-  make upload FILE=PunchedCardReader/<sketch-name>.ino
+  make upload FILE=PunchedCardReader/<sketch-name>.ino PORT=<serial-port>
   ```
 - For help:
   ```bash
   make help
   ```
+
+## Caveats
+- Note that the `setup()` and `loop()` functions can only appear once per sketch. If addtional sketches are included, ensure that they do not redefine these functions to avoid compilation errors.
 
 ## References
 - [Arduino CLI Documentation](https://arduino.github.io/arduino-cli/1.3/)
