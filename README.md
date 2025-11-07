@@ -12,6 +12,7 @@ This project is an Arduino-based punched card reader that reads and interprets d
 - [CppUTest](https://cpputest.github.io): A C/C++ unit testing framework.
 
 ## Specifications
+```
 Punched Card Diameters
 ->  Length: 18.7325
 ->  Width: 8.255
@@ -28,6 +29,7 @@ Punched Card Reader:
 ->  Reads 12 bits no more than 80 times and emits at most 16-bit words over serial
 ->  Read end detected with an LED indicating absence of card
 ->  Notify card read end over serial
+```
 
 ## Project Hierarchy
 ```
