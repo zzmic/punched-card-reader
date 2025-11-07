@@ -11,6 +11,24 @@ This project is an Arduino-based punched card reader that reads and interprets d
 - [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain): A collection of tools for compiling and debugging ARM-based applications.
 - [CppUTest](https://cpputest.github.io): A C/C++ unit testing framework.
 
+## Specifications
+Punched Card Diameters
+->  Length: 18.7325
+->  Width: 8.255
+->  Bits: 12 * 80 = 960b
+
+Punched Card Reader:
+->  Read start detected with an LED indicating presence of card
+->  Notify card read start over serial
+->  Starts with all LEDs off
+->  Sampling Branch @ 1kHz:
+  ->  Samples with LEDs off
+  ->  Samples with LEDs on
+  ->  Difference above a threshold comprises sample of either 1 or 0
+->  Reads 12 bits no more than 80 times and emits at most 16-bit words over serial
+->  Read end detected with an LED indicating absence of card
+->  Notify card read end over serial
+
 ## Project Hierarchy
 ```
 punched-card-reader/
