@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   proposal:
-    name: Build project-proposal/project_proposal.tex
+    name: Build docs/project-proposal/project_proposal.tex
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,12 +21,12 @@ jobs:
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: project-proposal/project_proposal.tex
+          root_file: docs/project-proposal/project_proposal.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: project_proposal
-          path: project-proposal/project_proposal.pdf
+          path: docs/project-proposal/project_proposal.pdf
           # if-no-files-found: error
           if-no-files-found: warn
