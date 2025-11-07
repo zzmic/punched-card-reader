@@ -1,17 +1,21 @@
 # punched-card-reader
 
 ## Overview
-This project is an Arduino-based punched card reader that can read and interpret data from punched cards. It aims to motivate certain OS concepts by demonstrating how slow historical I/O devices operated.
+This project is an Arduino-based punched card reader that reads and interprets data from punched cards. It aims to motivate certain OS concepts by demonstrating how slow historical I/O devices operated.
 
 ## Hardware Requirements
 - [Arduino® UNO R4 WiFi Board](https://store-usa.arduino.cc/products/uno-r4-wifi)
+
+## Software Requirements
+- [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/): A command-line interface for Arduino development.
+- [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain): A collection of tools for compiling and debugging ARM-based applications.
+- [CppUTest](https://cpputest.github.io): A C/C++ unit testing framework.
 
 ## Project Hierarchy
 ```
 punched-card-reader/
 |-- .github/                   # GitHub Actions configuration files.
 |-- docs/                      # Documentation directory.
-|   |-- project-proposal/      # Project proposal documents.
 |   |-- tlaplus-specification/ # TLA+ specification files.
 |-- PunchedCardReader/         # Arduino sketch directory.
 |-- test/                      # Test scripts and related files.
@@ -19,8 +23,7 @@ punched-card-reader/
 ```
 
 ## Compile and Upload Arduino Sketches with the Makefile
-This repository includes a convenience `Makefile` that wraps the `arduino-cli` commands, given that you have the `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine.
-By default it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
+This repository includes a convenience `Makefile` that wraps `arduino-cli` commands, assuming you have `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine. By default, it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
 
 - To list connected Arduino boards:
   ```bash
@@ -52,17 +55,25 @@ By default it targets the Arduino® UNO R4 WiFi board and the default sketch at 
   make compile FILE=PunchedCardReader/<sketch-name>.ino
   make upload FILE=PunchedCardReader/<sketch-name>.ino PORT=<serial-port>
   ```
-- For help:
+- To display the help message:
   ```bash
   make help
   ```
 
+## Run Unit Tests
+Unit tests for the punched card reader can be found in the `test/` directory. The testing framework used is [CppUTest](https://github.com/cpputest/cpputest).
+
+- ***TODO(zzmic):*** Add instructions for building and running the unit tests using Make.
+
 ## Caveats
-- Note that the `setup()` and `loop()` functions can only appear once per sketch. If addtional sketches are included, ensure that they do not redefine these functions to avoid compilation errors.
+- Note that the `setup()` and `loop()` functions can only appear once per sketch. If additional sketches are included, ensure that they do not redefine these functions to avoid compilation errors.
 
 ## References
 - [Arduino CLI Documentation](https://arduino.github.io/arduino-cli/1.3/)
-- [Arduino CLI Sketch Specification](https://arduino.github.io/arduino-cli/1.3/sketch-specification/)
 - [Arduino Example: Blink](https://docs.arduino.cc/built-in-examples/basics/Blink/)
 - [Arduino Example: Calibrate Sensor Input](https://docs.arduino.cc/built-in-examples/analog/Calibration/)
-
+- [CppUTest](https://cpputest.github.io)
+- [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain)
+- [Arm GNU Toolchain Downloads](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+- [gcc-arm-embedded — Homebrew Formulae](https://formulae.brew.sh/cask/gcc-arm-embedded)
+- [Test Driving Arduino](https://christopherjmcclellan.wordpress.com/2018/02/16/test-driving-arduino/)
