@@ -4,33 +4,33 @@ SKETCH_DIR ?= PunchedCardReader
 
 DEFAULT_SKETCH := $(SKETCH_DIR)/PunchedCardReader.ino
 
-.PHONY: board-list core-update-index core-install core-list compile upload compile-punched-card-reader upload-punched-card-reader help
+.PHONY: arduino-board-list arduino-core-update-index arduino-core-install arduino-core-list arduino-compile arduino-upload arduino-compile-punched-card-reader arduino-upload-punched-card-reader help
 
-board-list:
+arduino-board-list:
 	$(CLI) board list
 
 core-update-index:
 	$(CLI) core update-index
 
-core-install:
+arduino-core-install:
 	$(CLI) core install $(FQBN)
 
-core-list:
+arduino-core-list:
 	$(CLI) core list
 
-compile:
+arduino-compile:
 	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make compile FILE=$(SKETCH_DIR)/Blink.ino)" >&2; exit 1; }
 	$(CLI) compile --fqbn $(FQBN) $(FILE)
 
-upload:
+arduino-upload:
 	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
 	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
 	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(FILE)
 
-compile-punched-card-reader:
+arduino-compile-punched-card-reader:
 	$(CLI) compile --fqbn $(FQBN) $(DEFAULT_SKETCH)
 
-upload-punched-card-reader:
+arduino-upload-punched-card-reader:
 	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload-punched-card-reader PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
 	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(DEFAULT_SKETCH)
 
@@ -42,11 +42,11 @@ help:
 	@echo '  PORT   Serial port of the Arduino board (e.g., /dev/cu.usbmodemXXXX).'
 	@echo
 	@echo 'Targets:'
-	@echo '  core-update-index           	Update the local cache of available platforms and libraries.'
-	@echo '  core-install                	Install the core for the Arduino® UNO R4 WiFi board.'
-	@echo '  core-list                   	List installed/available cores.'
-	@echo '  compile                     	Compile the Arduino sketch specified in FILE.'
-	@echo '  upload                      	Upload the sketch in FILE to the board on PORT.'
-	@echo '  compile-punching-card-reader	Compile the default $(DEFAULT_SKETCH) sketch.'
-	@echo '  upload-punching-card-reader	Upload the default $(DEFAULT_SKETCH) sketch to the board on PORT.'
-	@echo '  help                        	Display this help message.'
+	@echo '  arduino-core-update-index           	Update the local cache of available platforms and libraries.'
+	@echo '  arduino-core-install                	Install the core for the Arduino® UNO R4 WiFi board.'
+	@echo '  arduino-core-list                   	List installed/available cores.'
+	@echo '  arduino-compile                     	Compile the Arduino sketch specified in FILE.'
+	@echo '  arduino-upload                      	Upload the sketch in FILE to the board on PORT.'
+	@echo '  arduino-compile-punched-card-reader	Compile the default $(DEFAULT_SKETCH) sketch.'
+	@echo '  arduino-upload-punched-card-reader		Upload the default $(DEFAULT_SKETCH) sketch to the board on PORT.'
+	@echo '  help                        			Display this help message.'

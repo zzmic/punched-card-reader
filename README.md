@@ -42,38 +42,38 @@ punched-card-reader/
 |-- README.md                  # Project documentation.
 ```
 
-## Compile and Upload Arduino Sketches with the Makefile
+## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
 This repository includes a convenience `Makefile` that wraps `arduino-cli` commands, assuming you have `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine. By default, it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
 
 - To list connected Arduino boards:
   ```bash
-  make board-list
+  make arduino-board-list
   ```
   Make sure to record the port of the connected Arduino® UNO R4 WiFi board (e.g., `/dev/ttyACM0` on Linux, `COM3` on Windows, or `/dev/cu.usbmodemXXXX` on macOS) for use with the `upload` commands.
 - To update the local cache of available platforms and libraries:
   ```bash
-  make core-update-index
+  make arduino-core-update-index
   ```
 - To install the core for the Arduino® UNO R4 WiFi board:
   ```bash
-  make core-install
+  make arduino-core-install
   ```
 - To list installed/available cores:
   ```bash
-  make core-list
+  make arduino-core-list
   ```
 - To compile the default sketch `PunchedCardReader/PunchedCardReader.ino`:
   ```bash
-  make compile-punched-card-reader
+  make arduino-compile-punched-card-reader
   ```
 - To upload the compiled sketch `PunchedCardReader/PunchedCardReader.ino` to the connected Arduino® UNO R4 WiFi board:
   ```bash
-  make upload-punched-card-reader PORT=<serial-port>
+  make arduino-upload-punched-card-reader PORT=<serial-port>
   ```
 - To work with alternative sketches, supply the path to the sketch via the `FILE` variable:
   ```bash
-  make compile FILE=PunchedCardReader/<sketch-name>.ino
-  make upload FILE=PunchedCardReader/<sketch-name>.ino PORT=<serial-port>
+  make arduino-compile FILE=PunchedCardReader/<sketch-name>.ino
+  make arduino-upload FILE=PunchedCardReader/<sketch-name>.ino PORT=<serial-port>
   ```
 - To display the help message:
   ```bash
@@ -87,6 +87,12 @@ Unit tests for the punched card reader can be found in the `test/` directory. Th
 
 ## Caveats
 - Note that the `setup()` and `loop()` functions can only appear once per sketch. If additional sketches are included, ensure that they do not redefine these functions to avoid compilation errors.
+
+## Group Members
+- Yi Lyo
+- Patrick McCann
+- Alexander Thaep
+- Zhiwen "Michael" Zheng
 
 ## References
 - [Arduino CLI Documentation](https://arduino.github.io/arduino-cli/1.3/)
