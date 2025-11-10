@@ -32,10 +32,15 @@ Punched Card Reader:
 ->  Notify card read end over serial
 ```
 
+## CAD
+We have created some preliminary CAD prototypes just to virtually explore the physical design of our system. These files, found in `.obj`, `.stl`, and `.f3z` formats, can be found in the respective folder according to their versions.
+
 ## Project Hierarchy
 ```
 punched-card-reader/
 |-- .github/                   # GitHub Actions configuration files.
+|-- cad/                       # CAD files for the punched card reader
+    |-- v1/                    # V1 prototype CAD files
 |-- docs/                      # Documentation directory.
 |   |-- tlaplus-specification/ # TLA+ specification files.
 |-- PunchedCardReader/         # Arduino sketch directory.
