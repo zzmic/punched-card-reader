@@ -47,9 +47,9 @@ void PunchedCardReaderSimulator::tick() {
     }
 }
 
-void PunchedCardReaderSimulator::insertCard(SimulatedCard &card) {
+void PunchedCardReaderSimulator::insertCard(const std::string &cardFilePath) {
     if (currentState == ReaderState::IDLE) {
-        currentCard = std::make_unique<SimulatedCard>(card);
+        currentCard = std::make_unique<SimulatedCard>(cardFilePath);
         ledCardPresence = true;
         currentColumn = 0U;
         currentState = ReaderState::CARD_DETECTED;

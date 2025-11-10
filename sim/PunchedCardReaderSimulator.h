@@ -2,12 +2,10 @@
 #define SIM_PUNCHEDCARDREADERSIMULATOR_H
 
 #include "SimulatedCard.h"
-#include <bitset>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <random>
-#include <vector>
 
 enum class ReaderState {
     IDLE,
@@ -31,7 +29,7 @@ class PunchedCardReaderSimulator {
     PunchedCardReaderSimulator();
     // Function to advance the simulation FSM by one tick (discrete time step).
     void tick();
-    void insertCard(SimulatedCard &card);
+    void insertCard(const std::string &cardFilePath);
     void ejectCard();
     /* Getters for the LED states and other internal states. */
     ReaderState getState() const { return currentState; }
