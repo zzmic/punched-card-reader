@@ -15,8 +15,8 @@ This project is an Arduino-based punched card reader that reads and interprets d
 ## Specifications
 ```
 Punched Card Diameters
-->  Length: 18.7325
-->  Width: 8.255
+->  Length: 18.7325cm
+->  Width: 8.255cm
 ->  Bits: 12 * 80 = 960b
 
 Punched Card Reader:
