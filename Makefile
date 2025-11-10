@@ -1,15 +1,34 @@
 CLI ?= arduino-cli
 FQBN ?= arduino:renesas_uno:unor4wifi
 SKETCH_DIR ?= PunchedCardReader
-
 DEFAULT_SKETCH := $(SKETCH_DIR)/PunchedCardReader.ino
 
-.PHONY: arduino-board-list arduino-core-update-index arduino-core-install arduino-core-list arduino-compile arduino-upload arduino-compile-punched-card-reader arduino-upload-punched-card-reader help
+CXX = /usr/bin/g++
+STDFLAGS = -std=c++23
+STDLIBFLAGS = -stdlib=libc++
+WARNFLAGS = -Werror -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnull-dereference \
+	-Wsign-conversion -Wimplicit-fallthrough -Wrange-loop-analysis
+CXXFLAGS = $(STDFLAGS) $(STDLIBFLAGS) $(WARNFLAGS)
+LDFLAGS = $(STDLIBFLAGS)
+LDLIBS =
+SIM_DIR = sim
+SIM_BIN_DIR = $(SIM_DIR)/bin
+SIM_SOURCES = $(wildcard $(SIM_DIR)/*.cpp)
+SIM_HEADERS = $(wildcard $(SIM_DIR)/*.h)
+SIM_OBJECTS = $(patsubst $(SIM_DIR)/%.cpp, $(SIM_BIN_DIR)/%.o, $(SIM_SOURCES))
+SIM_EXECUTABLE = $(SIM_BIN_DIR)/main
+CXXFLAGS += -MMD -MP
+SIM_DEPS = $(SIM_OBJECTS:.o=.d)
+
+.PHONY: help arduino-board-list arduino-core-update-index arduino-core-install \
+	arduino-core-list arduino-compile arduino-upload \
+	arduino-compile-punched-card-reader arduino-upload-punched-card-reader \
+	sim-build sim-format sim-clean
 
 arduino-board-list:
 	$(CLI) board list
 
-core-update-index:
+arduino-core-update-index:
 	$(CLI) core update-index
 
 arduino-core-install:
@@ -33,6 +52,25 @@ arduino-compile-punched-card-reader:
 arduino-upload-punched-card-reader:
 	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload-punched-card-reader PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
 	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(DEFAULT_SKETCH)
+
+$(SIM_BIN_DIR):
+	mkdir -p $(SIM_BIN_DIR)
+
+$(SIM_BIN_DIR)/%.o: $(SIM_DIR)/%.cpp $(SIM_HEADERS) | $(SIM_BIN_DIR)
+	$(CXX) $(CXXFLAGS) -I$(SIM_DIR) -c $< -o $@
+
+-include $(SIM_DEPS)
+
+$(SIM_EXECUTABLE): $(SIM_OBJECTS)
+	$(CXX) $(SIM_OBJECTS) -o $@ $(LDFLAGS) $(LDLIBS)
+
+sim-build: $(SIM_EXECUTABLE)
+
+sim-format:
+	clang-format -i sim/*.h sim/*.cpp
+
+sim-clean:
+	rm -r $(SIM_BIN_DIR)
 
 help:
 	@echo 'Usage: make <target> [VAR=value]'

@@ -10,6 +10,7 @@ This project is an Arduino-based punched card reader that reads and interprets d
 - [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/): A command-line interface for Arduino development.
 - [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain): A collection of tools for compiling and debugging ARM-based applications.
 - [CppUTest](https://cpputest.github.io): A C/C++ unit testing framework.
+- A GCC compiler that supports C++11 or later for building the simulation.
 
 ## Specifications
 ```
@@ -38,9 +39,16 @@ punched-card-reader/
 |-- docs/                      # Documentation directory.
 |   |-- tlaplus-specification/ # TLA+ specification files.
 |-- PunchedCardReader/         # Arduino sketch directory.
-|-- test/                      # Test scripts and related files.
+    |-- test/                  # Test files for the Arduino sketch.
+|-- sim/                       # Simulation files.
+    |-- test/                  # Test files for the simulation.
 |-- README.md                  # Project documentation.
 ```
+
+## Build and Run the Punched Card Reader Simulation
+The simulation of the punched card reader is implemented in C++ and can be built and run:
+1. Run `make sim-build` to build the simulation.
+2. Run `./sim/bin/main <path-to-card-file>` to execute the simulation with a specified punched card file that has a dimension of 80 columns and 12 rows, where each entry is either '.' (no punch) or any other character (punch). An example card file is provided in `sim/test_card.txt`.
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
 This repository includes a convenience `Makefile` that wraps `arduino-cli` commands, assuming you have `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine. By default, it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
