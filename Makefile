@@ -70,7 +70,7 @@ sim-format:
 	clang-format -i sim/*.h sim/*.cpp
 
 sim-clean:
-	rm -r $(SIM_BIN_DIR)
+	rm -r $(SIM_BIN_DIR)/*
 
 help:
 	@echo 'Usage: make <target> [VAR=value]'
