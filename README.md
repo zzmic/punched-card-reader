@@ -56,6 +56,7 @@ The simulation of the punched card reader is implemented in C++ and can be built
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify `binary_mode` to output binary data).
 3. Insert a card file containing a $12$ (row) $\times$ $80$ (column) grid, where each entry represents a punch (any character) or no punch (`.`). Sample card files are available in the sim/test-cards/ directory.
 4. To exit the simulation, type `done` when prompted for the next card file path.
+5. Alternatively, do `make sim-test` to run the simulation on ALL the test cards in the sim/test-cards/ directory.
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
 This repository includes a convenience `Makefile` that wraps `arduino-cli` commands, assuming you have `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine. By default, it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.

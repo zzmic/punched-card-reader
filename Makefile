@@ -12,6 +12,7 @@ CXXFLAGS = $(STDFLAGS) $(STDLIBFLAGS) $(WARNFLAGS)
 LDFLAGS = $(STDLIBFLAGS)
 LDLIBS =
 SIM_DIR = sim
+SIM_CARDS_DIR = $(SIM_DIR)/test-cards
 SIM_BIN_DIR = $(SIM_DIR)/bin
 SIM_SOURCES = $(wildcard $(SIM_DIR)/*.cpp)
 SIM_HEADERS = $(wildcard $(SIM_DIR)/*.h)
@@ -71,6 +72,9 @@ sim-format:
 
 sim-clean:
 	rm -r $(SIM_BIN_DIR)/*
+
+sim-test: sim-clean $(SIM_EXECUTABLE)
+	python3 $(SIM_DIR)/run-tests.py
 
 help:
 	@echo 'Usage: make <target> [VAR=value]'
