@@ -20,14 +20,28 @@ void printCard(const std::array<std::uint32_t, CARD_COLUMNS> &card) {
 }
 
 int main(int argc, char *argv[]) {
+    bool binaryMode = false;
+    std::string initialCardPath;
+
     if (argc > 3) {
         std::cerr << "Usage: " << argv[0]
                   << " [binary_mode] [card_file_path]\n";
         return 1;
     }
 
-    PunchedCardReaderSimulator simulator(argc == 3 &&
-                                         std::string(argv[1]) == "binary_mode");
+    if (argc >= 2) {
+        if (std::string(argv[1]) == "binary_mode") {
+            binaryMode = true;
+            if (argc == 3) {
+                initialCardPath = argv[2];
+            }
+        }
+        else if (argc == 2) {
+            initialCardPath = argv[1];
+        }
+    }
+
+    PunchedCardReaderSimulator simulator(binaryMode);
 
     const auto runSimulation = [&](const std::string &cardFilePath) -> bool {
         try {
@@ -70,8 +84,8 @@ int main(int argc, char *argv[]) {
         }
     };
 
-    if (argc == 2) {
-        runSimulation(argv[1]);
+    if (!initialCardPath.empty()) {
+        runSimulation(initialCardPath);
     }
 
     std::string input;
