@@ -24,9 +24,10 @@ class PunchedCardReaderSimulator {
     bool ledCardPresence;
     bool ledSampling;
     std::bitset<CARD_ROWS> lastColumnData;
+    bool isBinaryMode;
 
   public:
-    PunchedCardReaderSimulator();
+    PunchedCardReaderSimulator(bool isBinaryMode = false);
     // Function to advance the simulation FSM by one tick (discrete time step).
     void tick();
     void insertCard(const std::string &cardFilePath);

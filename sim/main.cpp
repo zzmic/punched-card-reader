@@ -20,12 +20,14 @@ void printCard(const std::array<std::uint32_t, CARD_COLUMNS> &card) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc > 2) {
-        std::cerr << "Usage: " << argv[0] << " <path_to_card_file>\n";
+    if (argc > 3) {
+        std::cerr << "Usage: " << argv[0]
+                  << " [binary_mode] [card_file_path]\n";
         return 1;
     }
 
-    PunchedCardReaderSimulator simulator;
+    PunchedCardReaderSimulator simulator(argc == 3 &&
+                                         std::string(argv[1]) == "binary_mode");
 
     const auto runSimulation = [&](const std::string &cardFilePath) -> bool {
         try {
@@ -45,8 +47,8 @@ int main(int argc, char *argv[]) {
                 std::cout << "Card ejected "
                           << (isSuccessful ? "successfully." : "with errors.")
                           << "\n";
-                printCard(card);
-                std::cout << "Ready for the next card.\n";
+                // printCard(card);
+                std::cout << "Ready for the next card.";
                 done = true;
             };
 
@@ -55,7 +57,7 @@ int main(int argc, char *argv[]) {
             using namespace std::literals::chrono_literals;
             const auto TICK_RATE = 1ms;
             auto nextTick = std::chrono::steady_clock::now() + TICK_RATE;
-            std::cout << "Simulation started. Running 1kHz loop.\n";
+            std::cout << "Simulation started: looping in 1ms (1kHz) ticks.\n";
             while (!done) {
                 simulator.tick();
                 std::this_thread::sleep_until(nextTick);

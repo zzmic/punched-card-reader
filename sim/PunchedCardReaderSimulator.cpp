@@ -1,8 +1,9 @@
 #include "PunchedCardReaderSimulator.h"
 
-PunchedCardReaderSimulator::PunchedCardReaderSimulator()
+PunchedCardReaderSimulator::PunchedCardReaderSimulator(bool isBinaryMode)
     : currentState(ReaderState::IDLE), currentColumn(0U),
-      ledCardPresence(false), ledSampling(false), lastColumnData(0) {
+      ledCardPresence(false), ledSampling(false), lastColumnData(0),
+      isBinaryMode(isBinaryMode) {
     currentCard.reset();
 }
 
@@ -26,6 +27,16 @@ void PunchedCardReaderSimulator::tick() {
         break;
     case ReaderState::COLUMN_READ:
         ledSampling = false;
+        // For each column, output the bitset to stdout.
+        for (std::size_t row = 0; row < CARD_ROWS; ++row) {
+            if (isBinaryMode) {
+                std::cout << (lastColumnData.test(row) ? '1' : '0');
+            }
+            else {
+                std::cout << (lastColumnData.test(row) ? 'P' : '.');
+            }
+        }
+        std::cout << "\n";
         onColumnRead(lastColumnDataToUint32());
         currentState = ReaderState::ADVANCING_COLUMN;
         break;
