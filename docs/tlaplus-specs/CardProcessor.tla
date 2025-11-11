@@ -50,7 +50,7 @@ RemoveCard ==
     /\ UNCHANGED << pdState, pdDetected, dataReady, cardData >>
 
 (* Next-state relation for the card processor. *)
-CardProcNext ==
+CPNext ==
     \/ InsertCard
     \/ ProcessColumn
     \/ RemoveCard
