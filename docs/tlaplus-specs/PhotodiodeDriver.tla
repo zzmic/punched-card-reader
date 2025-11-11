@@ -1,17 +1,18 @@
 --------------------------- MODULE PhotodiodeDriver ----------------------------
-EXTENDS Naturals, Sequences, TLC
+EXTENDS Naturals, FiniteSets
 
 CONSTANTS
+    N,                 \* Number of columns on the punched card.
     LEDS_ON, LEDS_OFF, \* Photodiode LED states.
-    IDLE, READING,     \* Card processor states (for reference in guards).
-    CardPunches        \* Sequence of 0s and 1s representing card punches.
+    IDLE, READING      \* Card processor states (for reference in guards).
 
 VARIABLES
     pdState,           \* Current state of the photodiode driver (LEDS_ON or LEDS_OFF).
     cpState,           \* Current state of the card processor (IDLE or READING).
-    pdDetected,        \* Boolean indicating if the photodiode has detected a hole in the current column.
-    dataReady,         \* Boolean indicating if data is ready for the card processor.
-    cardData           \* Sequence of bits representing the data read from the card so far.
+    pdDetected,        \* Boolean value indicating if the photodiode has detected a hole in the current column.
+    dataReady,         \* Boolean value indicating if data is ready for the card processor.
+    cardData,          \* Set of (index, bit) pairs representing the data read from the card so far.
+    cardPunches        \* Set of (index, bit) pairs representing card punches.
 
 (* Initial state of the photodiode driver. *)
 Init ==
@@ -19,7 +20,7 @@ Init ==
     /\ cpState = IDLE
     /\ pdDetected = FALSE
     /\ dataReady = FALSE
-    /\ cardData = <<>>
+    /\ cardData = {}
 
 (* Transition: Photodiode LED turns ON to read the next column (i.e., when the card is being read and ready for the next column). *)
 PD_OffToOn ==
@@ -27,17 +28,20 @@ PD_OffToOn ==
     /\ pdState' = LEDS_ON
     /\ cpState = READING
     /\ ~dataReady
-    /\ Len(cardData) < Len(CardPunches)
+    /\ Cardinality(cardData) < Cardinality(DOMAIN cardPunches)
     /\ UNCHANGED << cpState, pdDetected, dataReady, cardData >>
 
 (* Transition: Photodiode LED turns OFF after reading the current column and updates detection status. *)
 PD_OnToOff ==
     /\ pdState = LEDS_ON
-    /\ pdState' = LEDS_OFF
     /\ cpState = READING
-    /\ pdDetected' = (CardPunches[Len(cardData)] = 1)
-    /\ dataReady' = TRUE
-    /\ UNCHANGED << cpState, cardData >>
+    /\ LET i == Cardinality(cardData)
+        IN
+            /\ i < N
+            /\ pdDetected' = (cardPunches[i] = 1)
+            /\ dataReady' = TRUE
+    /\ pdState' = LEDS_OFF
+    /\ UNCHANGED << cpState, cardData, cardPunches >>
 
 (* Next-state relation for the photodiode driver. *)
 PDNext ==
