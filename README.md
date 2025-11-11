@@ -20,13 +20,13 @@ Punched Card Diameters
 ->  Bits: 12 * 80 = 960b
 
 Punched Card Reader:
-->  Read start detected with an LED indicating presence of card
+->  Read start detected with an LED indicating presence of a card
 ->  Notify card read start over serial
 ->  Starts with all LEDs off
 ->  Sampling Branch @ 1kHz:
   ->  Samples with LEDs off
   ->  Samples with LEDs on
-  ->  Difference above a threshold comprises sample of either 1 or 0
+  ->  Difference above a threshold comprises a sample of either 1 or 0
 ->  Reads 12 bits no more than 80 times and emits at most 16-bit words over serial
 ->  Read end detected with an LED indicating absence of card
 ->  Notify card read end over serial
@@ -46,7 +46,7 @@ punched-card-reader/
 |-- PunchedCardReader/         # Arduino sketch directory.
     |-- test/                  # Test files for the Arduino sketch.
 |-- sim/                       # Simulation files.
-    |-- test/                  # Test files for the simulation.
+    |-- test-cards/            # Sample punched card files for testing the simulation.
 |-- README.md                  # Project documentation.
 ```
 
@@ -54,9 +54,9 @@ punched-card-reader/
 The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile`:
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary` flag for binary output mode).
-3. Insert a card file containing a $12$ (row) $\times$ $80$ (column) grid, where each entry represents a punch (any character) or no punch (`.`). Sample card files are available in the sim/test-cards/ directory.
+3. Insert a card file containing a $12$ (row) $\times$ $80$ (column) grid, where each entry represents a punch (any character) or no punch (`.`). Sample card files are available in the `sim/test-cards/` directory.
 4. To exit the simulation, type `done` when prompted for the next card file path.
-5. Alternatively, do `make sim-test` to run the simulation on ALL the test cards in the sim/test-cards/ directory.
+5. Alternatively, do `make sim-test` to run the simulation on ALL the test cards in the `sim/test-cards/` directory.
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
 This repository includes a convenience `Makefile` that wraps `arduino-cli` commands, assuming you have `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine. By default, it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
