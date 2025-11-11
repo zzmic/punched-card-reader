@@ -8,7 +8,7 @@ CONSTANTS
 
 VARIABLES
     pdState,           \* Current state of the photodiode driver (LEDS_ON or LEDS_OFF).
-    cardProcState,     \* Current state of the card processor (IDLE or READING).
+    cpState,           \* Current state of the card processor (IDLE or READING).
     pdDetected,        \* Boolean indicating if the photodiode has detected a hole in the current column.
     dataReady,         \* Boolean indicating if data is ready for the card processor.
     cardData           \* Sequence of bits representing the data read from the card so far.
@@ -16,7 +16,7 @@ VARIABLES
 (* Initial state of the photodiode driver. *)
 Init ==
     /\ pdState = LEDS_OFF
-    /\ cardProcState = IDLE
+    /\ cpState = IDLE
     /\ pdDetected = FALSE
     /\ dataReady = FALSE
     /\ cardData = <<>>
@@ -25,19 +25,19 @@ Init ==
 PD_OffToOn ==
     /\ pdState = LEDS_OFF
     /\ pdState' = LEDS_ON
-    /\ cardProcState = READING
-    /\ dataReady' = FALSE
+    /\ cpState = READING
+    /\ ~dataReady
     /\ Len(cardData) < Len(CardPunches)
-    /\ UNCHANGED << cardProcState, pdDetected, dataReady, cardData >>
+    /\ UNCHANGED << cpState, pdDetected, dataReady, cardData >>
 
 (* Transition: Photodiode LED turns OFF after reading the current column and updates detection status. *)
 PD_OnToOff ==
     /\ pdState = LEDS_ON
     /\ pdState' = LEDS_OFF
-    /\ cardProcState = READING
+    /\ cpState = READING
     /\ pdDetected' = (CardPunches[Len(cardData)] = 1)
     /\ dataReady' = TRUE
-    /\ UNCHANGED << cardProcState, cardData >>
+    /\ UNCHANGED << cpState, cardData >>
 
 (* Next-state relation for the photodiode driver. *)
 PDNext ==
