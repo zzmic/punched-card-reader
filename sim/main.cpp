@@ -24,13 +24,12 @@ int main(int argc, char *argv[]) {
     std::string initialCardPath;
 
     if (argc > 3) {
-        std::cerr << "Usage: " << argv[0]
-                  << " [binary_mode] [card_file_path]\n";
+        std::cerr << "Usage: " << argv[0] << " [--binary] [card_file_path]\n";
         return 1;
     }
 
     if (argc >= 2) {
-        if (std::string(argv[1]) == "binary_mode") {
+        if (std::string(argv[1]) == "--binary") {
             binaryMode = true;
             if (argc == 3) {
                 initialCardPath = argv[2];
@@ -40,6 +39,12 @@ int main(int argc, char *argv[]) {
             initialCardPath = argv[1];
         }
     }
+    // Source - https://stackoverflow.com/a
+    // Posted by rupello, modified by community. See post 'Timeline' for change
+    // history Retrieved 2025-11-10, License - CC BY-SA 3.0
+    initialCardPath.erase(std::remove_if(initialCardPath.begin(),
+                                         initialCardPath.end(), ::isspace),
+                          initialCardPath.end());
 
     PunchedCardReaderSimulator simulator(binaryMode);
 
@@ -88,20 +93,26 @@ int main(int argc, char *argv[]) {
         runSimulation(initialCardPath);
     }
 
-    std::string input;
+    std::string inputCardPath;
     while (true) {
         std::cout << "\nInsert next card file path (or \"done\" to exit): "
                   << std::flush;
-        if (!std::getline(std::cin, input)) {
+        if (!std::getline(std::cin, inputCardPath)) {
             break;
         }
-        if (input.empty()) {
+        if (inputCardPath.empty()) {
             continue;
         }
-        if (input == "done") {
+        if (inputCardPath == "done") {
             break;
         }
-        runSimulation(input);
+        // Source - https://stackoverflow.com/a
+        // Posted by rupello, modified by community. See post 'Timeline' for
+        // change history Retrieved 2025-11-10, License - CC BY-SA 3.0
+        inputCardPath.erase(std::remove_if(inputCardPath.begin(),
+                                           inputCardPath.end(), ::isspace),
+                            inputCardPath.end());
+        runSimulation(inputCardPath);
     }
 
     std::cout << "Simulator ended.\n";
