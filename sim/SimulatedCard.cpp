@@ -23,8 +23,8 @@ SimulatedCard::SimulatedCard(const std::string &filePath) {
                   << lines.size() << " rows.\n";
     }
 
-    for (std::size_t col = 0; col < CARD_COLUMNS; ++col) {
-        for (std::size_t row = 0; row < CARD_ROWS; ++row) {
+    for (size_t col = 0; col < CARD_COLUMNS; ++col) {
+        for (size_t row = 0; row < CARD_ROWS; ++row) {
             if (row < lines.size() && col < lines[row].size()) {
                 // Treat white space or '.' as no punch and anything else as a
                 // punch.
@@ -36,8 +36,7 @@ SimulatedCard::SimulatedCard(const std::string &filePath) {
     }
 }
 
-std::bitset<CARD_ROWS>
-SimulatedCard::getColumnData(std::size_t columnIndex) const {
+std::bitset<CARD_ROWS> SimulatedCard::getColumnData(size_t columnIndex) const {
     if (columnIndex >= CARD_COLUMNS) {
         throw std::out_of_range("Column index out of range: " +
                                 std::to_string(columnIndex));

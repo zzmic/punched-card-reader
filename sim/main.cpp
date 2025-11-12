@@ -1,23 +1,8 @@
 #include "PunchedCardReaderSimulator.h"
+#include <bitset>
+#include <iomanip>
+#include <iostream>
 #include <thread>
-
-void printCard(const std::array<std::uint32_t, CARD_COLUMNS> &card) {
-    std::cout << "Punched Card:\n";
-    std::cout << std::string(CARD_COLUMNS, '-') << "\n";
-    for (std::size_t row = 0; row < CARD_ROWS; ++row) {
-        for (std::size_t col = 0; col < CARD_COLUMNS; ++col) {
-            const std::uint32_t columnData = card[col];
-            if (((columnData >> row) & 1U) != 0U) {
-                std::cout << "P";
-            }
-            else {
-                std::cout << ".";
-            }
-        }
-        std::cout << "\n";
-    }
-    std::cout << std::string(CARD_COLUMNS, '-') << "\n";
-}
 
 int main(int argc, char *argv[]) {
     bool binaryMode = false;
@@ -53,20 +38,32 @@ int main(int argc, char *argv[]) {
             std::array<std::uint32_t, CARD_COLUMNS> card{};
             bool done = false;
 
-            simulator.onCardDetected = []() {
-                std::cout << "Card detected in reader. Reading started.\n";
+            simulator.onCardDetected = [&cardFilePath]() {
+                std::cout << "Card " << cardFilePath
+                          << " detected in reader. Reading started.\n";
             };
             simulator.onColumnRead = [&](std::uint32_t data) {
-                const std::size_t col = simulator.getCurrentColumn();
+                const size_t col = simulator.getCurrCol();
                 if (col < CARD_COLUMNS) {
                     card[col] = data;
+                    std::bitset<CARD_ROWS> bits(data);
+                    if (simulator.getIsBinaryMode()) {
+                        std::cout << "Col " << col + 1 << "/" << CARD_COLUMNS
+                                  << ": 0b" << bits.to_string() << "\n";
+                    }
+                    else {
+                        std::cout << "Col " << col + 1 << "/" << CARD_COLUMNS
+                                  << ": 0x" << std::hex << std::uppercase
+                                  << std::setw(3) << std::setfill('0') << data
+                                  << std::dec << " (" << bits.to_string() << ")"
+                                  << "\n";
+                    }
                 }
             };
             simulator.onCardEjected = [&](bool isSuccessful) {
                 std::cout << "Card ejected "
                           << (isSuccessful ? "successfully." : "with errors.")
                           << "\n";
-                // printCard(card);
                 std::cout << "Ready for the next card.";
                 done = true;
             };
