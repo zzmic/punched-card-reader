@@ -59,7 +59,8 @@ int main(int argc, char *argv[]) {
                                   << CARD_COLUMNS << ": 0x" << std::hex
                                   << std::uppercase << std::setw(3)
                                   << std::setfill('0') << data << std::dec
-                                  << " (" << bits.to_string() << ")\n";
+                                  << " (0d" << static_cast<int>(bits.to_ulong())
+                                  << ")\n";
                     }
                 }
             };
@@ -101,7 +102,7 @@ int main(int argc, char *argv[]) {
         if (!std::getline(std::cin, inputCardPath)) {
             break;
         }
-        // Skip empty inputs without exiting.
+        // Skip empty input without exiting.
         if (inputCardPath.empty()) {
             continue;
         }

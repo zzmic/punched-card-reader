@@ -84,6 +84,10 @@ void PunchedCardReaderSimulator::computePunched() {
             punched.set(i + 1, false);
         }
         sensorPhase = 0U;
+        // If the card processor is actively reading columns (i.e., in the
+        // `WAIT_FOR_COLUMN` state), advance the sensor column to move to the
+        // next column.
+        // Otherwise, keep the sensor column unchanged.
         if (currCPState == CardProcessorState::WAIT_FOR_COLUMN) {
             ++sensorCol;
         }
@@ -91,7 +95,6 @@ void PunchedCardReaderSimulator::computePunched() {
 }
 
 void PunchedCardReaderSimulator::updateCPState() {
-
     if (currCard && punched.all()) {
         if (onCardEjected) {
             onCardEjected(true);
@@ -150,6 +153,10 @@ void PunchedCardReaderSimulator::updateCPState() {
                 break;
             }
         }
+        // If all bits are low, which indicates the end of the column,
+        // synchronize `prevPunched` with the current all-low `punched`
+        // and transition back to `WAIT_FOR_COLUMN` state.
+        // Otherwise, remain in `COLUMN_ENDED` state.
         if (allLow) {
             prevPunched = punched;
             currCPState = CardProcessorState::WAIT_FOR_COLUMN;
