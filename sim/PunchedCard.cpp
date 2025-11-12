@@ -1,8 +1,8 @@
-#include "SimulatedCard.h"
+#include "PunchedCard.h"
 #include <fstream>
 #include <iostream>
 
-SimulatedCard::SimulatedCard(const std::string &filePath) {
+PunchedCard::PunchedCard(const std::string &filePath) {
     for (auto &col : cardData) {
         col.reset();
     }
@@ -36,7 +36,7 @@ SimulatedCard::SimulatedCard(const std::string &filePath) {
     }
 }
 
-std::bitset<CARD_ROWS> SimulatedCard::getColumnData(size_t columnIndex) const {
+std::bitset<CARD_ROWS> PunchedCard::getColumnData(size_t columnIndex) const {
     if (columnIndex >= CARD_COLUMNS) {
         throw std::out_of_range("Column index out of range: " +
                                 std::to_string(columnIndex));

@@ -1,7 +1,7 @@
 #ifndef SIM_PUNCHEDCARDREADERSIMULATOR_H
 #define SIM_PUNCHEDCARDREADERSIMULATOR_H
 
-#include "SimulatedCard.h"
+#include "PunchedCard.h"
 #include <bitset>
 #include <functional>
 #include <iostream>
@@ -15,7 +15,7 @@ class PunchedCardReaderSimulator {
   private:
     CardProcessorState currCPState;
     PhotodiodeState currPDState;
-    std::unique_ptr<SimulatedCard> currCard;
+    std::unique_ptr<PunchedCard> currCard;
     size_t currCol;
     size_t sensorCol;
     uint8_t sensorPhase;

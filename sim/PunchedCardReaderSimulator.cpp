@@ -1,5 +1,5 @@
 #include "PunchedCardReaderSimulator.h"
-#include "SimulatedCard.h"
+#include "PunchedCard.h"
 
 PunchedCardReaderSimulator::PunchedCardReaderSimulator(bool isBinaryMode)
     : currCPState(CardProcessorState::WAIT_FOR_CARD),
@@ -28,7 +28,7 @@ void PunchedCardReaderSimulator::insertCard(const std::string &cardFilePath) {
     }
     currCPState = CardProcessorState::WAIT_FOR_CARD;
     currPDState = PhotodiodeState::LEDS_OFF;
-    currCard = std::make_unique<SimulatedCard>(cardFilePath);
+    currCard = std::make_unique<PunchedCard>(cardFilePath);
     currCol = 0U;
     sensorCol = 0U;
     sensorPhase = 0U;
