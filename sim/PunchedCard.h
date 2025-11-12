@@ -1,5 +1,5 @@
-#ifndef SIM_SIMULATEDCARD_H
-#define SIM_SIMULATEDCARD_H
+#ifndef SIM_PUNCHEDCARD_H
+#define SIM_PUNCHEDCARD_H
 
 #include <array>
 #include <bitset>
@@ -10,9 +10,9 @@
 constexpr size_t CARD_COLUMNS = 80;
 constexpr size_t CARD_ROWS = 12;
 
-class SimulatedCard {
+class PunchedCard {
   public:
-    SimulatedCard(const std::string &filePath);
+    PunchedCard(const std::string &filePath);
     // Function to get the bitset representing the punched data for a specific
     // column.
     std::bitset<CARD_ROWS> getColumnData(size_t columnIndex) const;
@@ -21,4 +21,4 @@ class SimulatedCard {
     std::array<std::bitset<CARD_ROWS>, CARD_COLUMNS> cardData;
 };
 
-#endif // SIM_SIMULATEDCARD_H
+#endif // SIM_PUNCHEDCARD_H
