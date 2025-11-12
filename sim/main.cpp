@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
             initialCardPath = argv[1];
         }
     }
-    // Source - https://stackoverflow.com/a
+    // Source - https://stackoverflow.com/a/83468
     // Posted by rupello, modified by community. See post 'Timeline' for change
     // history Retrieved 2025-11-10, License - CC BY-SA 3.0
     initialCardPath.erase(std::remove_if(initialCardPath.begin(),
@@ -109,7 +109,7 @@ int main(int argc, char *argv[]) {
         if (inputCardPath == "done") {
             break;
         }
-        // Source - https://stackoverflow.com/a
+        // Source - https://stackoverflow.com/a/83468
         // Posted by rupello, modified by community. See post 'Timeline' for
         // change history Retrieved 2025-11-10, License - CC BY-SA 3.0
         inputCardPath.erase(std::remove_if(inputCardPath.begin(),
