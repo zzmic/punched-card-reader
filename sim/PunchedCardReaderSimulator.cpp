@@ -72,7 +72,7 @@ void PunchedCardReaderSimulator::computePunched() {
     }
     if (sensorPhase == 0U) {
         punched.set(0, true);
-        const auto colData = currCard->getColumnData(sensorCol);
+        const auto colData = currCard->getColData(sensorCol);
         for (size_t i = 0; i < CARD_ROWS; ++i) {
             punched.set(i + 1, colData.test(i));
         }

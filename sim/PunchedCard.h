@@ -15,9 +15,12 @@ class PunchedCard {
     PunchedCard(const std::string &filePath);
     // Function to get the bitset representing the punched data for a specific
     // column.
-    std::bitset<CARD_ROWS> getColumnData(size_t columnIndex) const;
+    std::bitset<CARD_ROWS> getColData(size_t colIdx) const;
 
   private:
+    // Column-major storage of punched card data.
+    // Each element in the array represents a column, and each bit in the bitset
+    // represents the respective punched state of a row in that column.
     std::array<std::bitset<CARD_ROWS>, CARD_COLUMNS> cardData;
 };
 
