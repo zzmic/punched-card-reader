@@ -35,7 +35,8 @@ int main(int argc, char *argv[]) {
 
     const auto runSimulation = [&](const std::string &cardFilePath) -> bool {
         try {
-            std::array<std::uint32_t, CARD_COLUMNS> card{};
+            std::array<std::uint32_t, CARD_COLUMNS>
+                card{}; // Specify `{}` to zero-initialize the array.
             bool done = false;
 
             simulator.onCardDetected = [&cardFilePath]() {
@@ -47,16 +48,18 @@ int main(int argc, char *argv[]) {
                 if (col < CARD_COLUMNS) {
                     card[col] = data;
                     std::bitset<CARD_ROWS> bits(data);
+                    std::string pad = (col + 1 < 10) ? " " : "";
                     if (simulator.getIsBinaryMode()) {
-                        std::cout << "Col " << col + 1 << "/" << CARD_COLUMNS
-                                  << ": 0b" << bits.to_string() << "\n";
+                        std::cout << "Col " << pad << col + 1 << "/"
+                                  << CARD_COLUMNS << ": 0b" << bits.to_string()
+                                  << "\n";
                     }
                     else {
-                        std::cout << "Col " << col + 1 << "/" << CARD_COLUMNS
-                                  << ": 0x" << std::hex << std::uppercase
-                                  << std::setw(3) << std::setfill('0') << data
-                                  << std::dec << " (" << bits.to_string() << ")"
-                                  << "\n";
+                        std::cout << "Col " << pad << col + 1 << "/"
+                                  << CARD_COLUMNS << ": 0x" << std::hex
+                                  << std::uppercase << std::setw(3)
+                                  << std::setfill('0') << data << std::dec
+                                  << " (" << bits.to_string() << ")\n";
                     }
                 }
             };
@@ -94,12 +97,15 @@ int main(int argc, char *argv[]) {
     while (true) {
         std::cout << "\nInsert next card file path (or \"done\" to exit): "
                   << std::flush;
+        // Gracefully handle EOF (e.g., Ctrl+D).
         if (!std::getline(std::cin, inputCardPath)) {
             break;
         }
+        // Skip empty inputs without exiting.
         if (inputCardPath.empty()) {
             continue;
         }
+        // Terminate on "done".
         if (inputCardPath == "done") {
             break;
         }
