@@ -9,12 +9,13 @@ int main(int argc, char *argv[]) {
     std::string initialCardPath;
 
     if (argc > 3) {
-        std::cerr << "Usage: " << argv[0] << " [--binary] [card_file_path]\n";
+        std::cerr << "Usage: " << argv[0]
+                  << " [--binary-mode] [card_file_path]\n";
         return 1;
     }
 
     if (argc >= 2) {
-        if (std::string(argv[1]) == "--binary") {
+        if (std::string(argv[1]) == "--binary-mode") {
             binaryMode = true;
             if (argc == 3) {
                 initialCardPath = argv[2];
@@ -52,7 +53,8 @@ int main(int argc, char *argv[]) {
                     if (simulator.getIsBinaryMode()) {
                         std::cout << "Col " << pad << col + 1 << "/"
                                   << CARD_COLUMNS << ": 0b" << bits.to_string()
-                                  << "\n";
+                                  << " (0d" << static_cast<int>(bits.to_ulong())
+                                  << ")\n";
                     }
                     else {
                         std::cout << "Col " << pad << col + 1 << "/"
