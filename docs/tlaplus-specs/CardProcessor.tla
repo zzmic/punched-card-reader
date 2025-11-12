@@ -4,7 +4,8 @@ EXTENDS Naturals, FiniteSets
 CONSTANTS
     N,                 \* Number of columns on the punched card.
     LEDS_ON, LEDS_OFF, \* Photodiode LED states.
-    IDLE, READING      \* Card processor states (for reference in guards).
+    IDLE, READING      \* Card processor states, where IDLE indicates no card is present,
+                       \* and READING indicates a card is inserted and (ready to) being processed.
 
 VARIABLES
     pdState,           \* Current state of the photodiode driver (LEDS_ON or LEDS_OFF).
@@ -30,7 +31,7 @@ InsertCard ==
     /\ cardData' = {}
     /\ pdDetected' = FALSE
     /\ dataReady' = FALSE
-    /\ UNCHANGED << pdState >>
+    /\ UNCHANGED << pdState, cardPunches >>
 
 (* Transition: Process a column of the card. *)
 ProcessColumn ==

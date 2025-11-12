@@ -44,7 +44,7 @@ CPInstance == INSTANCE CardProcessor
 Init ==
     /\ PDInstance!Init
     /\ CPInstance!Init
-    /\ cardPunches \in [0..N - 1 -> {0, 1}]
+    /\ cardPunches \in [0..(N - 1) -> {0, 1}]
 
 (* Next-state relation for the whole system. *)
 Next ==
@@ -65,9 +65,9 @@ TypeInvariant ==
     /\ cpState \in {"IDLE", "READING"}
     /\ pdDetected \in BOOLEAN
     /\ dataReady \in BOOLEAN
-    /\ cardPunches \in [0..N - 1 -> {0, 1}]
-    /\ cardData \subseteq (0..N - 1) \X {0, 1}
-    /\ \A <<i, b>> \in cardData: i \in 0..N - 1 /\ b \in {0, 1}
+    /\ cardPunches \in [0..(N - 1) -> {0, 1}]
+    /\ cardData \subseteq (0..(N - 1)) \X {0, 1}
+    /\ \A <<i, b>> \in cardData: i \in 0..(N - 1) /\ b \in {0, 1}
 
 (* Safety invariant for the whole system. *)
 SafetyInvariant ==
@@ -75,7 +75,7 @@ SafetyInvariant ==
     /\ (dataReady => pdState = "LEDS_OFF" /\ cpState = "READING")
     /\ (pdState = "LEDS_ON" => cpState = "READING")
     /\ (cpState = "IDLE" /\ cardData /= {} =>
-        cardData = {<< i, cardPunches[i] >>: i \in 0..N - 1})
+        cardData = {<< i, cardPunches[i] >>: i \in 0..(N - 1)})
 
 (* Invariant for the whole system. *)
 Invariant ==
