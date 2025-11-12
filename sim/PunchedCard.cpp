@@ -23,11 +23,12 @@ PunchedCard::PunchedCard(const std::string &filePath) {
                   << lines.size() << " rows.\n";
     }
 
+    // Iterate over each column and row to populate the `cardData` matrix.
+    // Treat white spaces (' ') and periods ('.') as no punch and anything else
+    // as a punch.
     for (size_t col = 0; col < CARD_COLUMNS; ++col) {
         for (size_t row = 0; row < CARD_ROWS; ++row) {
             if (row < lines.size() && col < lines[row].size()) {
-                // Treat white space or '.' as no punch and anything else as a
-                // punch.
                 if (lines[row][col] != ' ' && lines[row][col] != '.') {
                     cardData[col].set(row);
                 }
@@ -36,10 +37,10 @@ PunchedCard::PunchedCard(const std::string &filePath) {
     }
 }
 
-std::bitset<CARD_ROWS> PunchedCard::getColumnData(size_t columnIndex) const {
-    if (columnIndex >= CARD_COLUMNS) {
+std::bitset<CARD_ROWS> PunchedCard::getColData(size_t colIdx) const {
+    if (colIdx >= CARD_COLUMNS) {
         throw std::out_of_range("Column index out of range: " +
-                                std::to_string(columnIndex));
+                                std::to_string(colIdx));
     }
-    return cardData[columnIndex];
+    return cardData[colIdx];
 }
