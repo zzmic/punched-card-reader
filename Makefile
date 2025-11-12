@@ -7,7 +7,7 @@ CXX = /usr/bin/g++
 STDFLAGS = -std=c++23
 STDLIBFLAGS = -stdlib=libc++
 WARNFLAGS = -Werror -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnull-dereference \
-	-Wsign-conversion -Wimplicit-fallthrough -Wrange-loop-analysis
+  -Wsign-conversion -Wimplicit-fallthrough -Wrange-loop-analysis
 CXXFLAGS = $(STDFLAGS) $(STDLIBFLAGS) $(WARNFLAGS)
 LDFLAGS = $(STDLIBFLAGS)
 LDLIBS =
@@ -76,6 +76,9 @@ sim-clean:
 sim-test: sim-clean $(SIM_EXECUTABLE)
 	python3 $(SIM_DIR)/run-tests.py
 
+sim-test-binary-mode: sim-clean $(SIM_EXECUTABLE)
+	python3 $(SIM_DIR)/run-tests.py --binary-mode
+
 help:
 	@echo 'Usage: make <target> [VAR=value]'
 	@echo
@@ -91,4 +94,8 @@ help:
 	@echo '  arduino-upload                      	Upload the sketch in FILE to the board on PORT.'
 	@echo '  arduino-compile-punched-card-reader	Compile the default $(DEFAULT_SKETCH) sketch.'
 	@echo '  arduino-upload-punched-card-reader		Upload the default $(DEFAULT_SKETCH) sketch to the board on PORT.'
+	@echo '  sim-build						  		Build the punched card reader simulator.'
+	@echo '  sim-format                        		Format the simulator source code using clang-format.'
+	@echo '  sim-clean                          	Clean the simulator build artifacts.'
+	@echo '  sim-test                           	Run the simulator tests.'
 	@echo '  help                        			Display this help message.'

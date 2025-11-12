@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+
 import os
 import sys
 import subprocess
+import argparse
 from pathlib import Path
 
 quiet = 0
@@ -27,6 +30,14 @@ if not exe_path.is_file():
     print(f"Error: Executable {exe_path} not found.")
     sys.exit(1)
 
+parser = argparse.ArgumentParser(description="Run tests for punched card reader simulator.")
+parser.add_argument(
+    "--binary-mode",
+    help="Display binary output instead of hexadecimal.",
+    action="store_true"
+)
+args = parser.parse_args()
+
 # ------------------------
 # Loop over card .txt files
 # ------------------------
@@ -44,8 +55,13 @@ for card_file in card_files:
         print("-" * 60)
 
     # Run the executable in the build folder so outputs go there
+    binary_flag = "--binary-mode" if args.binary_mode else ""
+    cmd = [str(exe_path)]
+    if binary_flag:
+        cmd.append(binary_flag)
+    cmd.append(str(os.path.abspath(card_file)))
     result = subprocess.run(
-        [str(exe_path), str(os.path.abspath(card_file))],
+        cmd,
         cwd=str(os.getcwd()),
         input=b"done",
         stdout=sys.stdout,
