@@ -5,28 +5,28 @@ module CommonTypesModule {
   type arrayOfLength12<T> = a: array?<T> | a != null && a.Length == 12
     witness *
 
-  predicate IsAllTrue(arr : array<bool>)
+  predicate IsAllTrue(arr: array<bool>)
     reads arr
     requires arr.Length >= 0
   {
     forall i :: 0 <= i < arr.Length ==> (arr[i] == true)
   }
 
-  predicate IsAllFalse(arr : array<bool>)
+  predicate IsAllFalse(arr: array<bool>)
     reads arr
     requires arr.Length >= 0
   {
     forall i :: 0 <= i < arr.Length ==> (arr[i] == false)
   }
 
-  predicate IsAllZero(arr : array<int>)
+  predicate IsAllZero(arr: array<int>)
     reads arr
     requires arr.Length >= 0
   {
     forall i :: 0 <= i < arr.Length ==> (arr[i] == 0)
   }
 
-  predicate IsFallingEdge(prev : array<bool>, curr : array<bool>)
+  predicate IsFallingEdge(prev: array<bool>, curr: array<bool>)
     reads prev, curr
     requires prev.Length == curr.Length
   {

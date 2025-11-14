@@ -6,9 +6,9 @@ module PhotodiodeDriverModule {
   datatype DriverState = LEDS_ON | LEDS_OFF
 
   class PhotodiodeDriver {
-    var state : DriverState
-    var off_vals : P.arrayOfLength13<int>
-    var punched : P.arrayOfLength13<bool>
+    var state: DriverState
+    var off_vals: P.arrayOfLength13<int>
+    var punched: P.arrayOfLength13<bool>
     const THRESHOLD: int := 4
 
     constructor ()
