@@ -32,8 +32,11 @@ punched-card-reader/
     |-- PhotodiodeReadTest/    # Arduino sketch directory for testing photodiode readings.
 |-- cad/                       # CAD files for the punched card reader
     |-- v1/                    # V1 prototype CAD files
+|-- dafny/                     # Dafny verification files.
 |-- modules/                   # Arduino sketch modules.
     |-- cardProcessor/         # Main punched card processor Arduino sketch, including source and test files.
+|-- PunchedCardReader/         # Arduino sketch directory.
+    |-- test/                  # Test files for the Arduino sketch.
 |-- sim/                       # Simulation files.
     |-- test-cards/            # Sample punched card files for testing the simulation.
 |-- README.md                  # Project documentation.
