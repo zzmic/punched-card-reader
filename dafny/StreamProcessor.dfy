@@ -1,9 +1,15 @@
 include "CommonTypes.dfy"
 
 module StreamProcessorModule {
-  import P = CommonTypesModule
+  import CT = CommonTypesModule
 
   datatype StreamMode = TEXT | BINARY
+
+  datatype HandleInputResult = HandleInputResult(
+    output_char: char,
+    output_bytes: seq<bv8>,
+    output_ready: bool
+  )
 
   class StreamProcessor {
     var mode: StreamMode
@@ -32,7 +38,7 @@ module StreamProcessorModule {
         (if s[0] then 1 else 0) + 2 * BoolSeqToInteger(s[1..])
     }
 
-    function ColumnToInteger(col: P.arrayOfLength12<bool>): int
+    function ColumnToInteger(col: CT.arrayOfLength12<bool>): int
       reads col
       ensures 0 <= ColumnToInteger(col)
       ensures ColumnToInteger(col) < pow(2, 12)
@@ -41,7 +47,7 @@ module StreamProcessorModule {
     }
 
 
-    function ColumnToBytes(col: P.arrayOfLength12<bool>): seq<bv8>
+    function ColumnToBytes(col: CT.arrayOfLength12<bool>): seq<bv8>
       reads col
     {
       var val := ColumnToInteger(col);
@@ -123,16 +129,13 @@ module StreamProcessorModule {
       case _ => '?'
     }
 
-    method HandleInput(
-      mode_switch_is_binary: bool, column: P.arrayOfLength12<bool>, card_ended: bool
-    )
-      returns (
-        output_char: char,
-        output_bytes: seq<bv8>,
-        output_ready: bool
-      )
+    method HandleInput(mode_switch_is_binary: bool, column: CT.arrayOfLength12<bool>, card_ended: bool)
+      returns (r : HandleInputResult)
       modifies this
     {
+      var output_char: char;
+      var output_bytes: seq<bv8>;
+      var output_ready: bool;
       mode := if mode_switch_is_binary then BINARY else TEXT;
       if card_ended {
         output_ready := true;
@@ -157,6 +160,7 @@ module StreamProcessorModule {
             output_bytes := ColumnToBytes(column);
         }
       }
+      r := HandleInputResult(output_char, output_bytes, output_ready);
     }
   }
 }
