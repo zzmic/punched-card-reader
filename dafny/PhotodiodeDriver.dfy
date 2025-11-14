@@ -25,7 +25,6 @@ module PhotodiodeDriverModule {
 
     method Tick(reading: P.arrayOfLength13<int>)
       modifies this, off_vals, punched
-      requires reading != null && reading.Length == 13
       ensures old(state) == LEDS_OFF ==>
                 state == LEDS_ON &&
                 (forall i :: 0 <= i < 13 ==> off_vals[i] == reading[i]) &&
