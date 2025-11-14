@@ -41,8 +41,6 @@ punched-card-reader/
 |-- .github/                   # GitHub Actions configuration files.
 |-- cad/                       # CAD files for the punched card reader
     |-- v1/                    # V1 prototype CAD files
-|-- docs/                      # Documentation directory.
-|   |-- tlaplus-specs/         # TLA+ specification and configuration files.
 |-- PunchedCardReader/         # Arduino sketch directory.
     |-- test/                  # Test files for the Arduino sketch.
 |-- sim/                       # Simulation files.
