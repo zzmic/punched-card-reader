@@ -6,8 +6,8 @@ module CardProcessorModule {
   datatype CardState = WAIT_FOR_CARD | WAIT_FOR_COLUMN | COLUMN_ENDED
 
   class CardProcessor {
-    var state : CardState
-    var prev_punched : P.arrayOfLength13<bool>
+    var state: CardState
+    var prev_punched: P.arrayOfLength13<bool>
 
     constructor ()
       ensures state == WAIT_FOR_CARD
@@ -18,9 +18,9 @@ module CardProcessorModule {
       prev_punched := new bool[13](_ => false);
     }
 
-    method ProcessEvent(punched_input : P.arrayOfLength13<bool>)
+    method ProcessEvent(punched_input: P.arrayOfLength13<bool>)
       returns (
-        column_output : P.arrayOfLength12<bool>, card_ended : bool, output_ready : bool
+        column_output: P.arrayOfLength12<bool>, card_ended: bool, output_ready: bool
       )
       modifies this, prev_punched
     {
