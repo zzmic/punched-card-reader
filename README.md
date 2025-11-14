@@ -1,16 +1,7 @@
 # punched-card-reader
 
 ## Overview
-This project is an Arduino-based punched card reader that reads and interprets data from punched cards. It aims to motivate certain OS concepts by demonstrating how slow historical I/O devices operated.
-
-## Hardware Requirements
-- [Arduino® UNO R4 WiFi Board](https://store-usa.arduino.cc/products/uno-r4-wifi)
-
-## Software Requirements
-- [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/): A command-line interface for Arduino development.
-- [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain): A collection of tools for compiling and debugging ARM-based applications.
-- [CppUTest](https://cpputest.github.io): A C/C++ unit testing framework.
-- A GCC compiler that supports C++11 or later for building the simulation.
+This project is an Arduino‑based punched card reader that optically senses holes in punched cards and streams the decoded information via serial communication. It is intended to illustrate operating-system and low‑level I/O concepts by recreating the characteristics of historical slow peripheral devices.
 
 ## Specifications
 ```
@@ -20,7 +11,7 @@ Punched Card Diameters
 ->  Bits: 12 * 80 = 960b
 
 Punched Card Reader:
-->  Read start detected with an LED indicating presence of a card
+->  Read start detected with an LED indicating the presence of a card
 ->  Notify card read start over serial
 ->  Starts with all LEDs off
 ->  Sampling Branch @ 1kHz:
@@ -31,9 +22,6 @@ Punched Card Reader:
 ->  Read end detected with an LED indicating absence of card
 ->  Notify card read end over serial
 ```
-
-## CAD
-We have created some preliminary CAD prototypes just to virtually explore the physical design of our system. These files, found in `.obj`, `.stl`, and `.f3z` formats, can be found in the respective folder according to their versions.
 
 ## Project Hierarchy
 ```
@@ -48,16 +36,27 @@ punched-card-reader/
 |-- README.md                  # Project documentation.
 ```
 
+## CAD
+We have created some preliminary CAD prototypes just to virtually explore the physical design of our system. These files, in `.obj`, `.stl`, and `.f3z` formats, can be found in the respective folders according to their versions.
+
+## Hardware Requirements
+- [Arduino® UNO R4 WiFi Board](https://store-usa.arduino.cc/products/uno-r4-wifi)
+
+## Software Requirements
+- [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/): A command-line interface for Arduino development.
+- [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain): A collection of tools for compiling and debugging ARM-based applications.
+- A GCC compiler that supports C++11 or later for building the simulation.
+
 ## Build and Run the Punched Card Reader Simulation
 The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile`:
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary-mode` flag for binary output mode).
-3. Insert a card file containing a $12$ (row) $\times$ $80$ (column) grid, where each entry represents a punch (any character) or no punch (`.`). Sample card files are available in the `sim/test-cards/` directory.
-4. To exit the simulation, type `done` when prompted for the next card file path.
-5. Alternatively, do `make sim-test` to run the simulation on ALL the test cards in the `sim/test-cards/` directory.
+3. "Insert" a card file containing a 12 (row) * 80 (column) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
+4. To exit the simulation, type `done` when prompted for the next card file path. Otherwise, more card files can be input to continue the simulation.
+5. Alternatively, do `make sim-test` (or `make sim-test-binary`) to run the simulation on *ALL* the test cards in the `sim/test-cards/` directory.
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
-This repository includes a convenience `Makefile` that wraps `arduino-cli` commands, assuming you have `arduino-cli` installed and the Arduino® UNO R4 WiFi board connected to your local machine. By default, it targets the Arduino® UNO R4 WiFi board and the default sketch at `PunchedCardReader/PunchedCardReader.ino`.
+If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected to the local machine, the following make commands that are built upon `arduino-cli` can be used.
 
 - To list connected Arduino boards:
   ```bash
@@ -95,9 +94,9 @@ This repository includes a convenience `Makefile` that wraps `arduino-cli` comma
   ```
 
 ## Run Unit Tests
-Unit tests for the punched card reader can be found in the `test/` directory. The testing framework used is [CppUTest](https://github.com/cpputest/cpputest).
+Unit tests for the punched card reader can be found in the `PunchedCardReader/test/` directory.
 
-- ***TODO(zzmic):*** Add instructions for building and running the unit tests using Make.
+- ***TODO(zzmic):*** Decide which testing framework to use and provide instructions on how to run the tests. Alternatively, we may not use a testing framework at all and instead implement unit tests in `.ino` files that can be compiled and uploaded to the Arduino board.
 
 ## Caveats
 - Note that the `setup()` and `loop()` functions can only appear once per sketch. If additional sketches are included, ensure that they do not redefine these functions to avoid compilation errors.
@@ -112,8 +111,9 @@ Unit tests for the punched card reader can be found in the `test/` directory. Th
 - [Arduino CLI Documentation](https://arduino.github.io/arduino-cli/1.3/)
 - [Arduino Example: Blink](https://docs.arduino.cc/built-in-examples/basics/Blink/)
 - [Arduino Example: Calibrate Sensor Input](https://docs.arduino.cc/built-in-examples/analog/Calibration/)
-- [CppUTest](https://cpputest.github.io)
 - [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain)
 - [Arm GNU Toolchain Downloads](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 - [gcc-arm-embedded — Homebrew Formulae](https://formulae.brew.sh/cask/gcc-arm-embedded)
 - [Test Driving Arduino](https://christopherjmcclellan.wordpress.com/2018/02/16/test-driving-arduino/)
+- [CppUTest](https://cpputest.github.io)
+- [Unity](https://github.com/ThrowTheSwitch/Unity)
