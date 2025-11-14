@@ -1,36 +1,40 @@
 include "CommonTypes.dfy"
 
 module CardProcessorModule {
-  import P = CommonTypesModule
+  import CT = CommonTypesModule
 
   datatype CardState = WAIT_FOR_CARD | WAIT_FOR_COLUMN | COLUMN_ENDED
 
+  datatype ProcessEventResult = ProcessEventResult(
+    column_output: CT.arrayOfLength12<bool>,
+    card_ended: bool,
+    output_ready: bool
+  )
+
   class CardProcessor {
     var state: CardState
-    var prev_punched: P.arrayOfLength13<bool>
+    var prev_punched: CT.arrayOfLength13<bool>
 
     constructor ()
       ensures state == WAIT_FOR_CARD
       ensures fresh(prev_punched) && prev_punched.Length == 13
-      ensures P.IsAllFalse(prev_punched)
+      ensures CT.IsAllFalse(prev_punched)
     {
       state := WAIT_FOR_CARD;
       prev_punched := new bool[13](_ => false);
     }
 
-    method ProcessEvent(punched_input: P.arrayOfLength13<bool>)
-      returns (
-        column_output: P.arrayOfLength12<bool>, card_ended: bool, output_ready: bool
-      )
+    method ProcessEvent(punched_input: CT.arrayOfLength13<bool>)
+      returns (r: ProcessEventResult)
       modifies this, prev_punched
     {
-      column_output := new bool[12](_ => false);
-      card_ended := false;
-      output_ready := false;
+      var column_output := new bool[12](_ => false);
+      var card_ended := false;
+      var output_ready := false;
 
       match state {
         case WAIT_FOR_CARD =>
-          if P.IsAllFalse(punched_input) {
+          if CT.IsAllFalse(punched_input) {
             state := WAIT_FOR_COLUMN;
             var i := 0;
             while i < 13
@@ -52,7 +56,7 @@ module CardProcessorModule {
             }
           }
         case WAIT_FOR_COLUMN =>
-          if P.IsAllTrue(punched_input) {
+          if CT.IsAllTrue(punched_input) {
             card_ended := true;
             output_ready := true;
             state := WAIT_FOR_CARD;
@@ -65,7 +69,7 @@ module CardProcessorModule {
               i := i + 1;
             }
           }
-          else if P.IsFallingEdge(prev_punched, punched_input) {
+          else if CT.IsFallingEdge(prev_punched, punched_input) {
             output_ready := true;
             state := COLUMN_ENDED;
             var i := 0;
@@ -87,7 +91,7 @@ module CardProcessorModule {
             }
           }
         case COLUMN_ENDED =>
-          if P.IsAllFalse(punched_input) {
+          if CT.IsAllFalse(punched_input) {
             state := WAIT_FOR_COLUMN;
             var i := 0;
             while i < 13
@@ -99,6 +103,7 @@ module CardProcessorModule {
             }
           }
       }
+      r := ProcessEventResult(column_output, card_ended, output_ready);
     }
   }
 }
