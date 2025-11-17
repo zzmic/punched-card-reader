@@ -1,29 +1,29 @@
 include "Utilities.dfy"
 
 module PhotodiodeDriverModule {
-  import CT = UtilitiesModule
+  import Utils = UtilitiesModule
 
   datatype DriverState = LEDS_ON | LEDS_OFF
 
   class PhotodiodeDriver {
     var state: DriverState
-    var off_vals: CT.arrayOfLength13<int>
-    var punched: CT.arrayOfLength13<bool>
+    var off_vals: Utils.arrayOfLength13<int>
+    var punched: Utils.arrayOfLength13<bool>
     const THRESHOLD: int := 4
 
     constructor ()
       ensures state == LEDS_OFF
       ensures fresh(off_vals) && off_vals.Length == 13
       ensures fresh(punched) && punched.Length == 13
-      ensures CT.IsAllFalse(punched)
-      ensures CT.IsAllZero(off_vals)
+      ensures Utils.IsAllFalse(punched)
+      ensures Utils.IsAllZero(off_vals)
     {
       state := LEDS_OFF;
       off_vals := new int[13](_ => 0);
       punched  := new bool[13](_ => false);
     }
 
-    method Tick(reading: CT.arrayOfLength13<int>)
+    method Tick(reading: Utils.arrayOfLength13<int>)
       modifies this, off_vals, punched
       ensures old(state) == LEDS_OFF ==>
                 state == LEDS_ON &&

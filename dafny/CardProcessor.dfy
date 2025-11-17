@@ -1,30 +1,30 @@
 include "Utilities.dfy"
 
 module CardProcessorModule {
-  import CT = UtilitiesModule
+  import Utils = UtilitiesModule
 
   datatype CardState = WAIT_FOR_CARD | WAIT_FOR_COLUMN | COLUMN_ENDED
 
   datatype ProcessEventResult = ProcessEventResult(
-    column_output: CT.arrayOfLength12<bool>,
+    column_output: Utils.arrayOfLength12<bool>,
     card_ended: bool,
     output_ready: bool
   )
 
   class CardProcessor {
     var state: CardState
-    var prev_punched: CT.arrayOfLength13<bool>
+    var prev_punched: Utils.arrayOfLength13<bool>
 
     constructor ()
       ensures state == WAIT_FOR_CARD
       ensures fresh(prev_punched) && prev_punched.Length == 13
-      ensures CT.IsAllFalse(prev_punched)
+      ensures Utils.IsAllFalse(prev_punched)
     {
       state := WAIT_FOR_CARD;
       prev_punched := new bool[13](_ => false);
     }
 
-    method ProcessEvent(punched_input: CT.arrayOfLength13<bool>)
+    method ProcessEvent(punched_input: Utils.arrayOfLength13<bool>)
       returns (r: ProcessEventResult)
       modifies this, prev_punched
     {
@@ -34,7 +34,7 @@ module CardProcessorModule {
 
       match state {
         case WAIT_FOR_CARD =>
-          if CT.IsAllFalse(punched_input) {
+          if Utils.IsAllFalse(punched_input) {
             state := WAIT_FOR_COLUMN;
             var i := 0;
             while i < 13
@@ -56,7 +56,7 @@ module CardProcessorModule {
             }
           }
         case WAIT_FOR_COLUMN =>
-          if CT.IsAllTrue(punched_input) {
+          if Utils.IsAllTrue(punched_input) {
             card_ended := true;
             output_ready := true;
             state := WAIT_FOR_CARD;
@@ -69,7 +69,7 @@ module CardProcessorModule {
               i := i + 1;
             }
           }
-          else if CT.IsFallingEdge(prev_punched, punched_input) {
+          else if Utils.IsFallingEdge(prev_punched, punched_input) {
             output_ready := true;
             state := COLUMN_ENDED;
             var i := 0;
@@ -91,7 +91,7 @@ module CardProcessorModule {
             }
           }
         case COLUMN_ENDED =>
-          if CT.IsAllFalse(punched_input) {
+          if Utils.IsAllFalse(punched_input) {
             state := WAIT_FOR_COLUMN;
             var i := 0;
             while i < 13

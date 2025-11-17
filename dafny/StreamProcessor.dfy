@@ -1,7 +1,7 @@
 include "Utilities.dfy"
 
 module StreamProcessorModule {
-  import CT = UtilitiesModule
+  import Utils = UtilitiesModule
 
   datatype StreamMode = TEXT | BINARY
 
@@ -38,7 +38,7 @@ module StreamProcessorModule {
         (if s[0] then 1 else 0) + 2 * BoolSeqToInteger(s[1..])
     }
 
-    function ColumnToInteger(col: CT.arrayOfLength12<bool>): int
+    function ColumnToInteger(col: Utils.arrayOfLength12<bool>): int
       reads col
       ensures 0 <= ColumnToInteger(col)
       ensures ColumnToInteger(col) < pow(2, 12)
@@ -47,7 +47,7 @@ module StreamProcessorModule {
     }
 
 
-    function ColumnToBytes(col: CT.arrayOfLength12<bool>): seq<bv8>
+    function ColumnToBytes(col: Utils.arrayOfLength12<bool>): seq<bv8>
       reads col
     {
       var val := ColumnToInteger(col);
@@ -129,7 +129,7 @@ module StreamProcessorModule {
       case _ => '?'
     }
 
-    method HandleInput(mode_switch_is_binary: bool, column: CT.arrayOfLength12<bool>, card_ended: bool)
+    method HandleInput(mode_switch_is_binary: bool, column: Utils.arrayOfLength12<bool>, card_ended: bool)
       returns (r : HandleInputResult)
       modifies this
     {
