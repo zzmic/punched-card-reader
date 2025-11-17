@@ -24,6 +24,7 @@ module UtilitiesModule {
   predicate IsAllZero(arr: array<int>)
     reads arr
     requires arr.Length >= 0
+    ensures IsAllZero(arr) <==> forall i :: 0 <= i < arr.Length ==> arr[i] == 0
   {
     forall i :: 0 <= i < arr.Length ==> (arr[i] == 0)
   }
@@ -31,6 +32,7 @@ module UtilitiesModule {
   predicate IsFallingEdge(prev: array<bool>, curr: array<bool>)
     reads prev, curr
     requires prev.Length == curr.Length
+    ensures IsFallingEdge(prev, curr) <==> exists i :: 0 <= i < prev.Length && (prev[i] == true && curr[i] == false )
   {
     exists i :: 0 <= i < prev.Length && (prev[i] == true && curr[i] == false )
   }
