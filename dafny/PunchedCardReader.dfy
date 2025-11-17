@@ -4,7 +4,7 @@ include "CardProcessor.dfy"
 include "StreamProcessor.dfy"
 
 module PunchedCardReaderModule {
-  import CT = UtilitiesModule
+  import Utils = UtilitiesModule
   import PD = PhotodiodeDriverModule
   import CP = CardProcessorModule
   import SP = StreamProcessorModule
@@ -30,7 +30,7 @@ module PunchedCardReaderModule {
       stream_processor := new SP.StreamProcessor();
     }
 
-    method RunTick(ADC_reading: CT.arrayOfLength13<int>, mode_switch_is_binary: bool)
+    method RunTick(ADC_reading: Utils.arrayOfLength13<int>, mode_switch_is_binary: bool)
       returns (r : RunTickResult)
       modifies this,
                photodiode_driver, photodiode_driver.off_vals, photodiode_driver.punched,
