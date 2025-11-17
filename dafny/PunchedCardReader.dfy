@@ -1,10 +1,10 @@
-include "CommonTypes.dfy"
+include "Utilities.dfy"
 include "PhotodiodeDriver.dfy"
 include "CardProcessor.dfy"
 include "StreamProcessor.dfy"
 
 module PunchedCardReaderModule {
-  import CT = CommonTypesModule
+  import CT = UtilitiesModule
   import PD = PhotodiodeDriverModule
   import CP = CardProcessorModule
   import SP = StreamProcessorModule

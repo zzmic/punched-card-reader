@@ -1,7 +1,7 @@
-include "CommonTypes.dfy"
+include "Utilities.dfy"
 
 module CardProcessorModule {
-  import CT = CommonTypesModule
+  import CT = UtilitiesModule
 
   datatype CardState = WAIT_FOR_CARD | WAIT_FOR_COLUMN | COLUMN_ENDED
 
