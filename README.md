@@ -27,6 +27,8 @@ Punched Card Reader:
 ```
 punched-card-reader/
 |-- .github/                   # GitHub Actions configuration files.
+|-- arduino/                   # Arduino-related files.
+    |-- PhotodiodeReadTest/    # Arduino sketch directory for testing photodiode readings.
 |-- cad/                       # CAD files for the punched card reader
     |-- v1/                    # V1 prototype CAD files
 |-- PunchedCardReader/         # Arduino sketch directory.
