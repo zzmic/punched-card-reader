@@ -1,4 +1,4 @@
-module CommonTypesModule {
+module UtilitiesModule {
   type arrayOfLength13<T> = a: array?<T> | a != null && a.Length == 13
     witness *
 

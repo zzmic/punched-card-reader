@@ -1,7 +1,7 @@
-include "CommonTypes.dfy"
+include "Utilities.dfy"
 
 module StreamProcessorModule {
-  import CT = CommonTypesModule
+  import CT = UtilitiesModule
 
   datatype StreamMode = TEXT | BINARY
 

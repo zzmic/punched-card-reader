@@ -1,7 +1,7 @@
-include "CommonTypes.dfy"
+include "Utilities.dfy"
 
 module PhotodiodeDriverModule {
-  import CT = CommonTypesModule
+  import CT = UtilitiesModule
 
   datatype DriverState = LEDS_ON | LEDS_OFF
 
