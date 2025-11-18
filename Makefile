@@ -1,7 +1,6 @@
 CLI ?= arduino-cli
 FQBN ?= arduino:renesas_uno:unor4wifi
-SKETCH_DIR ?= PunchedCardReader
-DEFAULT_SKETCH := $(SKETCH_DIR)/PunchedCardReader.ino
+SKETCH_DIR ?= modules/cardProcessor
 
 CXX = /usr/bin/g++
 STDFLAGS = -std=c++23
@@ -47,13 +46,6 @@ arduino-upload:
 	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
 	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(FILE)
 
-arduino-compile-punched-card-reader:
-	$(CLI) compile --fqbn $(FQBN) $(DEFAULT_SKETCH)
-
-arduino-upload-punched-card-reader:
-	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload-punched-card-reader PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
-	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(DEFAULT_SKETCH)
-
 $(SIM_BIN_DIR):
 	mkdir -p $(SIM_BIN_DIR)
 
@@ -83,19 +75,17 @@ help:
 	@echo 'Usage: make <target> [VAR=value]'
 	@echo
 	@echo 'Common variables:'
-	@echo '  FILE   Path to sketch file (for compile/upload).'
-	@echo '  PORT   Serial port of the Arduino board (e.g., /dev/cu.usbmodemXXXX).'
+	@printf '  %-30s %s\n' 'FILE' 'Path to sketch file (for compile/upload).'
+	@printf '  %-30s %s\n' 'PORT' 'Serial port of the Arduino board (e.g., /dev/cu.usbmodemXXXX).'
 	@echo
 	@echo 'Targets:'
-	@echo '  arduino-core-update-index           	Update the local cache of available platforms and libraries.'
-	@echo '  arduino-core-install                	Install the core for the Arduino® UNO R4 WiFi board.'
-	@echo '  arduino-core-list                   	List installed/available cores.'
-	@echo '  arduino-compile                     	Compile the Arduino sketch specified in FILE.'
-	@echo '  arduino-upload                      	Upload the sketch in FILE to the board on PORT.'
-	@echo '  arduino-compile-punched-card-reader	Compile the default $(DEFAULT_SKETCH) sketch.'
-	@echo '  arduino-upload-punched-card-reader		Upload the default $(DEFAULT_SKETCH) sketch to the board on PORT.'
-	@echo '  sim-build						  		Build the punched card reader simulator.'
-	@echo '  sim-format                        		Format the simulator source code using clang-format.'
-	@echo '  sim-clean                          	Clean the simulator build artifacts.'
-	@echo '  sim-test                           	Run the simulator tests.'
-	@echo '  help                        			Display this help message.'
+	@printf '  %-30s %s\n' 'arduino-core-update-index' 'Update the local cache of available platforms and libraries.'
+	@printf '  %-30s %s\n' 'arduino-core-install' 'Install the core for the Arduino® UNO R4 WiFi board.'
+	@printf '  %-30s %s\n' 'arduino-core-list' 'List installed/available cores.'
+	@printf '  %-30s %s\n' 'arduino-compile' 'Compile the Arduino sketch specified in FILE.'
+	@printf '  %-30s %s\n' 'arduino-upload' 'Upload the sketch in FILE to the board on PORT.'
+	@printf '  %-30s %s\n' 'sim-build' 'Build the punched card reader simulator.'
+	@printf '  %-30s %s\n' 'sim-format' 'Format the simulator source code using clang-format.'
+	@printf '  %-30s %s\n' 'sim-clean' 'Clean the simulator build artifacts.'
+	@printf '  %-30s %s\n' 'sim-test' 'Run the simulator tests.'
+	@printf '  %-30s %s\n' 'help' 'Display this help message.'

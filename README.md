@@ -31,8 +31,8 @@ punched-card-reader/
     |-- PhotodiodeReadTest/    # Arduino sketch directory for testing photodiode readings.
 |-- cad/                       # CAD files for the punched card reader
     |-- v1/                    # V1 prototype CAD files
-|-- PunchedCardReader/         # Arduino sketch directory.
-    |-- test/                  # Test files for the Arduino sketch.
+|-- modules/                   # Arduino sketch modules.
+    |-- cardProcessor/         # Main punched card processor Arduino sketch, including source and test files.
 |-- sim/                       # Simulation files.
     |-- test-cards/            # Sample punched card files for testing the simulation.
 |-- README.md                  # Project documentation.
@@ -76,14 +76,6 @@ If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected t
 - To list installed/available cores:
   ```bash
   make arduino-core-list
-  ```
-- To compile the default sketch `PunchedCardReader/PunchedCardReader.ino`:
-  ```bash
-  make arduino-compile-punched-card-reader
-  ```
-- To upload the compiled sketch `PunchedCardReader/PunchedCardReader.ino` to the connected Arduino® UNO R4 WiFi board:
-  ```bash
-  make arduino-upload-punched-card-reader PORT=<serial-port>
   ```
 - To work with alternative sketches, supply the path to the sketch via the `FILE` variable:
   ```bash
