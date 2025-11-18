@@ -9,14 +9,14 @@ module UtilitiesModule {
     requires arr.Length >= 0
     reads arr
   {
-    forall i :: 0 <= i < arr.Length ==> arr[i] == true
+    forall i :: 0 <= i < arr.Length ==> arr[i]
   }
 
   predicate IsAllFalse(arr: array<bool>)
     requires arr.Length >= 0
     reads arr
   {
-    forall i :: 0 <= i < arr.Length ==> arr[i] == false
+    forall i :: 0 <= i < arr.Length ==> !arr[i]
   }
 
   predicate IsAllZero(arr: array<int>)
@@ -30,6 +30,23 @@ module UtilitiesModule {
     reads prev, curr
     requires prev.Length == curr.Length
   {
-    exists i :: 0 <= i < prev.Length && (prev[i] == true && curr[i] == false )
+    exists i :: 0 <= i < prev.Length && (prev[i] && !curr[i])
+  }
+
+  // Generalizing the method to work for any type `T` triggers the
+  // "unless an initializer is provided for the array elements, a new array of 'T' must have empty size" error.
+  method SeqToArr12_bool(s: seq<bool>) returns (arr: arrayOfLength12<bool>)
+    requires |s| == 12
+    ensures forall i :: 0 <= i < 12 ==> arr[i] == s[i]
+  {
+    arr := new bool[12];
+    var i: int := 0;
+    while i < 12
+      invariant 0 <= i <= 12
+      invariant forall j :: 0 <= j < i ==> arr[j] == s[j]
+    {
+      arr[i] := s[i];
+      i := i + 1;
+    }
   }
 }

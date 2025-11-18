@@ -14,7 +14,7 @@ module PhotodiodeDriverTestsModule {
     pd.Tick(reading);
   }
 
-  method Lemma_PD_LEDS_OFF_Behavior(pd: PD.PhotodiodeDriver, reading: Utils.arrayOfLength13<int>)
+  method Lemma_PD_LEDS_Off_Behavior(pd: PD.PhotodiodeDriver, reading: Utils.arrayOfLength13<int>)
     requires pd.state == PD.LEDS_OFF
     modifies pd, pd.off_vals, pd.punched
     ensures pd.state == PD.LEDS_ON
@@ -25,7 +25,7 @@ module PhotodiodeDriverTestsModule {
     pd.Tick(reading);
   }
 
-  method Lemma_PD_LEDS_ON_Behavior(pd: PD.PhotodiodeDriver, reading: Utils.arrayOfLength13<int>)
+  method Lemma_PD_LEDS_On_Behavior(pd: PD.PhotodiodeDriver, reading: Utils.arrayOfLength13<int>)
     requires pd.state == PD.LEDS_ON
     modifies pd, pd.off_vals, pd.punched
     ensures pd.state == PD.LEDS_OFF

@@ -12,12 +12,13 @@ module StreamProcessorModule {
   )
 
   class StreamProcessor {
-    var mode: StreamMode
+    var stream_mode: StreamMode
 
     constructor()
-      ensures mode == TEXT
+      ensures stream_mode == TEXT
     {
-      mode := TEXT;
+      // Set default mode to `TEXT`.
+      stream_mode := TEXT;
     }
 
     // Reference: https://stackoverflow.com/a/75557519.
@@ -38,19 +39,18 @@ module StreamProcessorModule {
         (if s[0] then 1 else 0) + 2 * BoolSeqToInteger(s[1..])
     }
 
-    function ColumnToInteger(col: Utils.arrayOfLength12<bool>): int
-      reads col
-      ensures 0 <= ColumnToInteger(col)
-      ensures ColumnToInteger(col) < pow(2, 12)
+    function ColumnToInteger(column: Utils.arrayOfLength12<bool>): int
+      reads column
+      ensures 0 <= ColumnToInteger(column)
+      ensures ColumnToInteger(column) < pow(2, 12)
     {
-      BoolSeqToInteger(col[..12])
+      BoolSeqToInteger(column[..12])
     }
 
-
-    function ColumnToBytes(col: Utils.arrayOfLength12<bool>): seq<bv8>
-      reads col
+    function ColumnToBytes(column: Utils.arrayOfLength12<bool>): seq<bv8>
+      reads column
     {
-      var val := ColumnToInteger(col);
+      var val := ColumnToInteger(column);
       var b_high := (val / 256) as bv8;
       var b_low := (val % 256) as bv8;
       [b_high, b_low]
@@ -129,17 +129,23 @@ module StreamProcessorModule {
       case _ => '?'
     }
 
-    method HandleInput(mode_switch_is_binary: bool, column: Utils.arrayOfLength12<bool>, card_ended: bool)
-      returns (r : HandleInputResult)
+    method HandleInput(mode: StreamMode, column: Utils.arrayOfLength12<bool>, card_ended: bool) returns (res : HandleInputResult)
       modifies this
+      ensures (mode == TEXT) ==> (stream_mode == TEXT)
+      ensures (mode == BINARY) ==> (stream_mode == BINARY)
+      ensures (card_ended || !res.output_ready) ==> res.output_ready
+      ensures (card_ended && mode == TEXT) ==> (res.output_char == '\n' && res.output_bytes == [])
+      ensures (card_ended && mode == BINARY) ==> (res.output_bytes == [0x0A as bv8] && res.output_char == '?')
+      ensures (!card_ended && mode == TEXT) ==> (res.output_char == GetEBCDICChar(ColumnToInteger(column)) && res.output_bytes == [])
+      ensures (!card_ended && mode == BINARY) ==> (res.output_char == '?' && res.output_bytes == ColumnToBytes(column))
     {
       var output_char: char;
       var output_bytes: seq<bv8>;
-      var output_ready: bool;
-      mode := if mode_switch_is_binary then BINARY else TEXT;
+      // var output_ready: bool;
+      stream_mode := mode;
+
       if card_ended {
-        output_ready := true;
-        match mode {
+        match stream_mode {
           case TEXT =>
             output_char := '\n';
             output_bytes := [];
@@ -149,8 +155,7 @@ module StreamProcessorModule {
         }
       }
       else {
-        output_ready := true;
-        match mode {
+        match stream_mode {
           case TEXT =>
             var code := ColumnToInteger(column);
             output_char := GetEBCDICChar(code);
@@ -160,7 +165,8 @@ module StreamProcessorModule {
             output_bytes := ColumnToBytes(column);
         }
       }
-      r := HandleInputResult(output_char, output_bytes, output_ready);
+
+      res := HandleInputResult(output_char, output_bytes, true);
     }
   }
 }
