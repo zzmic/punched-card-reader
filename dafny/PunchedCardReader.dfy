@@ -30,7 +30,7 @@ module PunchedCardReaderModule {
       stream_processor := new SP.StreamProcessor();
     }
 
-    method RunTick(ADC_reading: Utils.arrayOfLength13<int>, mode_switch_is_binary: bool)
+    method RunTick(ADC_reading: Utils.arrayOfLength13<int>, mode: SP.StreamMode)
       returns (r : RunTickResult)
       modifies this,
                photodiode_driver, photodiode_driver.off_vals, photodiode_driver.punched,
@@ -45,7 +45,7 @@ module PunchedCardReaderModule {
       var output_ready := process_event_result.output_ready;
 
       if output_ready {
-        var handle_input_result := stream_processor.HandleInput(mode_switch_is_binary, column, card_ended);
+        var handle_input_result := stream_processor.HandleInput(mode, column, card_ended);
         var output_char := handle_input_result.output_char;
         var output_bytes := handle_input_result.output_bytes;
         var ready2 := handle_input_result.output_ready;
@@ -75,7 +75,7 @@ module PunchedCardReaderModule {
       print "Punched Card Reader System Initialized.\n";
 
       var reading_inserted := new int[13](_ => 0);
-      var run_tick_result := reader.RunTick(reading_inserted, false);
+      var run_tick_result := reader.RunTick(reading_inserted, SP.TEXT);
       var output_char := run_tick_result.output_char;
       var output_bytes := run_tick_result.output_bytes;
       var output_ready := run_tick_result.output_ready;
