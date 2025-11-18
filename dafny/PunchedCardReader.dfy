@@ -30,8 +30,7 @@ module PunchedCardReaderModule {
       stream_processor := new SP.StreamProcessor();
     }
 
-    method RunTick(ADC_reading: Utils.arrayOfLength13<int>, mode: SP.StreamMode)
-      returns (r : RunTickResult)
+    method RunTick(ADC_reading: Utils.arrayOfLength13<int>, mode: SP.StreamMode) returns (res : RunTickResult)
       modifies this,
                photodiode_driver, photodiode_driver.off_vals, photodiode_driver.punched,
                card_processor, card_processor.prev_punched,
@@ -48,45 +47,12 @@ module PunchedCardReaderModule {
         var handle_input_result := stream_processor.HandleInput(mode, column, card_ended);
         var output_char := handle_input_result.output_char;
         var output_bytes := handle_input_result.output_bytes;
-        var ready2 := handle_input_result.output_ready;
-        r := RunTickResult(output_char, output_bytes, ready2);
+        var output_ready2 := handle_input_result.output_ready;
+        res := RunTickResult(output_char, output_bytes, output_ready2);
       }
       else {
-        r := RunTickResult('?', [], false);
+        res := RunTickResult('?', [], false);
       }
-    }
-  }
-
-  class System {
-    var reader: PunchedCardReader
-
-    constructor ()
-      ensures fresh(reader)
-    {
-      reader := new PunchedCardReader();
-    }
-
-    method {:main} Main()
-      modifies this, reader,
-               reader.photodiode_driver, reader.photodiode_driver.off_vals, reader.photodiode_driver.punched,
-               reader.card_processor, reader.card_processor.prev_punched,
-               reader.stream_processor
-    {
-      print "Punched Card Reader System Initialized.\n";
-
-      var reading_inserted := new int[13](_ => 0);
-      var run_tick_result := reader.RunTick(reading_inserted, SP.TEXT);
-      var output_char := run_tick_result.output_char;
-      var output_bytes := run_tick_result.output_bytes;
-      var output_ready := run_tick_result.output_ready;
-
-      if output_ready {
-        print "Output Character: ", output_char, "\n";
-      }
-      else {
-        print "No output on card insertion.\n";
-      }
-      print "System state transitioned to WAIT_FOR_COLUMN.\n";
     }
   }
 }
