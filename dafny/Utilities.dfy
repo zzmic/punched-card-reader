@@ -12,25 +12,11 @@ module UtilitiesModule {
     forall i :: 0 <= i < arr.Length ==> arr[i] == true
   }
 
-  predicate IsNotAllTrue(arr: array<bool>)
-    requires arr.Length >= 0
-    reads arr
-  {
-    exists i :: 0 <= i < arr.Length && arr[i] == false
-  }
-
   predicate IsAllFalse(arr: array<bool>)
     requires arr.Length >= 0
     reads arr
   {
     forall i :: 0 <= i < arr.Length ==> arr[i] == false
-  }
-
-  predicate IsNotAllFalse(arr: array<bool>)
-    requires arr.Length >= 0
-    reads arr
-  {
-    exists i :: 0 <= i < arr.Length && arr[i] == true
   }
 
   predicate IsAllZero(arr: array<int>)
