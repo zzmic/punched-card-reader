@@ -63,7 +63,6 @@ The simulation of the punched card reader is implemented in C++ and can be built
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
 If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected to the local machine, the following make commands that are built upon `arduino-cli` can be used.
-
 - To list connected Arduino boards:
   ```bash
   make arduino-board-list
@@ -95,6 +94,13 @@ If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected t
 Unit tests for the punched card reader can be found in the `PunchedCardReader/test/` directory.
 
 - ***TODO(zzmic):*** Decide which testing framework to use and provide instructions on how to run the tests. Alternatively, we may not use a testing framework at all and instead implement unit tests in `.ino` files that can be compiled and uploaded to the Arduino board.
+
+## Verification with Dafny
+The punched card reader's core logic is formally verified at the algorithmic level using [Dafny](https://dafny.org). The Dafny files are located in the `dafny/` directory.
+To verify the Dafny files, ensure that [the Dafny executable or the VSCode extension for Dafny](https://dafny.org/latest/Installation) is installed, then run the following command in the `dafny/` directory:
+```bash
+dafny verify dafny/*
+```
 
 ## Caveats
 - Note that the `setup()` and `loop()` functions can only appear once per sketch. If additional sketches are included, ensure that they do not redefine these functions to avoid compilation errors.

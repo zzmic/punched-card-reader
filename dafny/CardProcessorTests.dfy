@@ -107,6 +107,8 @@ module CardProcessorTestsModule {
     requires cp.prev_punched[12] == false
     ensures cp.state == CP.WAIT_FOR_COLUMN
     // 1110000001010.
+    // Note that the following is not equivalent to `ensures old(cp.prev_punched) == cp.prev_punched`
+    // since it is testing for the coincidental case where `punched` is the same as `cp.prev_punched`.
     ensures cp.prev_punched[0] == true
     ensures cp.prev_punched[1] == true
     ensures cp.prev_punched[2] == true
@@ -405,7 +407,6 @@ module CardProcessorTestsModule {
     res := cp.ProcessEvent(punched);
   }
 
-  // TODO(zzmic): Solve the issues regarding `assert !Utils.IsAllTrue(punched);` and `ensures cp.state == CP.WAIT_FOR_COLUMN`.
   method {:test} Test_CP_11(cp: CP.CardProcessor) returns (res: CP.ProcessEventResult)
     modifies cp, cp.prev_punched
     requires cp.state == CP.WAIT_FOR_COLUMN
@@ -423,9 +424,7 @@ module CardProcessorTestsModule {
     requires cp.prev_punched[10] == false
     requires cp.prev_punched[11] == true
     requires cp.prev_punched[12] == true
-
-    // ensures cp.state == CP.WAIT_FOR_COLUMN
-
+    ensures cp.state == CP.WAIT_FOR_COLUMN
     // 1000011101011.
     ensures cp.prev_punched[0] == true
     ensures cp.prev_punched[1] == false
@@ -456,10 +455,7 @@ module CardProcessorTestsModule {
     punched[10] := false;
     punched[11] := true;
     punched[12] := true;
-
-    // assert !Utils.IsFallingEdge(cp.prev_punched, punched);
-    // assert !Utils.IsAllTrue(punched);
-
+    assert punched[1] == false; // This is necessary to guide Dafny's verifier.
     res := cp.ProcessEvent(punched);
 
   }
@@ -504,7 +500,6 @@ module CardProcessorTestsModule {
     res := cp.ProcessEvent(punched);
   }
 
-  // TODO(zzmic): Solve the issues regarding `assert !Utils.IsAllFalse(punched);`, `ensures cp.state == CP.COLUMN_ENDED`, and `ensures old(cp.prev_punched) == cp.prev_punched`.
   method {:test} Test_CP_13(cp: CP.CardProcessor) returns (res: CP.ProcessEventResult)
     modifies cp, cp.prev_punched
     requires cp.state == CP.COLUMN_ENDED
@@ -522,11 +517,9 @@ module CardProcessorTestsModule {
     requires cp.prev_punched[10] == true
     requires cp.prev_punched[11] == true
     requires cp.prev_punched[12] == false
-
-    // ensures cp.state == CP.COLUMN_ENDED
-
+    ensures cp.state == CP.COLUMN_ENDED
     // 1011001100110.
-    // ensures old(cp.prev_punched) == cp.prev_punched
+    ensures old(cp.prev_punched) == cp.prev_punched
   {
     // 0001000000000.
     var punched := new bool[13];
@@ -543,9 +536,7 @@ module CardProcessorTestsModule {
     punched[10] := false;
     punched[11] := false;
     punched[12] := false;
-
-    // assert !Utils.IsAllFalse(punched);
-
+    assert punched[3] == true; // This is necessary to guide Dafny's verifier.
     res := cp.ProcessEvent(punched);
   }
 
