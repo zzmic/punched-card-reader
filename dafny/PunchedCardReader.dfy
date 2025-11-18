@@ -40,12 +40,12 @@ module PunchedCardReaderModule {
       photodiode_driver.Tick(ADC_reading);
 
       var process_event_result := card_processor.ProcessEvent(photodiode_driver.punched);
-      var column_output := process_event_result.column_output;
+      var column := process_event_result.column;
       var card_ended := process_event_result.card_ended;
       var output_ready := process_event_result.output_ready;
 
       if output_ready {
-        var handle_input_result := stream_processor.HandleInput(mode_switch_is_binary, column_output, card_ended);
+        var handle_input_result := stream_processor.HandleInput(mode_switch_is_binary, column, card_ended);
         var output_char := handle_input_result.output_char;
         var output_bytes := handle_input_result.output_bytes;
         var ready2 := handle_input_result.output_ready;

@@ -6,7 +6,7 @@ module CardProcessorModule {
   datatype CardState = WAIT_FOR_CARD | WAIT_FOR_COLUMN | COLUMN_ENDED
 
   datatype ProcessEventResult = ProcessEventResult(
-    column_output: Utils.arrayOfLength12<bool>,
+    column: Utils.arrayOfLength12<bool>,
     card_ended: bool,
     output_ready: bool
   )
@@ -24,86 +24,125 @@ module CardProcessorModule {
       prev_punched := new bool[13](_ => false);
     }
 
-    method ProcessEvent(punched_input: Utils.arrayOfLength13<bool>)
-      returns (r: ProcessEventResult)
+    method ProcessEvent(punched: Utils.arrayOfLength13<bool>) returns (res: ProcessEventResult)
       modifies this, prev_punched
+      ensures (&& old(state == WAIT_FOR_CARD)
+               && old(Utils.IsAllFalse(punched))) ==>
+                (&& state == WAIT_FOR_COLUMN
+                 && Utils.IsAllFalse(prev_punched))
+      ensures (&& old(state == WAIT_FOR_CARD)
+               && !old(Utils.IsAllFalse(punched))) ==>
+                (&& state == WAIT_FOR_CARD
+                 && old(prev_punched) == prev_punched)
+      ensures (&& old(state == WAIT_FOR_COLUMN)
+               && old(Utils.IsAllTrue(punched))) ==>
+                (&& state == WAIT_FOR_CARD
+                 && old(prev_punched) == prev_punched
+                 && (forall i :: 0 <= i < 13 ==> prev_punched[i] == punched[i])
+                 && res.card_ended
+                 && res.output_ready)
+      ensures (&& old(state == WAIT_FOR_COLUMN)
+               && old(Utils.IsFallingEdge(prev_punched, punched))) ==>
+                (&& state == COLUMN_ENDED
+                 && old(prev_punched) == prev_punched
+                 && (forall i :: 0 <= i < 12 ==> res.column[i] == prev_punched[i + 1])
+                 && res.output_ready)
+      ensures (&& old(state == WAIT_FOR_COLUMN)
+               && !old(Utils.IsAllTrue(punched))
+               && !old(Utils.IsFallingEdge(prev_punched, punched))) ==>
+                (&& state == WAIT_FOR_COLUMN
+                 && (forall i :: 0 <= i < 13 ==> prev_punched[i] == punched[i])
+                 && !res.card_ended
+                 && !res.output_ready)
+      ensures (&& old(state == COLUMN_ENDED)
+               && old(Utils.IsAllFalse(punched))) ==>
+                (&& state == WAIT_FOR_COLUMN
+                 && Utils.IsAllFalse(prev_punched))
+      ensures (&& old(state == COLUMN_ENDED)
+               && !old(Utils.IsAllFalse(punched))) ==>
+                (&& state == COLUMN_ENDED
+                 && old(prev_punched) == prev_punched)
     {
-      var column_output := new bool[12](_ => false);
+      var column := new bool[12](_ => false);
       var card_ended := false;
       var output_ready := false;
 
       match state {
         case WAIT_FOR_CARD =>
-          if Utils.IsAllFalse(punched_input) {
-            state := WAIT_FOR_COLUMN;
+          if Utils.IsAllFalse(punched) {
             var i := 0;
             while i < 13
               modifies prev_punched
               invariant 0 <= i <= 13
+              invariant forall j :: 0 <= j < i ==> prev_punched[j] == false
             {
               prev_punched[i] := false;
               i := i + 1;
             }
+            state := WAIT_FOR_COLUMN;
           }
           else {
+            // Do nothing and remain in `WAIT_FOR_CARD`.
+          }
+        case WAIT_FOR_COLUMN =>
+          if Utils.IsAllTrue(punched) {
             var i := 0;
             while i < 13
               modifies prev_punched
               invariant 0 <= i <= 13
+              invariant forall j :: 0 <= j < i ==> prev_punched[j] == punched[j]
+              invariant old(prev_punched) == prev_punched
             {
-              prev_punched[i] := punched_input[i];
+              prev_punched[i] := punched[i];
               i := i + 1;
             }
-          }
-        case WAIT_FOR_COLUMN =>
-          if Utils.IsAllTrue(punched_input) {
             card_ended := true;
             output_ready := true;
             state := WAIT_FOR_CARD;
-            var i := 0;
-            while i < 13
-              modifies prev_punched
-              invariant 0 <= i <= 13
-            {
-              prev_punched[i] := punched_input[i];
-              i := i + 1;
-            }
           }
-          else if Utils.IsFallingEdge(prev_punched, punched_input) {
-            output_ready := true;
-            state := COLUMN_ENDED;
+          else if Utils.IsFallingEdge(prev_punched, punched) {
             var i := 0;
             while i < 12
               invariant 0 <= i <= 12
+              invariant forall j :: 0 <= j < i ==> column[j] == prev_punched[j + 1]
+              invariant old(prev_punched) == prev_punched
             {
-              column_output[i] := punched_input[i + 1];
+              column[i] := prev_punched[i + 1];
               i := i + 1;
             }
+            output_ready := true;
+            state := COLUMN_ENDED;
           }
           else {
             var i := 0;
             while i < 13
               modifies prev_punched
               invariant 0 <= i <= 13
+              invariant forall j :: 0 <= j < i ==> prev_punched[j] == punched[j]
             {
-              prev_punched[i] := punched_input[i];
+              prev_punched[i] := punched[i];
               i := i + 1;
             }
           }
         case COLUMN_ENDED =>
-          if Utils.IsAllFalse(punched_input) {
-            state := WAIT_FOR_COLUMN;
+          if Utils.IsAllFalse(punched) {
             var i := 0;
             while i < 13
               modifies prev_punched
               invariant 0 <= i <= 13
+              invariant forall j :: 0 <= j < i ==> prev_punched[j] == false
             {
               prev_punched[i] := false;
               i := i + 1;
             }
+            state := WAIT_FOR_COLUMN;
+          }
+          else {
+            // Do nothing and remain in `COLUMN_ENDED`.
           }
       }
-      r := ProcessEventResult(column_output, card_ended, output_ready);
+
+      res := ProcessEventResult(column, card_ended, output_ready);
     }
   }
 }

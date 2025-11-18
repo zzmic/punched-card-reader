@@ -40,9 +40,11 @@ module PhotodiodeDriverTestsModule {
   {
     var pd := new PD.PhotodiodeDriver();
     assert pd.state == PD.LEDS_OFF;
+    // 0000000000000.
+    assert Utils.IsAllZero(pd.off_vals);
 
-    var reading := new int[13];
     // 0000111122223.
+    var reading := new int[13];
     reading[0] := 0;
     reading[1] := 0;
     reading[2] := 0;
@@ -59,6 +61,7 @@ module PhotodiodeDriverTestsModule {
     pd.Tick(reading);
 
     assert pd.state == PD.LEDS_ON;
+    // 0000111122223.
     assert forall i :: 0 <= i < 13 ==> pd.off_vals[i] == reading[i];
   }
 
@@ -66,21 +69,8 @@ module PhotodiodeDriverTestsModule {
     modifies pd, pd.off_vals, pd.punched
     requires pd.state == PD.LEDS_OFF
     // 0000000000000.
-    requires pd.off_vals[0] == 0
-    requires pd.off_vals[1] == 0
-    requires pd.off_vals[2] == 0
-    requires pd.off_vals[3] == 0
-    requires pd.off_vals[4] == 0
-    requires pd.off_vals[5] == 0
-    requires pd.off_vals[6] == 0
-    requires pd.off_vals[7] == 0
-    requires pd.off_vals[8] == 0
-    requires pd.off_vals[9] == 0
-    requires pd.off_vals[10] == 0
-    requires pd.off_vals[11] == 0
-    requires pd.off_vals[12] == 0
+    requires Utils.IsAllZero(pd.off_vals)
     ensures pd.state == PD.LEDS_ON
-    ensures forall i :: 0 <= i < 13 ==> pd.punched[i] == old(pd.punched[i])
     // 0220333344410.
     ensures pd.off_vals[0] == 0
     ensures pd.off_vals[1] == 2
