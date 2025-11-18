@@ -49,4 +49,34 @@ module UtilitiesModule {
       i := i + 1;
     }
   }
+
+  method SeqToArr13_int(s: seq<int>) returns (arr: arrayOfLength13<int>)
+    requires |s| == 13
+    ensures forall i :: 0 <= i < 13 ==> arr[i] == s[i]
+  {
+    arr := new int[13];
+    var i: int := 0;
+    while i < 13
+      invariant 0 <= i <= 13
+      invariant forall j :: 0 <= j < i ==> arr[j] == s[j]
+    {
+      arr[i] := s[i];
+      i := i + 1;
+    }
+  }
+
+  method SeqToArr13_bool(s: seq<bool>) returns (arr: arrayOfLength13<bool>)
+    requires |s| == 13
+    ensures forall i :: 0 <= i < 13 ==> arr[i] == s[i]
+  {
+    arr := new bool[13];
+    var i: int := 0;
+    while i < 13
+      invariant 0 <= i <= 13
+      invariant forall j :: 0 <= j < i ==> arr[j] == s[j]
+    {
+      arr[i] := s[i];
+      i := i + 1;
+    }
+  }
 }
