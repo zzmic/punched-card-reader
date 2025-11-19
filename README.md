@@ -20,7 +20,7 @@ Punched Card Reader:
   ->  Samples with LEDs on
   ->  Difference above a threshold comprises a sample of either 1 or 0
 ->  Reads 12 bits no more than 80 times and emits at most 16-bit words over serial
-->  Read end detected with an LED indicating absence of card
+->  Read end detected with an LED indicating the absence of a card
 ->  Notify card read end over serial
 ```
 
@@ -30,13 +30,11 @@ punched-card-reader/
 |-- .github/                   # GitHub Actions configuration files.
 |-- arduino/                   # Arduino-related files.
     |-- PhotodiodeReadTest/    # Arduino sketch directory for testing photodiode readings.
-|-- cad/                       # CAD files for the punched card reader
-    |-- v1/                    # V1 prototype CAD files
+|-- cad/                       # CAD files for the punched card reader.
+    |-- v1/                    # V1 prototype CAD files.
 |-- dafny/                     # Dafny verification files.
 |-- modules/                   # Arduino sketch modules.
     |-- cardProcessor/         # Main punched card processor Arduino sketch, including source and test files.
-|-- PunchedCardReader/         # Arduino sketch directory.
-    |-- test/                  # Test files for the Arduino sketch.
 |-- sim/                       # Simulation files.
     |-- test-cards/            # Sample punched card files for testing the simulation.
 |-- README.md                  # Project documentation.
@@ -54,7 +52,7 @@ We have created some preliminary CAD prototypes just to virtually explore the ph
 - A GCC compiler that supports C++11 or later for building the simulation.
 
 ## Build and Run the Punched Card Reader Simulation
-The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile`:
+The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help):
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary-mode` flag for binary output mode).
 3. "Insert" a card file containing a 12 (row) * 80 (column) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
@@ -62,7 +60,7 @@ The simulation of the punched card reader is implemented in C++ and can be built
 5. Alternatively, do `make sim-test` (or `make sim-test-binary`) to run the simulation on *ALL* the test cards in the `sim/test-cards/` directory.
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
-If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected to the local machine, the following make commands that are built upon `arduino-cli` can be used.
+If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected to the local machine, the following make commands (`make help` for help) that are built upon `arduino-cli` can be used.
 - To list connected Arduino boards:
   ```bash
   make arduino-board-list
@@ -80,24 +78,24 @@ If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected t
   ```bash
   make arduino-core-list
   ```
-- To work with alternative sketches, supply the path to the sketch via the `FILE` variable:
+- To compile the Arduino sketch specified in FILE:
   ```bash
-  make arduino-compile FILE=PunchedCardReader/<sketch-name>.ino
-  make arduino-upload FILE=PunchedCardReader/<sketch-name>.ino PORT=<serial-port>
+  make arduino-compile FILE=<path-to-sketch>
   ```
-- To display the help message:
+- To upload the compiled Arduino sketch specified in FILE to the Arduino board at PORT:
   ```bash
-  make help
+  make arduino-upload FILE=<path-to-sketch> PORT=<serial-port>
   ```
 
-## Run Unit Tests
+## Unit Testing
 Unit tests for the punched card reader can be found in the `PunchedCardReader/test/` directory.
 
 - ***TODO(zzmic):*** Decide which testing framework to use and provide instructions on how to run the tests. Alternatively, we may not use a testing framework at all and instead implement unit tests in `.ino` files that can be compiled and uploaded to the Arduino board.
 
 ## Verification with Dafny
 The punched card reader's core logic is formally verified at the algorithmic level using [Dafny](https://dafny.org). The Dafny files are located in the `dafny/` directory.
-To verify the Dafny files, ensure that [the Dafny executable or the VSCode extension for Dafny](https://dafny.org/latest/Installation) is installed, then run the following command in the `dafny/` directory:
+To verify the Dafny files, ensure that [the Dafny binary build or the VSCode extension for Dafny (Dafny VSCode)](https://dafny.org/latest/Installation) is installed.
+If using the command line, run the following command from the project's root directory:
 ```bash
 dafny verify dafny/*
 ```
