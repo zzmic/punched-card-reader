@@ -61,7 +61,6 @@ module CardProcessorTestsModule {
     ensures cp.prev_punched[..] == [true,true,true,false,false,false,false,false,false,true,false,true,false]
   {
     // 1110000001010 in bool.
-    // TODO(zzmic): Fix.
     var punched := Utils.SeqToArr13_bool([true,true,true,false,false,false,false,false,false,true,false,true,false]);
     assert punched[3] == false;
     var res := cp.ProcessEvent(punched);
