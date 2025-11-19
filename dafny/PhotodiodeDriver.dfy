@@ -27,12 +27,12 @@ module PhotodiodeDriverModule {
       modifies this, off_vals, punched
       ensures old(state) == LEDS_OFF ==>
                 state == LEDS_ON &&
-                (forall i :: 0 <= i < 13 ==> off_vals[i] == reading[i]) &&
-                (forall i :: 0 <= i < 13 ==> punched[i] == old(punched[i]))
+                (off_vals[..] == reading[..]) &&
+                (punched[..] == old(punched)[..])
       ensures old(state) == LEDS_ON ==>
                 state == LEDS_OFF &&
-                (forall i :: 0 <= i < 13 ==> punched[i] == (reading[i] - old(off_vals[i]) > THRESHOLD)) &&
-                (forall i :: 0 <= i < 13 ==> off_vals[i] == old(off_vals[i]))
+                (off_vals[..] == old(off_vals)[..]) &&
+                (forall i :: 0 <= i < 13 ==> punched[i] == (reading[i] - old(off_vals[i]) > THRESHOLD))
     {
       match state {
         case LEDS_OFF =>

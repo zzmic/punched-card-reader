@@ -33,25 +33,29 @@ module CardProcessorModule {
       ensures (&& old(state == WAIT_FOR_CARD)
                && !old(Utils.IsAllFalse(punched))) ==>
                 (&& state == WAIT_FOR_CARD
-                 && old(prev_punched) == prev_punched)
+                 /* Reference: https://www.cs.umd.edu/class/fall2025/cmsc433/Arrays.html#(part._.Array_vs_.Sequence).
+                  * `old(prev_punched) == prev_punched` may be too strong since it determines whether `prev_punched` is the same object as before.
+                  * Thus, we should relax it to only check for value equality.
+                  */
+                 && old(prev_punched)[..] == prev_punched[..])
       ensures (&& old(state == WAIT_FOR_COLUMN)
                && old(Utils.IsAllTrue(punched))) ==>
                 (&& state == WAIT_FOR_CARD
-                 && old(prev_punched) == prev_punched
-                 && (forall i :: 0 <= i < 13 ==> prev_punched[i] == punched[i])
+                 && old(prev_punched)[..] == prev_punched[..]
+                 && prev_punched[..] == punched[..]
                  && res.card_ended
                  && res.output_ready)
       ensures (&& old(state == WAIT_FOR_COLUMN)
                && old(Utils.IsFallingEdge(prev_punched, punched))) ==>
                 (&& state == COLUMN_ENDED
-                 && old(prev_punched) == prev_punched
+                 && old(prev_punched)[..] == prev_punched[..]
                  && (forall i :: 0 <= i < 12 ==> res.column[i] == prev_punched[i + 1])
                  && res.output_ready)
       ensures (&& old(state == WAIT_FOR_COLUMN)
                && !old(Utils.IsAllTrue(punched))
                && !old(Utils.IsFallingEdge(prev_punched, punched))) ==>
                 (&& state == WAIT_FOR_COLUMN
-                 && (forall i :: 0 <= i < 13 ==> prev_punched[i] == punched[i])
+                 && prev_punched[..] == punched[..]
                  && !res.card_ended
                  && !res.output_ready)
       ensures (&& old(state == COLUMN_ENDED)
@@ -61,7 +65,7 @@ module CardProcessorModule {
       ensures (&& old(state == COLUMN_ENDED)
                && !old(Utils.IsAllFalse(punched))) ==>
                 (&& state == COLUMN_ENDED
-                 && old(prev_punched) == prev_punched)
+                 && old(prev_punched)[..] == prev_punched[..])
     {
       var column := new bool[12](_ => false);
       var card_ended := false;
@@ -74,7 +78,7 @@ module CardProcessorModule {
             while i < 13
               modifies prev_punched
               invariant 0 <= i <= 13
-              invariant forall j :: 0 <= j < i ==> prev_punched[j] == false
+              invariant forall j :: 0 <= j < i ==> !prev_punched[j]
             {
               prev_punched[i] := false;
               i := i + 1;

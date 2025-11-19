@@ -37,7 +37,7 @@ module UtilitiesModule {
   // "unless an initializer is provided for the array elements, a new array of 'T' must have empty size" error.
   method SeqToArr12_bool(s: seq<bool>) returns (arr: arrayOfLength12<bool>)
     requires |s| == 12
-    ensures forall i :: 0 <= i < 12 ==> arr[i] == s[i]
+    ensures arr[..] == s[..]
   {
     arr := new bool[12];
     var i: int := 0;
@@ -52,7 +52,7 @@ module UtilitiesModule {
 
   method SeqToArr13_int(s: seq<int>) returns (arr: arrayOfLength13<int>)
     requires |s| == 13
-    ensures forall i :: 0 <= i < 13 ==> arr[i] == s[i]
+    ensures arr[..] == s[..]
   {
     arr := new int[13];
     var i: int := 0;
@@ -67,7 +67,7 @@ module UtilitiesModule {
 
   method SeqToArr13_bool(s: seq<bool>) returns (arr: arrayOfLength13<bool>)
     requires |s| == 13
-    ensures forall i :: 0 <= i < 13 ==> arr[i] == s[i]
+    ensures arr[..] == s[..]
   {
     arr := new bool[13];
     var i: int := 0;
