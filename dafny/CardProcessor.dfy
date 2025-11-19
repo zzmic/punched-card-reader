@@ -26,11 +26,11 @@ module CardProcessorModule {
 
     method ProcessEvent(punched: Utils.arrayOfLength13<bool>) returns (res: ProcessEventResult)
       modifies this, prev_punched
-      ensures (&& old(state == WAIT_FOR_CARD)
+      ensures (&& old(state) == WAIT_FOR_CARD
                && old(Utils.IsAllFalse(punched))) ==>
                 (&& state == WAIT_FOR_COLUMN
                  && Utils.IsAllFalse(prev_punched))
-      ensures (&& old(state == WAIT_FOR_CARD)
+      ensures (&& old(state) == WAIT_FOR_CARD
                && !old(Utils.IsAllFalse(punched))) ==>
                 (&& state == WAIT_FOR_CARD
                  /* Reference: https://www.cs.umd.edu/class/fall2025/cmsc433/Arrays.html#(part._.Array_vs_.Sequence).
@@ -38,31 +38,31 @@ module CardProcessorModule {
                   * Thus, we should relax it to only check for value equality.
                   */
                  && old(prev_punched)[..] == prev_punched[..])
-      ensures (&& old(state == WAIT_FOR_COLUMN)
+      ensures (&& old(state) == WAIT_FOR_COLUMN
                && old(Utils.IsAllTrue(punched))) ==>
                 (&& state == WAIT_FOR_CARD
                  && old(prev_punched)[..] == prev_punched[..]
                  && prev_punched[..] == punched[..]
                  && res.card_ended
                  && res.output_ready)
-      ensures (&& old(state == WAIT_FOR_COLUMN)
+      ensures (&& old(state) == WAIT_FOR_COLUMN
                && old(Utils.IsFallingEdge(prev_punched, punched))) ==>
                 (&& state == COLUMN_ENDED
                  && old(prev_punched)[..] == prev_punched[..]
-                 && (forall i :: 0 <= i < 12 ==> res.column[i] == prev_punched[i + 1])
+                 && res.column[..] == prev_punched[1..13]
                  && res.output_ready)
-      ensures (&& old(state == WAIT_FOR_COLUMN)
+      ensures (&& old(state) == WAIT_FOR_COLUMN
                && !old(Utils.IsAllTrue(punched))
                && !old(Utils.IsFallingEdge(prev_punched, punched))) ==>
                 (&& state == WAIT_FOR_COLUMN
                  && prev_punched[..] == punched[..]
                  && !res.card_ended
                  && !res.output_ready)
-      ensures (&& old(state == COLUMN_ENDED)
+      ensures (&& old(state) == COLUMN_ENDED
                && old(Utils.IsAllFalse(punched))) ==>
                 (&& state == WAIT_FOR_COLUMN
                  && Utils.IsAllFalse(prev_punched))
-      ensures (&& old(state == COLUMN_ENDED)
+      ensures (&& old(state) == COLUMN_ENDED
                && !old(Utils.IsAllFalse(punched))) ==>
                 (&& state == COLUMN_ENDED
                  && old(prev_punched)[..] == prev_punched[..])
