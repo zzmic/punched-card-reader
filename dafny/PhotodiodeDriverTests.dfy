@@ -19,7 +19,7 @@ module PhotodiodeDriverTestsModule {
     modifies pd, pd.off_vals, pd.punched
     ensures pd.state == PD.LEDS_ON
     ensures forall i :: 0 <= i < 13 ==> pd.off_vals[i] == reading[i]
-    ensures forall i :: 0 <= i < 13 ==> pd.punched[i] == old(pd.punched[i])
+    ensures pd.punched[..] == old(pd.punched)[..]
   {
     var old_punched := pd.punched;
     pd.Tick(reading);
@@ -30,7 +30,7 @@ module PhotodiodeDriverTestsModule {
     modifies pd, pd.off_vals, pd.punched
     ensures pd.state == PD.LEDS_OFF
     ensures forall i :: 0 <= i < 13 ==> pd.punched[i] == (reading[i] - old(pd.off_vals[i]) > pd.THRESHOLD)
-    ensures forall i :: 0 <= i < 13 ==> pd.off_vals[i] == old(pd.off_vals[i])
+    ensures pd.off_vals[..] == old(pd.off_vals)[..]
   {
     var old_off_vals := pd.off_vals;
     pd.Tick(reading);
@@ -63,7 +63,7 @@ module PhotodiodeDriverTestsModule {
 
     assert pd.state == PD.LEDS_ON;
     // 0220333344410.
-    assert forall i :: 0 <= i < 13 ==> pd.off_vals[i] == reading[i];
+    assert pd.off_vals[..] == reading[..];
   }
 
   method {:test} Test_PD_03(pd: PD.PhotodiodeDriver)
@@ -90,10 +90,9 @@ module PhotodiodeDriverTestsModule {
 
     assert pd.state == PD.LEDS_OFF;
     // 0000111122223.
-    assert forall i :: 0 <= i < 13 ==> pd.off_vals[i] == old(pd.off_vals[i]);
+    assert pd.off_vals[..] == old(pd.off_vals)[..];
     // 1111000011100 in bool.
-    var test_vals := Utils.SeqToArr13_bool([true,true,true,true,false,false,false,false,true,true,true,false,false]);
-    assert forall i :: 0 <= i < 13 ==> pd.punched[i] == test_vals[i];
+    assert pd.punched[..] == [true,true,true,true,false,false,false,false,true,true,true,false,false];
   }
 
   method {:test} Test_PD_04(pd: PD.PhotodiodeDriver)
@@ -120,10 +119,9 @@ module PhotodiodeDriverTestsModule {
 
     assert pd.state == PD.LEDS_OFF;
     // 0000111122223.
-    assert forall i :: 0 <= i < 13 ==> pd.off_vals[i] == old(pd.off_vals[i]);
+    assert pd.off_vals[..] == old(pd.off_vals)[..];
     // 1110000000101 in bool.
-    var test_vals := Utils.SeqToArr13_bool([true,true,true,false,false,false,false,false,false,false,true,false,true]);
-    assert forall i :: 0 <= i < 13 ==> pd.punched[i] == test_vals[i];
+    assert pd.punched[..] == [true,true,true,false,false,false,false,false,false,false,true,false,true];
   }
 
   method {:test} Test_PD_05(pd: PD.PhotodiodeDriver)
@@ -150,9 +148,8 @@ module PhotodiodeDriverTestsModule {
 
     assert pd.state == PD.LEDS_OFF;
     // 0220333344410.
-    assert forall i :: 0 <= i < 13 ==> pd.off_vals[i] == old(pd.off_vals[i]);
+    assert pd.off_vals[..] == old(pd.off_vals)[..];
     // 1011000010010 in bool.
-    var test_vals := Utils.SeqToArr13_bool([true,false,true,true,false,false,false,false,true,false,false,true,false]);
-    assert forall i :: 0 <= i < 13 ==> pd.punched[i] == test_vals[i];
+    assert pd.punched[..] == [true,false,true,true,false,false,false,false,true,false,false,true,false];
   }
 }
