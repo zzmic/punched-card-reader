@@ -22,8 +22,7 @@ SIM_DEPS = $(SIM_OBJECTS:.o=.d)
 
 .PHONY: help arduino-board-list arduino-core-update-index arduino-core-install \
 	arduino-core-list arduino-compile arduino-upload \
-	arduino-compile-punched-card-reader arduino-upload-punched-card-reader \
-	sim-build sim-format sim-clean
+	sim-build sim-format sim-clean sim-test sim-test-binary-mode
 
 arduino-board-list:
 	$(CLI) board list
@@ -79,6 +78,7 @@ help:
 	@printf '  %-30s %s\n' 'PORT' 'Serial port of the Arduino board (e.g., /dev/cu.usbmodemXXXX).'
 	@echo
 	@echo 'Targets:'
+	@printf '  %-30s %s\n' 'arduino-board-list' 'List connected Arduino boards.'
 	@printf '  %-30s %s\n' 'arduino-core-update-index' 'Update the local cache of available platforms and libraries.'
 	@printf '  %-30s %s\n' 'arduino-core-install' 'Install the core for the Arduino® UNO R4 WiFi board.'
 	@printf '  %-30s %s\n' 'arduino-core-list' 'List installed/available cores.'
@@ -88,4 +88,5 @@ help:
 	@printf '  %-30s %s\n' 'sim-format' 'Format the simulator source code using clang-format.'
 	@printf '  %-30s %s\n' 'sim-clean' 'Clean the simulator build artifacts.'
 	@printf '  %-30s %s\n' 'sim-test' 'Run the simulator tests.'
+	@printf '  %-30s %s\n' 'sim-test-binary-mode' 'Run the simulator tests in binary mode.'
 	@printf '  %-30s %s\n' 'help' 'Display this help message.'
