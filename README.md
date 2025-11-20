@@ -46,13 +46,10 @@ We have created some preliminary CAD prototypes just to virtually explore the ph
 ## Hardware Requirements
 - [Arduino® UNO R4 WiFi Board](https://store-usa.arduino.cc/products/uno-r4-wifi)
 
-## Software Requirements
-- [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/): A command-line interface for Arduino development.
-- [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain): A collection of tools for compiling and debugging ARM-based applications.
-- A GCC compiler that supports C++11 or later for building the simulation.
-
 ## Build and Run the Punched Card Reader Simulation
-The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help):
+Before building the simulation, ensure that a compatible [GCC](https://gcc.gnu.org) compiler that [supports C++11 or later](https://gcc.gnu.org/projects/cxx-status.html#cxx11) is [installed](https://gcc.gnu.org/install/) and available in the system's PATH.
+
+The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary-mode` flag for binary output mode).
 3. "Insert" a card file containing a 12 (row) * 80 (column) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
@@ -60,7 +57,9 @@ The simulation of the punched card reader is implemented in C++ and can be built
 5. Alternatively, do `make sim-test` (or `make sim-test-binary`) to run the simulation on *ALL* the test cards in the `sim/test-cards/` directory.
 
 ## Compile and Upload Arduino Sketches to the Arduino Board with the Makefile
-If `arduino-cli` is installed and the Arduino® UNO R4 WiFi board is connected to the local machine, the following make commands (`make help` for help) that are built upon `arduino-cli` can be used.
+To compile and upload Arduino sketches to the Arduino® UNO R4 WiFi board, ensure that [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/) is installed and available in the system's PATH and that the [Arduino® UNO R4 WiFi board core](https://docs.arduino.cc/hardware/uno-r4-wifi/) is installed.
+
+The following make commands (`make help` for help) built on `arduino-cli` can be used.
 - To list connected Arduino boards:
   ```bash
   make arduino-board-list
@@ -93,8 +92,11 @@ Unit tests for the punched card reader can be found in the `PunchedCardReader/te
 - ***TODO(zzmic):*** Decide which testing framework to use and provide instructions on how to run the tests. Alternatively, we may not use a testing framework at all and instead implement unit tests in `.ino` files that can be compiled and uploaded to the Arduino board.
 
 ## Verification with Dafny
-The punched card reader's core logic is formally verified at the algorithmic level using [Dafny](https://dafny.org). The Dafny files are located in the `dafny/` directory.
-To verify the Dafny files, ensure that [the Dafny binary build or the VSCode extension for Dafny (Dafny VSCode)](https://dafny.org/latest/Installation) is installed.
+The Dafny files in the `dafny/` directory *aim* to formally verify, at the algorithmic level, the correctness of the core logic of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
+They do not directly interact with the Arduino hardware or the Arduino framework; instead, they focus solely on verifying the algorithms and data structures used in the punched card reader.
+Due to time constraints, the Dafny files might not cover every aspect of the punched card reader's functionality (i.e., we do *not* claim full verification of the entire system), but they still serve as a useful tool for spotting potential issues we might encounter during system design, specification, and implementation.
+
+To verify the Dafny programs, ensure that [the Dafny binary build or the VSCode extension for Dafny (Dafny VSCode)](https://dafny.org/latest/Installation) is installed.
 If using the command line, run the following command from the project's root directory:
 ```bash
 dafny verify dafny/*
@@ -111,11 +113,6 @@ dafny verify dafny/*
 
 ## References
 - [Arduino CLI Documentation](https://arduino.github.io/arduino-cli/1.3/)
-- [Arduino Example: Blink](https://docs.arduino.cc/built-in-examples/basics/Blink/)
-- [Arduino Example: Calibrate Sensor Input](https://docs.arduino.cc/built-in-examples/analog/Calibration/)
-- [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain)
-- [Arm GNU Toolchain Downloads](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
-- [gcc-arm-embedded — Homebrew Formulae](https://formulae.brew.sh/cask/gcc-arm-embedded)
 - [Test Driving Arduino](https://christopherjmcclellan.wordpress.com/2018/02/16/test-driving-arduino/)
 - [CppUTest](https://cpputest.github.io)
 - [Unity](https://github.com/ThrowTheSwitch/Unity)
