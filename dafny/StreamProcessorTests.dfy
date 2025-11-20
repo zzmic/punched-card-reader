@@ -59,7 +59,7 @@ module StreamProcessorTestsModule {
     requires sp.stream_mode == SP.TEXT
   {
     // 0x40 = 0d64 -> 0b 0000 0100 0000 (padded to 12 bits).
-    var column := Utils.SeqToArr12_bool([false, false, false, false, false, true, false, false, false, false, false, false]);
+    var column := Utils.SeqToArr12<bool>([false, false, false, false, false, true, false, false, false, false, false, false]);
     res := sp.HandleInput(SP.TEXT, column, false);
     assert sp.stream_mode == SP.TEXT;
     assert res.output_ready;
@@ -72,7 +72,7 @@ module StreamProcessorTestsModule {
     requires sp.stream_mode == SP.BINARY
   {
     // 0x40 = 0d64 -> 0b 0000 0100 0000 (padded to 12 bits).
-    var column := Utils.SeqToArr12_bool([false, false, false, false, false, true, false, false, false, false, false, false]);
+    var column := Utils.SeqToArr12<bool>([false, false, false, false, false, true, false, false, false, false, false, false]);
     res := sp.HandleInput(SP.BINARY, column, false);
     assert sp.stream_mode == SP.BINARY;
     assert res.output_ready;
@@ -85,7 +85,7 @@ module StreamProcessorTestsModule {
     requires sp.stream_mode == SP.TEXT
   {
     // 0x15 = 0d21 -> 0b 0000 0001 0101 (padded to 12 bits).
-    var column := Utils.SeqToArr12_bool([false, false, false, false, false, false, false, true, false, true, false, true]);
+    var column := Utils.SeqToArr12<bool>([false, false, false, false, false, false, false, true, false, true, false, true]);
     res := sp.HandleInput(SP.TEXT, column, false);
     assert sp.stream_mode == SP.TEXT;
     assert res.output_ready;
@@ -98,7 +98,7 @@ module StreamProcessorTestsModule {
     requires sp.stream_mode == SP.BINARY
   {
     // 0x15 = 0d21 -> 0b 0000 0001 0101 (padded to 12 bits).
-    var column := Utils.SeqToArr12_bool([false, false, false, false, false, false, false, true, false, true, false, true]);
+    var column := Utils.SeqToArr12<bool>([false, false, false, false, false, false, false, true, false, true, false, true]);
     res := sp.HandleInput(SP.BINARY, column, false);
     assert sp.stream_mode == SP.BINARY;
     assert res.output_ready;

@@ -33,53 +33,20 @@ module UtilitiesModule {
     exists i :: 0 <= i < prev.Length && (prev[i] && !curr[i])
   }
 
-  // Generalizing the method to work for any type `T` triggers the
-  // "unless an initializer is provided for the array elements, a new array of 'T' must have empty size" error.
-  method SeqToArr12_bool(s: seq<bool>) returns (arr: arrayOfLength12<bool>)
+  method SeqToArr12<T>(s: seq<T>) returns (arr: arrayOfLength12<T>)
     requires |s| == 12
     ensures arr[..] == s[..]
     ensures fresh(arr)
   {
-    arr := new bool[12];
-    var i: int := 0;
-    while i < 12
-      invariant 0 <= i <= 12
-      invariant forall j :: 0 <= j < i ==> arr[j] == s[j]
-    {
-      arr[i] := s[i];
-      i := i + 1;
-    }
+    // Reference: https://dafny.org/dafny/DafnyRef/DafnyRef#sec-array-allocation.
+    arr := new T[12](i requires 0 <= i < 12 => s[i]);
   }
 
-  method SeqToArr13_int(s: seq<int>) returns (arr: arrayOfLength13<int>)
+  method SeqToArr13<T>(s: seq<T>) returns (arr: arrayOfLength13<T>)
     requires |s| == 13
     ensures arr[..] == s[..]
     ensures fresh(arr)
   {
-    arr := new int[13];
-    var i: int := 0;
-    while i < 13
-      invariant 0 <= i <= 13
-      invariant forall j :: 0 <= j < i ==> arr[j] == s[j]
-    {
-      arr[i] := s[i];
-      i := i + 1;
-    }
-  }
-
-  method SeqToArr13_bool(s: seq<bool>) returns (arr: arrayOfLength13<bool>)
-    requires |s| == 13
-    ensures arr[..] == s[..]
-    ensures fresh(arr)
-  {
-    arr := new bool[13];
-    var i: int := 0;
-    while i < 13
-      invariant 0 <= i <= 13
-      invariant forall j :: 0 <= j < i ==> arr[j] == s[j]
-    {
-      arr[i] := s[i];
-      i := i + 1;
-    }
+    arr := new T[13](i requires 0 <= i < 13 => s[i]);
   }
 }

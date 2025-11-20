@@ -15,7 +15,7 @@ module CardProcessorTestsModule {
     ensures Utils.IsAllFalse(cp.prev_punched)
   {
     // 0000000000000 in bool.
-    var punched := Utils.SeqToArr13_bool([false,false,false,false,false,false,false,false,false,false,false,false,false]);
+    var punched := Utils.SeqToArr13<bool>([false,false,false,false,false,false,false,false,false,false,false,false,false]);
     var res := cp.ProcessEvent(punched);
   }
 
@@ -29,7 +29,7 @@ module CardProcessorTestsModule {
     ensures old(cp.prev_punched)[..] == cp.prev_punched[..]
   {
     // 1010101010101 in bool.
-    var punched := Utils.SeqToArr13_bool([true,false,true,false,true,false,true,false,true,false,true,false,true]);
+    var punched := Utils.SeqToArr13<bool>([true,false,true,false,true,false,true,false,true,false,true,false,true]);
     assert punched[0];
     var res := cp.ProcessEvent(punched);
   }
@@ -44,7 +44,7 @@ module CardProcessorTestsModule {
     ensures old(cp.prev_punched)[..] == cp.prev_punched[..]
   {
     // 1010101010101 in bool.
-    var punched := Utils.SeqToArr13_bool([true,false,true,false,true,false,true,false,true,false,true,false,true]);
+    var punched := Utils.SeqToArr13<bool>([true,false,true,false,true,false,true,false,true,false,true,false,true]);
     assert punched[0];
     var res := cp.ProcessEvent(punched);
   }
@@ -61,7 +61,7 @@ module CardProcessorTestsModule {
     ensures cp.prev_punched[..] == [true,true,true,false,false,false,false,false,false,true,false,true,false]
   {
     // 1110000001010 in bool.
-    var punched := Utils.SeqToArr13_bool([true,true,true,false,false,false,false,false,false,true,false,true,false]);
+    var punched := Utils.SeqToArr13<bool>([true,true,true,false,false,false,false,false,false,true,false,true,false]);
     assert punched[3] == false;
     var res := cp.ProcessEvent(punched);
   }
@@ -76,7 +76,7 @@ module CardProcessorTestsModule {
     ensures cp.prev_punched[..] == [true,true,true,false,false,false,false,false,false,true,true,true,false]
   {
     // 1110000001110 in bool.
-    var punched := Utils.SeqToArr13_bool([true,true,true,false,false,false,false,false,false,true,true,true,false]);
+    var punched := Utils.SeqToArr13<bool>([true,true,true,false,false,false,false,false,false,true,true,true,false]);
     assert punched[3] == false;
     var res := cp.ProcessEvent(punched);
   }
@@ -91,7 +91,7 @@ module CardProcessorTestsModule {
     ensures cp.prev_punched[..] == [true,true,true,false,false,true,true,false,false,true,true,true,false]
   {
     // 1110011001110 in bool.
-    var punched := Utils.SeqToArr13_bool([true,true,true,false,false,true,true,false,false,true,true,true,false]);
+    var punched := Utils.SeqToArr13<bool>([true,true,true,false,false,true,true,false,false,true,true,true,false]);
     assert punched[3] == false;
     var res := cp.ProcessEvent(punched);
   }
@@ -108,7 +108,7 @@ module CardProcessorTestsModule {
     ensures res.column[..] == cp.prev_punched[1..13]
   {
     // 1110000000010 in bool.
-    var punched := Utils.SeqToArr13_bool([true,true,false,false,false,false,false,false,false,false,false,true,false]);
+    var punched := Utils.SeqToArr13<bool>([true,true,false,false,false,false,false,false,false,false,false,true,false]);
     assert punched[2] == false;
     res := cp.ProcessEvent(punched);
   }
@@ -125,7 +125,7 @@ module CardProcessorTestsModule {
     ensures res.column[..] == cp.prev_punched[1..13]
   {
     // 1100000000010 in bool.
-    var punched := Utils.SeqToArr13_bool([true,true,false,false,false,false,false,false,false,false,false,true,false]);
+    var punched := Utils.SeqToArr13<bool>([true,true,false,false,false,false,false,false,false,false,false,true,false]);
     assert punched[2] == false;
     res := cp.ProcessEvent(punched);
   }
@@ -142,7 +142,7 @@ module CardProcessorTestsModule {
     ensures res.column[..] == cp.prev_punched[1..13]
   {
     // 1000011101011 in bool.
-    var punched := Utils.SeqToArr13_bool([true,false,false,false,false,true,true,true,false,true,false,true,true]);
+    var punched := Utils.SeqToArr13<bool>([true,false,false,false,false,true,true,true,false,true,false,true,true]);
     assert punched[1] == false;
     res := cp.ProcessEvent(punched);
   }
@@ -159,7 +159,7 @@ module CardProcessorTestsModule {
     ensures res.column[..] == cp.prev_punched[1..13]
   {
     // 1000011101011 in bool.
-    var punched := Utils.SeqToArr13_bool([true,false,false,false,false,true,true,true,false,true,false,true,true]);
+    var punched := Utils.SeqToArr13<bool>([true,false,false,false,false,true,true,true,false,true,false,true,true]);
     assert punched[1] == false;
     res := cp.ProcessEvent(punched);
   }
@@ -174,7 +174,7 @@ module CardProcessorTestsModule {
     ensures cp.prev_punched[..] == [true,false,false,false,false,true,true,true,false,true,false,true,true]
   {
     // 1000011101011 in bool.
-    var punched := Utils.SeqToArr13_bool([true,false,false,false,false,true,true,true,false,true,false,true,true]);
+    var punched := Utils.SeqToArr13<bool>([true,false,false,false,false,true,true,true,false,true,false,true,true]);
     assert punched[1] == false;
     res := cp.ProcessEvent(punched);
   }
@@ -190,7 +190,7 @@ module CardProcessorTestsModule {
     ensures res.card_ended == true
   {
     // 1111111111111 in bool.
-    var punched := Utils.SeqToArr13_bool([true,true,true,true,true,true,true,true,true,true,true,true,true]);
+    var punched := Utils.SeqToArr13<bool>([true,true,true,true,true,true,true,true,true,true,true,true,true]);
     res := cp.ProcessEvent(punched);
   }
 
@@ -204,7 +204,7 @@ module CardProcessorTestsModule {
     ensures old(cp.prev_punched)[..] == cp.prev_punched[..]
   {
     // 0001000000000 in bool.
-    var punched := Utils.SeqToArr13_bool([false,false,false,true,false,false,false,false,false,false,false,false,false]);
+    var punched := Utils.SeqToArr13<bool>([false,false,false,true,false,false,false,false,false,false,false,false,false]);
     assert punched[3] == true;
     res := cp.ProcessEvent(punched);
   }
@@ -219,7 +219,7 @@ module CardProcessorTestsModule {
     ensures Utils.IsAllFalse(cp.prev_punched)
   {
     // 0000000000000 in bool.
-    var punched := Utils.SeqToArr13_bool([false,false,false,false,false,false,false,false,false,false,false,false,false]);
+    var punched := Utils.SeqToArr13<bool>([false,false,false,false,false,false,false,false,false,false,false,false,false]);
     res := cp.ProcessEvent(punched);
   }
 }

@@ -43,7 +43,7 @@ module PhotodiodeDriverTestsModule {
     requires Utils.IsAllZero(pd.off_vals)
   {
     // 0000111122223.
-    var reading := Utils.SeqToArr13_int([0,0,0,0,1,1,1,1,2,2,2,2,3]);
+    var reading := Utils.SeqToArr13<int>([0,0,0,0,1,1,1,1,2,2,2,2,3]);
     pd.Tick(reading);
 
     assert pd.state == PD.LEDS_ON;
@@ -58,7 +58,7 @@ module PhotodiodeDriverTestsModule {
     requires Utils.IsAllZero(pd.off_vals)
   {
     // 0220333344410.
-    var reading := Utils.SeqToArr13_int([0,2,2,0,3,3,3,3,4,4,4,1,0]);
+    var reading := Utils.SeqToArr13<int>([0,2,2,0,3,3,3,3,4,4,4,1,0]);
     pd.Tick(reading);
 
     assert pd.state == PD.LEDS_ON;
@@ -78,7 +78,7 @@ module PhotodiodeDriverTestsModule {
     ensures pd.punched[..] == [true,true,true,true,false,false,false,false,true,true,true,false,false]
   {
     // 5678432198760.
-    var reading := Utils.SeqToArr13_int([5,6,7,8,4,3,2,1,9,8,7,6,0]);
+    var reading := Utils.SeqToArr13<int>([5,6,7,8,4,3,2,1,9,8,7,6,0]);
     pd.Tick(reading);
   }
 
@@ -89,7 +89,7 @@ module PhotodiodeDriverTestsModule {
     requires pd.off_vals[..] == [0,0,0,0,1,1,1,1,2,2,2,2,3]
   {
     // 7654500056729.
-    var reading := Utils.SeqToArr13_int([7,6,5,4,5,0,0,0,5,6,7,2,9]);
+    var reading := Utils.SeqToArr13<int>([7,6,5,4,5,0,0,0,5,6,7,2,9]);
     pd.Tick(reading);
 
     assert pd.state == PD.LEDS_OFF;
@@ -111,7 +111,7 @@ module PhotodiodeDriverTestsModule {
     ensures pd.punched[..] == [true,false,true,true,false,false,false,false,true,false,false,true,false]
   {
     // 5678432198760.
-    var reading := Utils.SeqToArr13_int([5,6,7,8,4,3,2,1,9,8,7,6,0]);
+    var reading := Utils.SeqToArr13<int>([5,6,7,8,4,3,2,1,9,8,7,6,0]);
     pd.Tick(reading);
   }
 }

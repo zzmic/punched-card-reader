@@ -92,7 +92,7 @@ Unit tests for the punched card reader can be found in the `PunchedCardReader/te
 - ***TODO(zzmic):*** Decide which testing framework to use and provide instructions on how to run the tests. Alternatively, we may not use a testing framework at all and instead implement unit tests in `.ino` files that can be compiled and uploaded to the Arduino board.
 
 ## Verification with Dafny
-The Dafny files in the `dafny/` directory *aim* to formally verify, at the algorithmic level, the correctness of the core logic of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
+The Dafny files in the `dafny/` directory *aim* to formally verify, at the algorithmic level, the correctness of the logic of core components of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
 They do not directly interact with the Arduino hardware or the Arduino framework; instead, they focus solely on verifying the algorithms and data structures used in the punched card reader.
 Due to time constraints, the Dafny files might not cover every aspect of the punched card reader's functionality (i.e., we do *not* claim full verification of the entire system), but they still serve as a useful tool for spotting potential issues we might encounter during system design, specification, and implementation.
 
