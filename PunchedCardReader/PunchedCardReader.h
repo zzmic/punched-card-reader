@@ -8,8 +8,11 @@
 #define EMITTER_PINS_COUNT 12
 
 // P102
+// D13 on the Arduino
 const int READ_READY_PORT = 1;
 const int READ_READY_PIN = 2;
+
+const int ARDUINO_READ_READY_PIN = D13;
 
 // Card detector pin
 const int READ_READY_EMITTER_PIN = D12;

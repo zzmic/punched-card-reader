@@ -4,6 +4,8 @@
 void hardwareTest() {
     Serial.println("Hardware test begin...");
 
+    Serial.println("Testing analog pins...");
+
     writePins(DIGITAL_PINS, DIGITAL_PINS + EMITTER_PINS_COUNT, HIGH);
     delay(250);
     readPins(ANALOG_PINS, ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
@@ -18,6 +20,20 @@ void hardwareTest() {
     delay(250);
     printPins(ANALOG_PINS, ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
 
+    Serial.println("Testing read ready pin...");
+
+    int read_ready_val = 1023;
+
+    delay(250);
+    digitalWrite(READ_READY_EMITTER_PIN, HIGH);
+    read_ready_val = analogRead(ARDUINO_READ_READY_PIN);
+    Serial.println(read_ready_val);
+    delay(250);
+    digitalWrite(READ_READY_EMITTER_PIN, LOW);
+    read_ready_val = analogRead(ARDUINO_READ_READY_PIN);
+    Serial.println(read_ready_val);
+    delay(250);
+
     Serial.println("Hardware test ok...");
 }
 
@@ -26,6 +42,7 @@ void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(READ_READY_EMITTER_PIN, OUTPUT);
+  pinMode(ARDUINO_READ_READY_PIN, INPUT);
 
   for (int i = 0; i < READ_PINS_COUNT; i++) pinMode(ANALOG_PINS[i], INPUT);
   for (int i = 0; i < EMITTER_PINS_COUNT; i++) pinMode(DIGITAL_PINS[i], OUTPUT);
