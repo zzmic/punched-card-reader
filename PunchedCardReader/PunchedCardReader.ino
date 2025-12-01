@@ -4,23 +4,19 @@
 void hardwareTest() {
     Serial.println("Hardware test begin...");
 
-    writePins(ANALOG_PINS, ANALOG_PINS + EMITTER_PINS_COUNT / 2, HIGH);
+    writePins(DIGITAL_PINS, DIGITAL_PINS + EMITTER_PINS_COUNT, HIGH);
+    delay(250);
+    readPins(ANALOG_PINS, ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
 
-    readPins(ANALOG_PINS, ANALOG_PINS + EMITTER_PINS_COUNT / 2, readings_buffer);
+    delay(250);
+    printPins(ANALOG_PINS, ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
 
-    delay(500);
-    writePins(ANALOG_PINS, ANALOG_PINS + EMITTER_PINS_COUNT / 2, LOW);
-    writePins(ANALOG_PINS + EMITTER_PINS_COUNT / 2, ANALOG_PINS + EMITTER_PINS_COUNT, HIGH);
+    writePins(DIGITAL_PINS, DIGITAL_PINS + EMITTER_PINS_COUNT, LOW);
+    delay(250);
+    readPins(ANALOG_PINS, ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
 
-    readPins(ANALOG_PINS, ANALOG_PINS + EMITTER_PINS_COUNT / 2, readings_buffer);
-
-
-    delay(500);
-    writePins(ANALOG_PINS + EMITTER_PINS_COUNT / 2, ANALOG_PINS + EMITTER_PINS_COUNT, LOW);
-    delay(500);
-    digitalWrite(READ_READY_EMITTER_PIN, HIGH);
-    delay(500);
-    digitalWrite(READ_READY_EMITTER_PIN, LOW);
+    delay(250);
+    printPins(ANALOG_PINS, ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
 
     Serial.println("Hardware test ok...");
 }
@@ -30,6 +26,9 @@ void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(READ_READY_EMITTER_PIN, OUTPUT);
+
+  for (int i = 0; i < READ_PINS_COUNT; i++) pinMode(ANALOG_PINS[i], INPUT);
+  for (int i = 0; i < EMITTER_PINS_COUNT; i++) pinMode(DIGITAL_PINS[i], OUTPUT);
 
   // Disable write-protect
   R_PMISC->PWPR_b.B0WI = 0;
@@ -44,9 +43,6 @@ void setup() {
   // Enable write-protect
   R_PMISC->PWPR_b.PFSWE = 0;
   R_PMISC->PWPR_b.B0WI = 1;
-
-  for (int i = 0; i < READ_PINS_COUNT; i++) pinMode(ANALOG_PINS[i], INPUT);
-  for (int i = 0; i < EMITTER_PINS_COUNT; i++) pinMode(DIGITAL_PINS[i], OUTPUT);
 
   hardwareTest();
 }

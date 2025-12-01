@@ -18,7 +18,7 @@ const int READ_READY_EMITTER_PIN = D12;
 const int ANALOG_PINS[6] = { A0, A1, A2, A3, A4, A5 };
 const int DIGITAL_PINS[12] = { D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11 };
 
-int readings_buffer[12];
+int readings_buffer[12] = { 1023 };
 
 #define writePins(start_addr, end_addr, value) \
   for (const int *pin = start_addr; pin != end_addr; pin++) digitalWrite(*pin, value);
@@ -26,5 +26,10 @@ int readings_buffer[12];
 #define readPins(start_addr, end_addr, buffer) \
   for (const int *pin = start_addr; pin != end_addr; pin++) \
     { int *index = buffer; *index = analogRead(*pin); index++; }
+
+#define printPins(start_addr, end_addr, buffer) \
+  for (const int *pin = start_addr; pin != end_addr; pin++) \
+    { int *index = buffer; Serial.print(analogRead(*pin)); Serial.print(":"); index++; } \
+    Serial.println();
 
 #endif

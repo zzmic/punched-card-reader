@@ -5565,7 +5565,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 231.14 59.6899 0)
 			(effects
 				(font
@@ -6141,7 +6141,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 210.82 59.6899 0)
 			(effects
 				(font
@@ -6211,7 +6211,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 170.18 59.6899 0)
 			(effects
 				(font
@@ -6281,7 +6281,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 190.5 59.6899 0)
 			(effects
 				(font
@@ -6351,7 +6351,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 220.98 59.6899 0)
 			(effects
 				(font
@@ -6841,7 +6841,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 149.86 59.6899 0)
 			(effects
 				(font
@@ -6990,7 +6990,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 139.7 59.6899 0)
 			(effects
 				(font
@@ -7267,7 +7267,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 160.02 59.6899 0)
 			(effects
 				(font
@@ -7689,7 +7689,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 180.34 59.6899 0)
 			(effects
 				(font
@@ -8563,7 +8563,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 251.46 59.6899 0)
 			(effects
 				(font
@@ -8774,7 +8774,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 241.3 59.6899 0)
 			(effects
 				(font
@@ -8844,7 +8844,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 200.66 59.6899 0)
 			(effects
 				(font
