@@ -1,17 +1,28 @@
 // #define UNIT_TESTING
 #define SOFTWARE_INTEGRATION_TESTING
-// #define PRODUCTION
+
+#if defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
+  #define TESTING
+#endif
 
 #include "sensors.h"
 #include "photodiodeDriver.h"
 #include "cardProcessor.h"
 #include "streamProcessor.h"
+#include "computer.h"
 
-#include "mockedInterfaces.h"
-#include "unitTests.h"
-#include "softwareIntegrationTests.h"
+#ifdef TESTING
+  #include "testUtils.h"
+#endif
+#ifdef UNIT_TESTING
+  #include "unitTests.h"
+#endif
+#ifdef SOFTWARE_INTEGRATION_TESTING
+  #include "softwareIntegrationTests.h"
+#endif
 
 const unsigned int TIMER_INT = 31;
+const uint16_t PERIOD_MILLISECONDS = 10;
 
 void timerISR() {
   // stop the GPT3 counter
@@ -33,8 +44,8 @@ void timerISR() {
   #endif
 
   // Set up the next noteISR by setting a counter value and turning on GPT3 counter
-  R_GPT3->GTPR = (5 * (48 * 1000 * 1000 / 1024)) / (1000);
-  // ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
+  R_GPT3->GTPR = (PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
+  //  * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
   R_ICU->IELSR[TIMER_INT] = (0x075 << R_ICU_IELSR_IELS_Pos);
   R_GPT3->GTCR_b.CST = 1;
   

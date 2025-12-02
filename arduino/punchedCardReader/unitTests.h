@@ -38,7 +38,3 @@ typedef struct {
 } streamProcTest;
 
 void runUnitTests();
-
-punchReading stringToPunchReading(char *str);
-
-void printPunchReading(punchReading punched);

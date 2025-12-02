@@ -163,7 +163,7 @@ streamProcState updateStreamProcState(streamProcState curState, uint16_t col, bo
   return nextState;
 }
 
-#ifdef PRODUCTION
+#ifndef TESTING
 void sendColumn(uint16_t col) {
   curStreamProcState = updateStreamProcState(curStreamProcState, col, false);
 }

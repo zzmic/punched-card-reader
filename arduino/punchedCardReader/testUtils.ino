@@ -1,21 +1,4 @@
-bool evenLEDsOnCalled;
-bool evenLEDsOffCalled;
-bool oddLEDsOnCalled;
-bool oddLEDsOffCalled;
-
-fullPhotodiodeState pdState;
-
-bool sendPunchReadingCalled;
-punchReading sentPunchReading;
-fullCardProcState cpState;
-
-bool sendColumnCalled;
-uint16_t sentCol;
-bool sendCardEndCalled;
-streamProcState spState;
-
-bool sendByteCalled;
-char sentByte;
+#ifdef TESTING
 
 void resetMockedInterfaceTracking() {
   evenLEDsOnCalled = false;
@@ -31,7 +14,38 @@ void resetMockedInterfaceTracking() {
   sendByteCalled = false;
 }
 
-#if defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
+punchReading stringToPunchReading(char *str) {
+  punchReading output;
+  for (int i = 0; i < 13; i++) {
+    if (str[i] == '1') {
+      output.holes[i] = true;
+    } else {
+      output.holes[i] = false;
+    }
+  }
+  return output;
+}
+
+void printPunchReading(punchReading punched) {
+  for (int i = 0; i < 13; i++) {
+    if (punched.holes[i]) {
+      Serial.print("1");
+    } else {
+      Serial.print("0");
+    }
+  }
+}
+
+void printSavedSensorVals(uint16_t *vals) {
+  Serial.print("[");
+  for (int i = 0; i < 12; i++) {
+    Serial.print(vals[i]);
+    Serial.print(", ");
+  }
+  Serial.print(vals[12]);
+  Serial.print("]");
+}
+
 void evenLEDsOn() {
   evenLEDsOnCalled = true;
 }
@@ -82,4 +96,5 @@ void sendByte(char c) {
   sendByteCalled = true;
   sentByte = c;
 }
+
 #endif

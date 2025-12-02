@@ -17,6 +17,6 @@ void initCardProcessor();
 
 void sendPunchReading(punchReading reading);
 
-#ifdef defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
+#ifdef TESTING
 fullCardProcState updateCardProcState(fullCardProcState currState, punchReading punched);
 #endif

@@ -1,34 +1,4 @@
-punchReading stringToPunchReading(char *str) {
-  punchReading output;
-  for (int i = 0; i < 13; i++) {
-    if (str[i] == '1') {
-      output.holes[i] = true;
-    } else {
-      output.holes[i] = false;
-    }
-  }
-  return output;
-}
-
-void printPunchReading(punchReading punched) {
-  for (int i = 0; i < 13; i++) {
-    if (punched.holes[i]) {
-      Serial.print("1");
-    } else {
-      Serial.print("0");
-    }
-  }
-}
-
-void printSavedSensorVals(uint16_t *vals) {
-  Serial.print("[");
-  for (int i = 0; i < 12; i++) {
-    Serial.print(vals[i]);
-    Serial.print(", ");
-  }
-  Serial.print(vals[12]);
-  Serial.print("]");
-}
+#ifdef UNIT_TESTING
 
 int numPhotodiodeTests = 12;
 photodiodeTest photodiodeTests[] = {
@@ -790,3 +760,5 @@ void runUnitTests() {
     Serial.println("\nAll stream processor unit tests passed :)");
   }
 }
+
+#endif

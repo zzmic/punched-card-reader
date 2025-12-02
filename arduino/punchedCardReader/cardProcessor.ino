@@ -63,7 +63,7 @@ void initCardProcessor() {
   }
 }
 
-#ifdef PRODUCTION
+#ifndef TESTING
 void sendPunchReading(punchReading reading) {
   curCardProcState = updateCardProcState(curCardProcState, reading);
 }

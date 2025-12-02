@@ -11,6 +11,6 @@ void sendColumn(uint16_t col);
 
 void sendCardEnd();
 
-#ifdef defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
+#ifdef TESTING
 streamProcState updateStreamProcState(streamProcState curState, uint16_t col, bool cardEnded);
 #endif

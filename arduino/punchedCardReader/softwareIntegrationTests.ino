@@ -1,4 +1,6 @@
-// simulates reading a card with only an i and a semicolon
+#ifdef SOFTWARE_INTEGRATION_TESTING
+
+// simulates reading a card that represents this single line of a program: "};"
 integrationTestTimeStep softwareIntTestSteps[] {
   integrationTestTimeStep {
     1,
@@ -1109,3 +1111,5 @@ bool checkMessages() {
 
   return (++curTimeStep == 52);
 }
+
+#endif

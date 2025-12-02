@@ -17,6 +17,6 @@ void initPhotodiodeDriver();
 
 void sendSensorReading(sensorReading reading);
 
-#ifdef defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
+#ifdef TESTING
 fullPhotodiodeState updatePhotodiodeState(fullPhotodiodeState curState, sensorReading reading);
 #endif
