@@ -1,5 +1,5 @@
-// #define UNIT_TESTING
-#define SOFTWARE_INTEGRATION_TESTING
+#define UNIT_TESTING
+// #define SOFTWARE_INTEGRATION_TESTING
 
 #if defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
   #define TESTING
@@ -46,7 +46,7 @@ void timerISR() {
   R_GPT3->GTPR = c_COUNTER;
   R_ICU->IELSR[c_TIMER_INT] = (0x075 << R_ICU_IELSR_IELS_Pos);
   R_GPT3->GTCR_b.CST = 1;
-  
+
   // Clear any pending flags
   // MCU side
   R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
@@ -81,7 +81,7 @@ void setup() {
   // Disable GPT interrupt on ICU for now
   R_ICU->IELSR[c_TIMER_INT] = 0;
   // Use the Arm CMSIS API to enable CPU interrupts
-  R_ICU->IELSR[c_TIMER_INT] = (0x075 << R_ICU_IELSR_IELS_Pos); // interrupt enabled on GPT3 overflow 
+  R_ICU->IELSR[c_TIMER_INT] = (0x075 << R_ICU_IELSR_IELS_Pos); // interrupt enabled on GPT3 overflow
 
   NVIC_SetVector((IRQn_Type) c_TIMER_INT, (uint32_t) &timerISR); // set vector entry to our handler
   NVIC_SetPriority((IRQn_Type) c_TIMER_INT, 13); // Priority lower than Serial (12)

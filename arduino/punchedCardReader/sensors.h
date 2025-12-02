@@ -20,7 +20,7 @@ typedef struct {
 
 void initSensors();
 
-sensorReading readSensors(punchReading punched);
+sensorReading readSensors();
 
 void evenLEDsOn();
 

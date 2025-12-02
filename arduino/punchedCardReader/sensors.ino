@@ -34,12 +34,14 @@ void initSensors() {
     writePins(c_DIGITAL_PINS, c_DIGITAL_PINS + EMITTER_PINS_COUNT, HIGH);
 }
 
-sensorReading readSensors(punchReading punched) {
+#ifndef SOFTWARE_INTEGRATION_TESTING
+sensorReading readSensors() {
   sensorReading result;
   readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT,
            (int *)result.readings);
   return result;
 }
+#endif // SOFTWARE_INTEGRATION_TESTING
 
 #ifndef TESTING
 void evenLEDsOn() {
