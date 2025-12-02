@@ -6,8 +6,8 @@
 	(paper "USLetter")
 	(title_block
 		(title "Punched Card Reader")
-		(date "2025-11-17")
-		(rev "1.0")
+		(date "2025-12-01")
+		(rev "1.2")
 		(company "Brown University")
 		(comment 1 "Configure pin D13 on the UNO R4 to be analog input with the Renesas API")
 		(comment 2 "Resistor values are subject to change")
@@ -4683,7 +4683,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "068fbeef-e40c-4eca-a7aa-ebfb42a03709")
-		(property "Reference" "D6"
+		(property "Reference" "D10"
 			(at 215.9 123.5074 90)
 			(effects
 				(font
@@ -4738,7 +4738,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D6")
+					(reference "D10")
 					(unit 1)
 				)
 			)
@@ -4833,7 +4833,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "117a496f-bb39-4af5-a881-de631aa6e4ed")
-		(property "Reference" "D5"
+		(property "Reference" "D9"
 			(at 203.2 123.5074 90)
 			(effects
 				(font
@@ -4888,7 +4888,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D5")
+					(reference "D9")
 					(unit 1)
 				)
 			)
@@ -4904,7 +4904,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "16eaba7a-dc78-4f6c-9a92-1cb1e64a8580")
-		(property "Reference" "R3"
+		(property "Reference" "R7"
 			(at 162.56 132.0799 0)
 			(effects
 				(font
@@ -4958,7 +4958,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R3")
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -4974,7 +4974,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1ce06212-c1fe-42ea-9f3e-f678991b3c39")
-		(property "Reference" "D4"
+		(property "Reference" "D8"
 			(at 177.8 123.5074 90)
 			(effects
 				(font
@@ -5029,7 +5029,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D4")
+					(reference "D8")
 					(unit 1)
 				)
 			)
@@ -5124,7 +5124,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "225f72cd-ad83-43fe-861a-dccfd572319f")
-		(property "Reference" "D8"
+		(property "Reference" "D4"
 			(at 101.6 123.5074 90)
 			(effects
 				(font
@@ -5179,7 +5179,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D8")
+					(reference "D4")
 					(unit 1)
 				)
 			)
@@ -5626,7 +5626,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "418a65c6-55ed-4836-b3e5-0f714abbeb5e")
-		(property "Reference" "R1"
+		(property "Reference" "R5"
 			(at 124.46 132.0799 0)
 			(effects
 				(font
@@ -5680,7 +5680,7 @@
 		(instances
 			(project ""
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R1")
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -6061,7 +6061,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "54ad0b90-11b3-4942-a1ec-2524375aa3f0")
-		(property "Reference" "D10"
+		(property "Reference" "D2"
 			(at 63.5 123.5074 90)
 			(effects
 				(font
@@ -6116,7 +6116,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D10")
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -7117,7 +7117,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8e76af86-a0dc-40e6-8365-1df3acf07d6d")
-		(property "Reference" "R5"
+		(property "Reference" "R9"
 			(at 200.66 132.0799 0)
 			(effects
 				(font
@@ -7171,7 +7171,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R5")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -7187,7 +7187,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8fceeea0-fac1-4a4b-b478-76fd3802745c")
-		(property "Reference" "D2"
+		(property "Reference" "D6"
 			(at 139.7 123.5074 90)
 			(effects
 				(font
@@ -7242,7 +7242,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D2")
+					(reference "D6")
 					(unit 1)
 				)
 			)
@@ -7328,7 +7328,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "941763de-8d11-4802-84b1-4130ce5d72c4")
-		(property "Reference" "R10"
+		(property "Reference" "R2"
 			(at 60.96 132.0799 0)
 			(effects
 				(font
@@ -7382,7 +7382,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R10")
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -7398,7 +7398,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "99029216-6894-4490-a45a-e072cf3f61bc")
-		(property "Reference" "D7"
+		(property "Reference" "D3"
 			(at 88.9 123.5074 90)
 			(effects
 				(font
@@ -7453,7 +7453,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D7")
+					(reference "D3")
 					(unit 1)
 				)
 			)
@@ -7610,7 +7610,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a4733fa8-93a0-4a98-9a11-d2782505676a")
-		(property "Reference" "R7"
+		(property "Reference" "R3"
 			(at 86.36 132.0799 0)
 			(effects
 				(font
@@ -7664,7 +7664,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R7")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -7965,7 +7965,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b32ebe3a-c685-49ae-a633-8266ee81d8ea")
-		(property "Reference" "D9"
+		(property "Reference" "D1"
 			(at 50.8 123.5074 90)
 			(effects
 				(font
@@ -8020,7 +8020,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D9")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -8115,7 +8115,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b9f9dcf1-e00d-4e13-a614-b7e639ffc1fb")
-		(property "Reference" "D1"
+		(property "Reference" "D5"
 			(at 127 123.5074 90)
 			(effects
 				(font
@@ -8170,7 +8170,7 @@
 		(instances
 			(project ""
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D1")
+					(reference "D5")
 					(unit 1)
 				)
 			)
@@ -8186,7 +8186,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "be3bed0d-99b9-4771-86b6-326256176d9f")
-		(property "Reference" "R9"
+		(property "Reference" "R1"
 			(at 48.26 132.0799 0)
 			(effects
 				(font
@@ -8240,7 +8240,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R9")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -8256,7 +8256,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c4dd88ce-247e-4b56-8c19-fdcaf46d5313")
-		(property "Reference" "R6"
+		(property "Reference" "R10"
 			(at 213.36 132.0799 0)
 			(effects
 				(font
@@ -8310,7 +8310,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R6")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -8326,7 +8326,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d452682d-0a86-4b65-b597-98e4fb0e5ab9")
-		(property "Reference" "R4"
+		(property "Reference" "R8"
 			(at 175.26 132.0799 0)
 			(effects
 				(font
@@ -8380,7 +8380,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R4")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -8624,7 +8624,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e22c762b-1cb1-4313-b65f-b77130b80a4d")
-		(property "Reference" "R8"
+		(property "Reference" "R4"
 			(at 99.06 132.0799 0)
 			(effects
 				(font
@@ -8678,7 +8678,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R8")
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -8694,7 +8694,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ebc0c28f-4c7a-42b3-b087-37ac9e0930fe")
-		(property "Reference" "D3"
+		(property "Reference" "D7"
 			(at 165.1 123.5074 90)
 			(effects
 				(font
@@ -8749,7 +8749,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D3")
+					(reference "D7")
 					(unit 1)
 				)
 			)
@@ -8984,7 +8984,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ffda5e65-3206-4c11-8727-9931a6db56c4")
-		(property "Reference" "R2"
+		(property "Reference" "R6"
 			(at 137.16 132.0799 0)
 			(effects
 				(font
@@ -9038,7 +9038,7 @@
 		(instances
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R2")
+					(reference "R6")
 					(unit 1)
 				)
 			)

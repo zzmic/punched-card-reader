@@ -4,9 +4,9 @@
 #include "Arduino.h"
 #include "CardProcessor.h"
 
-// These don't include the card detector pin
 #define READ_PINS_COUNT 6
-#define EMITTER_PINS_COUNT 12
+#define HALF_EMITTER_PINS_COUNT 6
+#define EMITTER_PINS_COUNT 13
 
 #define writePins(start_addr, end_addr, value) \
   for (const int *pin = start_addr; pin != end_addr; pin++) digitalWrite(*pin, value);
@@ -20,20 +20,39 @@
     { int *index = buffer; Serial.print(analogRead(*pin)); Serial.print(":"); index++; } \
     Serial.println();
 
+#define printBuffer(start_addr, size) \
+  for (const int *item = start_addr; item != start_addr + size; item++) \
+    { int val = *item; Serial.print(val); Serial.print(":"); } \
+    Serial.println();
+
 // P102
 // D13 on the Arduino
-const int c_READ_READY_PORT = 1;
-const int c_READ_READY_PIN = 2;
+const int c_SENSE_PORT = 1;
+const int c_SENSE_PIN = 2;
 
-const int c_ARDUINO_READ_READY_PIN = D13;
+const int c_ARDUINO_SENSE_PIN = D13;
 
 // Card detector pin
-const int c_READ_READY_EMITTER_PIN = D12;
+const int c_SENSE_EMITTER_PIN = D12;
 
 // As defined by our latest pins schema
 const int c_ANALOG_PINS[6] = { A0, A1, A2, A3, A4, A5 };
-const int c_DIGITAL_PINS[12] = { D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11 };
+const int c_DIGITAL_PINS[13] = { D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, c_SENSE_EMITTER_PIN };
+const int c_EVEN_PINS[6] = { D0, D2, D4, D6, D8, D10 };
+const int c_ODD_PINS[6] = { D1, D3, D5, D7, D9, D11 };
 
-int readings_buffer[12] = { 1023 };
+#define allLEDsOff writePins(c_DIGITAL_PINS, c_DIGITAL_PINS + EMITTER_PINS_COUNT, LOW);
+#define allLEDsOn writePins(c_DIGITAL_PINS, c_DIGITAL_PINS + EMITTER_PINS_COUNT, HIGH);
+
+#define evenLEDsOff writePins(c_EVEN_PINS, c_EVEN_PINS + HALF_EMITTER_PINS_COUNT, LOW);
+#define evenLEDsOn writePins(c_EVEN_PINS, c_EVEN_PINS + HALF_EMITTER_PINS_COUNT, HIGH);
+
+#define oddLEDsOff writePins(c_ODD_PINS, c_ODD_PINS + HALF_EMITTER_PINS_COUNT, LOW);
+#define oddLEDsOn writePins(c_ODD_PINS, c_ODD_PINS + HALF_EMITTER_PINS_COUNT, HIGH);
+
+int readings_buffer[13] = { 1023 };
+bool data_leds[12] = { false };
+bool sense_led = false;
+bool mode_switch = false;
 
 #endif
