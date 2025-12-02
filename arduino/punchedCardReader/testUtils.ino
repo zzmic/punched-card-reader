@@ -14,8 +14,8 @@ void resetMockedInterfaceTracking() {
   sendByteCalled = false;
 }
 
-punchReading stringToPunchReading(char *str) {
-  punchReading output;
+PunchReading stringToPunchReading(char *str) {
+  PunchReading output;
   for (int i = 0; i < 13; i++) {
     if (str[i] == '1') {
       output.holes[i] = true;
@@ -26,7 +26,7 @@ punchReading stringToPunchReading(char *str) {
   return output;
 }
 
-void printPunchReading(punchReading punched) {
+void printPunchReading(PunchReading punched) {
   for (int i = 0; i < 13; i++) {
     if (punched.holes[i]) {
       Serial.print("1");
@@ -62,11 +62,11 @@ void oddLEDsOff() {
   oddLEDsOffCalled = true;
 }
 
-void sendSensorReading(sensorReading reading) {
+void sendSensorReading(SensorReading reading) {
   pdState = updatePhotodiodeState(pdState, reading);
 }
 
-void sendPunchReading(punchReading reading) {
+void sendPunchReading(PunchReading reading) {
   sendPunchReadingCalled = true;
   sentPunchReading = reading;
 

@@ -6,22 +6,22 @@ typedef enum {
   s_EVEN_ON = 1,
   s_ODD_ON = 2,
   s_CALC = 3,
-} photodiodeDriverState;
+} PhotodiodeDriverState;
 
 typedef struct {
-  photodiodeDriverState state;
+  PhotodiodeDriverState state;
   uint16_t onVals[13];
   uint16_t offVals[13];
-} fullPhotodiodeState;
+} FullPhotodiodeState;
 
 const uint16_t minDiff = 700;
 
 void initPhotodiodeDriver();
 
-void sendSensorReading(sensorReading reading);
+void sendSensorReading(SensorReading reading);
 
 #ifdef TESTING
-fullPhotodiodeState updatePhotodiodeState(fullPhotodiodeState curState, sensorReading reading);
+FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorReading reading);
 #endif // TESTING
 
 #endif // PHOTODIODE_DRIVER_H

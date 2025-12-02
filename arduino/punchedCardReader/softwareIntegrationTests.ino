@@ -1,8 +1,8 @@
 #ifdef SOFTWARE_INTEGRATION_TESTING
 
 // simulates reading a card that represents this single line of a program: "};"
-integrationTestTimeStep softwareIntTestSteps[] {
-  integrationTestTimeStep {
+IntegrationTestTimeStep softwareIntTestSteps[] {
+  IntegrationTestTimeStep {
     1,
     {0,0,0,0,0,0,0},
 
@@ -21,7 +21,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     2,
     {900,900,900,900,900,900,900},
 
@@ -40,7 +40,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     3,
     {900,900,900,900,900,900,0},
 
@@ -59,7 +59,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     4,
     {0,0,0,0,0,0,0},
 
@@ -78,7 +78,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     5,
     {0,0,0,0,0,0,0},
 
@@ -97,7 +97,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     6,
     {900,900,900,900,900,500,500},
 
@@ -116,7 +116,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     7,
     {900,900,900,900,500,500,0},
 
@@ -135,7 +135,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     8,
     {0,0,0,0,0,0,0},
 
@@ -154,7 +154,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     9,
     {0,0,0,0,0,0,0},
 
@@ -173,7 +173,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     10,
     {500,500,500,500,500,500,500},
 
@@ -192,7 +192,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     11,
     {500,500,500,500,500,500,0},
 
@@ -211,7 +211,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     12,
     {0,0,0,0,0,0,0},
 
@@ -230,7 +230,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     13,
     {0,0,0,0,0,0,0},
 
@@ -249,7 +249,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     14,
     {500,500,500,500,500,500,500},
 
@@ -268,7 +268,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     15,
     {500,900,900,500,500,500,0},
 
@@ -287,7 +287,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     16,
     {0,0,0,0,0,0,0},
 
@@ -306,7 +306,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     17,
     {0,0,0,0,0,0,0},
 
@@ -325,7 +325,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     18,
     {500,500,500,900,900,500,500},
 
@@ -344,7 +344,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     19,
     {500,900,900,500,500,500,0},
 
@@ -363,7 +363,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     20,
     {0,0,0,0,0,0,0},
 
@@ -382,7 +382,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     21,
     {0,0,0,0,0,0,0},
 
@@ -401,7 +401,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     22,
     {500,500,500,500,500,500,900},
 
@@ -420,7 +420,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     23,
     {500,900,900,500,500,500,0},
 
@@ -439,7 +439,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     24,
     {0,0,0,0,0,0,0},
 
@@ -458,7 +458,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     true,
     '}',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     25,
     {0,0,0,0,0,0,0},
 
@@ -477,7 +477,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     26,
     {500,500,500,500,500,500,900},
 
@@ -496,7 +496,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     27,
     {500,500,500,500,500,500,0},
 
@@ -515,7 +515,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     28,
     {0,0,0,0,0,0,0},
 
@@ -534,7 +534,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     29,
     {0,0,0,0,0,0,0},
 
@@ -553,7 +553,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     30,
     {500,500,500,500,500,500,500},
 
@@ -572,7 +572,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     31,
     {500,500,500,500,500,500,0},
 
@@ -591,7 +591,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     32,
     {0,0,0,0,0,0,0},
 
@@ -610,7 +610,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     33,
     {0,0,0,0,0,0,0},
 
@@ -629,7 +629,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     34,
     {500,500,500,500,900,900,500},
 
@@ -648,7 +648,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     35,
     {500,500,500,500,900,900,0},
 
@@ -667,7 +667,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     36,
     {0,0,0,0,0,0,0},
 
@@ -686,7 +686,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     37,
     {0,0,0,0,0,0,0},
 
@@ -705,7 +705,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     38,
     {500,500,500,900,900,900,500},
 
@@ -724,7 +724,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     39,
     {500,900,500,500,900,900,0},
 
@@ -743,7 +743,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     40,
     {0,0,0,0,0,0,0},
 
@@ -762,7 +762,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     41,
     {0,0,0,0,0,0,0},
 
@@ -781,7 +781,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     42,
     {500,500,500,500,500,500,500},
 
@@ -800,7 +800,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     43,
     {500,500,500,500,500,500,0},
 
@@ -819,7 +819,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     44,
     {0,0,0,0,0,0,0},
 
@@ -838,7 +838,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     true,
     ';',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     45,
     {0,0,0,0,0,0,0},
 
@@ -857,7 +857,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     46,
     {500,500,500,500,500,500,500},
 
@@ -876,7 +876,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     47,
     {500,500,500,500,500,500,0},
 
@@ -895,7 +895,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     48,
     {0,0,0,0,0,0,0},
 
@@ -914,7 +914,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     49,
     {0,0,0,0,0,0,0},
 
@@ -933,7 +933,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     50,
     {900,900,900,900,900,900,900},
 
@@ -952,7 +952,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     51,
     {900,900,900,900,900,900,0},
 
@@ -971,7 +971,7 @@ integrationTestTimeStep softwareIntTestSteps[] {
     false,
     '\0',
   },
-  integrationTestTimeStep {
+  IntegrationTestTimeStep {
     52,
     {0,0,0,0,0,0,0},
 
@@ -994,14 +994,14 @@ integrationTestTimeStep softwareIntTestSteps[] {
 
 int curTimeStep = 0;
 
-sensorReading readSensors() {
-  sensorReading output;
+SensorReading readSensors() {
+  SensorReading output;
   memcpy(&(output.readings), &(softwareIntTestSteps[curTimeStep].reading), 2 * 7);
   return output;
 }
 
 bool checkMessages() {
-  integrationTestTimeStep expected = softwareIntTestSteps[curTimeStep];
+  IntegrationTestTimeStep expected = softwareIntTestSteps[curTimeStep];
 
   if (evenLEDsOnCalled != expected.evenLEDsOnCalled) {
     Serial.print("\nIncorrect evenLEDsOn call at time step ");
@@ -1052,7 +1052,7 @@ bool checkMessages() {
     Serial.print("\tActual: ");
     Serial.println(sendPunchReadingCalled);
   } else if (expected.sendPunchReadingCalled && memcmp(&(sentPunchReading.holes), &(expected.sentPunchReading.holes), 13)) {
-    Serial.print("\nIncorrect punchReading sent at time step ");
+    Serial.print("\nIncorrect PunchReading sent at time step ");
     Serial.println(expected.stepNum);
 
     Serial.print("\tExpected: ");

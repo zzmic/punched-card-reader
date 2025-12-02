@@ -3,25 +3,25 @@
 
 typedef struct {
   bool holes[13];
-} punchReading;
+} PunchReading;
 
 typedef enum {
   s_WAIT_FOR_CARD = 0,
   s_WAIT_FOR_COLUMN = 1,
   s_COLUMN_ENDED = 2,
-} cardProcState;
+} CardProcState;
 
 typedef struct {
-  cardProcState state;
-  punchReading prevPunched;
-} fullCardProcState;
+  CardProcState state;
+  PunchReading prevPunched;
+} FullCardProcState;
 
 void initCardProcessor();
 
-void sendPunchReading(punchReading reading);
+void sendPunchReading(PunchReading reading);
 
 #ifdef TESTING
-fullCardProcState updateCardProcState(fullCardProcState currState, punchReading punched);
+FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading punched);
 #endif // TESTING
 
 #endif // CARD_PROCESSOR_H

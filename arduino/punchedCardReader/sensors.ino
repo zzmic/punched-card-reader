@@ -35,8 +35,8 @@ void initSensors() {
 }
 
 #ifndef SOFTWARE_INTEGRATION_TESTING
-sensorReading readSensors() {
-  sensorReading result;
+SensorReading readSensors() {
+  SensorReading result;
   readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT,
            (int *)result.readings);
   return result;

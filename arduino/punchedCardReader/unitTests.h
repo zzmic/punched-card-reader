@@ -3,11 +3,11 @@
 
 typedef struct {
   uint8_t testNum;
-  photodiodeDriverState startState;
+  PhotodiodeDriverState startState;
   uint16_t readings[7];
   uint16_t offVals[13];
   uint16_t onVals[13];
-  photodiodeDriverState endState;
+  PhotodiodeDriverState endState;
   uint16_t offValsAfter[13];
   uint16_t onValsAfter[13];
   bool evenLEDsOnCalled;
@@ -15,30 +15,30 @@ typedef struct {
   bool oddLEDsOnCalled;
   bool oddLEDsOffCalled;
   bool sendPunchReadingCalled;
-  punchReading sentPunchReading;
-} photodiodeTest;
+  PunchReading sentPunchReading;
+} PhotodiodeTest;
 
 typedef struct {
   uint8_t testNum;
-  cardProcState startState;
+  CardProcState startState;
   char *prevPunched;
   char *punched;
-  cardProcState endState;
+  CardProcState endState;
   char *prevPunchedAfter;
   bool sendColumnCalled;
   uint16_t sentCol;
   bool sendCardEndCalled;
-} cardProcTest;
+} CardProcTest;
 
 typedef struct {
   uint8_t testNum;
-  streamProcState startState;
+  StreamProcState startState;
   uint16_t col;
   bool cardEnded;
-  streamProcState endState;
+  StreamProcState endState;
   bool sendByteCalled;
   char sentByte;
-} streamProcTest;
+} StreamProcTest;
 
 void runUnitTests();
 

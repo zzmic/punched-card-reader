@@ -1,5 +1,5 @@
-fullPhotodiodeState updatePhotodiodeState(fullPhotodiodeState curState, sensorReading reading) {
-  fullPhotodiodeState ret = curState;
+FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorReading reading) {
+  FullPhotodiodeState ret = curState;
 
   switch(curState.state) {
     case s_ALL_OFF:
@@ -30,7 +30,7 @@ fullPhotodiodeState updatePhotodiodeState(fullPhotodiodeState curState, sensorRe
     break;
 
     case s_CALC:
-    punchReading punched;
+    PunchReading punched;
     for (int i = 0; i < 13; i++) {
       punched.holes[i] = (curState.onVals[i] - curState.offVals[i]) > minDiff;
     }
@@ -43,7 +43,7 @@ fullPhotodiodeState updatePhotodiodeState(fullPhotodiodeState curState, sensorRe
   return ret;
 }
 
-fullPhotodiodeState curPhotodiodeState;
+FullPhotodiodeState curPhotodiodeState;
 
 void initPhotodiodeDriver() {
   curPhotodiodeState.state = s_ALL_OFF;

@@ -3,7 +3,7 @@ const uint8_t ebcdicTag = 0b0010;
 
 char ebcdicToChar[256];
 
-streamProcState curStreamProcState;
+StreamProcState curStreamProcState;
 
 void initStreamProcessor() {
   curStreamProcState = s_TEXT;
@@ -132,8 +132,8 @@ char colToByte(uint16_t col) {
   }
 }
 
-streamProcState updateStreamProcState(streamProcState curState, uint16_t col, bool cardEnded) {
-  streamProcState nextState = curState;
+StreamProcState updateStreamProcState(StreamProcState curState, uint16_t col, bool cardEnded) {
+  StreamProcState nextState = curState;
   bool isBinary = isBinaryCol(col);
 
   switch(curState) {

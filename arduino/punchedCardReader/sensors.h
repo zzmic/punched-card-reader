@@ -16,11 +16,11 @@ const int c_ODD_PINS[6] = {D1, D3, D5, D7, D9, D11};
 
 typedef struct {
   uint16_t readings[7];
-} sensorReading;
+} SensorReading;
 
 void initSensors();
 
-sensorReading readSensors();
+SensorReading readSensors();
 
 void evenLEDsOn();
 

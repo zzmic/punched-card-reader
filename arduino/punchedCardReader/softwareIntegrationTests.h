@@ -11,7 +11,7 @@ typedef struct {
   bool oddLEDsOffCalled;
 
   bool sendPunchReadingCalled;
-  punchReading sentPunchReading;
+  PunchReading sentPunchReading;
 
   bool sendColumnCalled;
   uint16_t sentCol;
@@ -19,7 +19,7 @@ typedef struct {
 
   bool sendByteCalled;
   char sentByte;
-} integrationTestTimeStep;
+} IntegrationTestTimeStep;
 
 bool checkMessages();
 

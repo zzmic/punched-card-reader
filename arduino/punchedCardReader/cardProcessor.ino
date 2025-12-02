@@ -1,4 +1,4 @@
-uint16_t punchedReadingToBinary(punchReading punched) {
+uint16_t punchedReadingToBinary(PunchReading punched) {
   uint16_t output = 0;
   for (int i = 1; i < 13; i++) {
     output = output << 1;
@@ -9,10 +9,10 @@ uint16_t punchedReadingToBinary(punchReading punched) {
   return output;
 }
 
-fullCardProcState updateCardProcState(fullCardProcState currState, punchReading punched) {
-  punchReading prevPunched = currState.prevPunched;
-  cardProcState state = currState.state;
-  fullCardProcState ret = currState;
+FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading punched) {
+  PunchReading prevPunched = currState.prevPunched;
+  CardProcState state = currState.state;
+  FullCardProcState ret = currState;
 
   bool allHigh = true;
   bool allLow = true;
@@ -54,7 +54,7 @@ fullCardProcState updateCardProcState(fullCardProcState currState, punchReading 
   return ret;
 }
 
-fullCardProcState curCardProcState;
+FullCardProcState curCardProcState;
 
 void initCardProcessor() {
   curCardProcState.state = s_WAIT_FOR_CARD;
@@ -64,7 +64,7 @@ void initCardProcessor() {
 }
 
 #ifndef TESTING
-void sendPunchReading(punchReading reading) {
+void sendPunchReading(PunchReading reading) {
   curCardProcState = updateCardProcState(curCardProcState, reading);
 }
 #endif // TESTING

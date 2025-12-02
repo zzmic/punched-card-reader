@@ -6,25 +6,25 @@ bool evenLEDsOffCalled;
 bool oddLEDsOnCalled;
 bool oddLEDsOffCalled;
 
-fullPhotodiodeState pdState;
+FullPhotodiodeState pdState;
 
 bool sendPunchReadingCalled;
-punchReading sentPunchReading;
-fullCardProcState cpState;
+PunchReading sentPunchReading;
+FullCardProcState cpState;
 
 bool sendColumnCalled;
 uint16_t sentCol;
 bool sendCardEndCalled;
-streamProcState spState;
+StreamProcState spState;
 
 bool sendByteCalled;
 char sentByte;
 
 void resetMockedInterfaceTracking();
 
-punchReading stringToPunchReading(char *str);
+PunchReading stringToPunchReading(char *str);
 
-void printPunchReading(punchReading punched);
+void printPunchReading(PunchReading punched);
 
 void printSavedSensorVals(uint16_t *vals);
 

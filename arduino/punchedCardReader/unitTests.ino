@@ -1,8 +1,8 @@
 #ifdef UNIT_TESTING
 
 int numPhotodiodeTests = 12;
-photodiodeTest photodiodeTests[] = {
-  photodiodeTest {
+PhotodiodeTest photodiodeTests[] = {
+  PhotodiodeTest {
     1,
     s_ALL_OFF,
     {100,200,150,125,110,105,175},
@@ -18,7 +18,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     2,
     s_ALL_OFF,
     {10,30,50,70,60,40,20},
@@ -34,7 +34,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     3,
     s_EVEN_ON,
     {800,950,400,980,905,600,300},
@@ -50,7 +50,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     4,
     s_EVEN_ON,
     {370,890,460,600,920,890,780},
@@ -66,7 +66,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     5,
     s_EVEN_ON,
     {370,890,460,600,920,890,780},
@@ -82,7 +82,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     6,
     s_ODD_ON,
     {990,100,980,110,970,120,960},
@@ -98,7 +98,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     7,
     s_ODD_ON,
     {650,640,520,800,820,1000,900},
@@ -114,7 +114,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     8,
     s_ODD_ON,
     {650,640,520,800,820,1000,900},
@@ -130,7 +130,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     9,
     s_ODD_ON,
     {650,640,520,800,820,1000,900},
@@ -146,7 +146,7 @@ photodiodeTest photodiodeTests[] = {
     false,
     stringToPunchReading("0000000000000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     10,
     s_CALC,
     {200,200,200,200,200,200,200},
@@ -162,7 +162,7 @@ photodiodeTest photodiodeTests[] = {
     true,
     stringToPunchReading("0010011011000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     11,
     s_CALC,
     {200,200,200,200,200,200,200},
@@ -178,7 +178,7 @@ photodiodeTest photodiodeTests[] = {
     true,
     stringToPunchReading("1110011011000"),
   },
-  photodiodeTest {
+  PhotodiodeTest {
     12,
     s_CALC,
     {200,200,200,200,200,200,200},
@@ -196,18 +196,18 @@ photodiodeTest photodiodeTests[] = {
   },
 };
 
-bool runPhotodiodeTest(photodiodeTest test) {
+bool runPhotodiodeTest(PhotodiodeTest test) {
   resetMockedInterfaceTracking();
 
-  fullPhotodiodeState curState;
+  FullPhotodiodeState curState;
   curState.state = test.startState;
   memcpy(&(curState.offVals), &(test.offVals), 2 * 13);
   memcpy(&(curState.onVals), &(test.onVals), 2 * 13);
 
-  sensorReading reading;
+  SensorReading reading;
   memcpy(&(reading.readings), &(test.readings), 2 * 7);
 
-  fullPhotodiodeState result = updatePhotodiodeState(curState, reading);
+  FullPhotodiodeState result = updatePhotodiodeState(curState, reading);
 
   if (test.endState != result.state) {
     Serial.print("\nFailed test #");
@@ -307,8 +307,8 @@ bool runPhotodiodeTest(photodiodeTest test) {
 }
 
 int numCardProcTests = 14;
-cardProcTest cardProcTests[] = {
-  cardProcTest {
+CardProcTest cardProcTests[] = {
+  CardProcTest {
     1,
     s_WAIT_FOR_CARD,
     "1111111111111",
@@ -319,7 +319,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     2,
     s_WAIT_FOR_CARD,
     "1111111111111",
@@ -330,7 +330,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     3,
     s_WAIT_FOR_CARD,
     "0000000000000",
@@ -341,7 +341,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     4,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -352,7 +352,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     5,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -363,7 +363,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     6,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -374,7 +374,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     7,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -385,7 +385,7 @@ cardProcTest cardProcTests[] = {
     0b110000001010,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     8,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -396,7 +396,7 @@ cardProcTest cardProcTests[] = {
     0b110000001010,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     9,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -407,7 +407,7 @@ cardProcTest cardProcTests[] = {
     0b110000001010,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     10,
     s_WAIT_FOR_COLUMN,
     "1110000111111",
@@ -418,7 +418,7 @@ cardProcTest cardProcTests[] = {
     0b110000111111,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     11,
     s_WAIT_FOR_COLUMN,
     "1000011100011",
@@ -429,7 +429,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     12,
     s_WAIT_FOR_COLUMN,
     "1110000001010",
@@ -440,7 +440,7 @@ cardProcTest cardProcTests[] = {
     0,
     true,
   },
-  cardProcTest {
+  CardProcTest {
     13,
     s_COLUMN_ENDED,
     "1011001100110",
@@ -451,7 +451,7 @@ cardProcTest cardProcTests[] = {
     0,
     false,
   },
-  cardProcTest {
+  CardProcTest {
     14,
     s_COLUMN_ENDED,
     "1011001100110",
@@ -464,16 +464,16 @@ cardProcTest cardProcTests[] = {
   },
 };
 
-bool runCardProcTest(cardProcTest test) {
+bool runCardProcTest(CardProcTest test) {
   resetMockedInterfaceTracking();
 
-  punchReading prevPunched = stringToPunchReading(test.prevPunched);
-  punchReading prevPunchedAfter = stringToPunchReading(test.prevPunchedAfter);
-  punchReading punched = stringToPunchReading(test.punched);
+  PunchReading prevPunched = stringToPunchReading(test.prevPunched);
+  PunchReading prevPunchedAfter = stringToPunchReading(test.prevPunchedAfter);
+  PunchReading punched = stringToPunchReading(test.punched);
 
-  fullCardProcState curState = {test.startState, prevPunched};
+  FullCardProcState curState = {test.startState, prevPunched};
 
-  fullCardProcState result = updateCardProcState(curState, punched);
+  FullCardProcState result = updateCardProcState(curState, punched);
 
   if (test.endState != result.state) {
     Serial.print("\nFailed test #");
@@ -533,8 +533,8 @@ bool runCardProcTest(cardProcTest test) {
 }
 
 int numStreamProcTests = 14;
-streamProcTest streamProcTests[] = {
-  streamProcTest {
+StreamProcTest streamProcTests[] = {
+  StreamProcTest {
     1,
     s_TEXT,
     0x281,
@@ -543,7 +543,7 @@ streamProcTest streamProcTests[] = {
     true,
     'a',
   },
-  streamProcTest {
+  StreamProcTest {
     2,
     s_TEXT,
     0x24C,
@@ -552,7 +552,7 @@ streamProcTest streamProcTests[] = {
     true,
     '<',
   },
-  streamProcTest {
+  StreamProcTest {
     3,
     s_TEXT,
     0x277,
@@ -561,7 +561,7 @@ streamProcTest streamProcTests[] = {
     true,
     unknownChar,
   },
-  streamProcTest {
+  StreamProcTest {
     4,
     s_TEXT,
     0x381,
@@ -570,7 +570,7 @@ streamProcTest streamProcTests[] = {
     true,
     unknownChar,
   },
-  streamProcTest {
+  StreamProcTest {
     5,
     s_TEXT,
     0x281,
@@ -579,7 +579,7 @@ streamProcTest streamProcTests[] = {
     true,
     '\n',
   },
-  streamProcTest {
+  StreamProcTest {
     6,
     s_TEXT,
     0x181,
@@ -588,7 +588,7 @@ streamProcTest streamProcTests[] = {
     true,
     0x81,
   },
-  streamProcTest {
+  StreamProcTest {
     7,
     s_TEXT,
     0x14C,
@@ -597,7 +597,7 @@ streamProcTest streamProcTests[] = {
     true,
     0x4C,
   },
-  streamProcTest {
+  StreamProcTest {
     8,
     s_BINARY,
     0x1FF,
@@ -606,7 +606,7 @@ streamProcTest streamProcTests[] = {
     true,
     0xFF,
   },
-  streamProcTest {
+  StreamProcTest {
     9,
     s_BINARY,
     0x1D0,
@@ -615,7 +615,7 @@ streamProcTest streamProcTests[] = {
     true,
     0xD0,
   },
-  streamProcTest {
+  StreamProcTest {
     10,
     s_BINARY,
     0x1FF,
@@ -624,7 +624,7 @@ streamProcTest streamProcTests[] = {
     false,
     '\0', // this value shouldn't matter
   },
-  streamProcTest {
+  StreamProcTest {
     11,
     s_BINARY,
     0x2D0,
@@ -633,7 +633,7 @@ streamProcTest streamProcTests[] = {
     true,
     '}',
   },
-  streamProcTest {
+  StreamProcTest {
     12,
     s_BINARY,
     0x2F7,
@@ -642,7 +642,7 @@ streamProcTest streamProcTests[] = {
     true,
     '7',
   },
-  streamProcTest {
+  StreamProcTest {
     13,
     s_BINARY,
     0x0F7,
@@ -651,7 +651,7 @@ streamProcTest streamProcTests[] = {
     true,
     unknownChar,
   },
-  streamProcTest {
+  StreamProcTest {
     14,
     s_BINARY,
     0x2BD,
@@ -662,10 +662,10 @@ streamProcTest streamProcTests[] = {
   },
 };
 
-bool runStreamProcTest(streamProcTest test) {
+bool runStreamProcTest(StreamProcTest test) {
   resetMockedInterfaceTracking();
 
-  streamProcState result = updateStreamProcState(test.startState, test.col, test.cardEnded);
+  StreamProcState result = updateStreamProcState(test.startState, test.col, test.cardEnded);
 
   if (test.endState != result) {
     Serial.print("\nFailed test #");

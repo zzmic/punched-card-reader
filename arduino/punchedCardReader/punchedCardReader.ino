@@ -30,7 +30,7 @@ void timerISR() {
   // stop the GPT3 counter
   R_GPT3->GTCR_b.CST = 0;
 
-  sensorReading curReading = readSensors();
+  SensorReading curReading = readSensors();
   sendSensorReading(curReading);
 
   #ifdef SOFTWARE_INTEGRATION_TESTING
