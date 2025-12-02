@@ -67,4 +67,4 @@ void initCardProcessor() {
 void sendPunchReading(punchReading reading) {
   curCardProcState = updateCardProcState(curCardProcState, reading);
 }
-#endif
+#endif // TESTING

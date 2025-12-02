@@ -171,5 +171,5 @@ void sendColumn(uint16_t col) {
 void sendCardEnd() {
   curStreamProcState = updateStreamProcState(curStreamProcState, 0, true);
 }
-#endif
+#endif // TESTING
 

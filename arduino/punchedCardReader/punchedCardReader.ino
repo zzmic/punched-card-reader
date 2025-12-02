@@ -13,13 +13,13 @@
 
 #ifdef TESTING
   #include "testUtils.h"
-#endif
+#endif // TESTING
 #ifdef UNIT_TESTING
   #include "unitTests.h"
-#endif
+#endif // UNIT_TESTING
 #ifdef SOFTWARE_INTEGRATION_TESTING
   #include "softwareIntegrationTests.h"
-#endif
+#endif // SOFTWARE_INTEGRATION_TESTING
 
 const unsigned int c_TIMER_INT = 31;
 const unsigned int c_PERIOD_MILLISECONDS = 10;
@@ -65,19 +65,19 @@ void setup() {
 
   #ifdef UNIT_TESTING
   runUnitTests();
-  #endif
+  #endif // UNIT_TESTING
 
   // TODO: set up watchdog
 
   // Enable GPT peripheral
-  R_MSTP->MSTPCRD_b.MSTPD6 = 0; 
+  R_MSTP->MSTPCRD_b.MSTPD6 = 0;
   // Make sure the count isn't started
   R_GPT3->GTCR_b.CST = 0;
   // Make sure nobody else can start the count (see 22.2.5 and 22.2.6)
   R_GPT3->GTSSR = (1 << R_GPT0_GTSSR_CSTRT_Pos); // only started w/ software
   R_GPT3->GTPSR = (1 << R_GPT0_GTPSR_CSTOP_Pos); // only stopped w/ software
   // Divide the GPT3 clock
-  R_GPT3->GTCR = R_GPT3->GTCR & ~(0b111 << 24) | (0b101 << 24); 
+  R_GPT3->GTCR = R_GPT3->GTCR & ~(0b111 << 24) | (0b101 << 24);
   // Disable GPT interrupt on ICU for now
   R_ICU->IELSR[c_TIMER_INT] = 0;
   // Use the Arm CMSIS API to enable CPU interrupts
@@ -93,5 +93,5 @@ void setup() {
 }
 
 void loop() {
-  
+
 }

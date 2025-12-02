@@ -1087,7 +1087,7 @@ bool checkMessages() {
     Serial.println(expected.sendCardEndCalled);
     Serial.print("\tActual: ");
     Serial.println(sendCardEndCalled);
-  } 
+  }
 
   if (sendByteCalled != expected.sendByteCalled) {
     Serial.print("\nIncorrect sendByte call at time step ");
@@ -1112,4 +1112,4 @@ bool checkMessages() {
   return (++curTimeStep == 52);
 }
 
-#endif
+#endif // SOFTWARE_INTEGRATION_TESTING

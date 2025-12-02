@@ -1,3 +1,6 @@
+#ifndef CARD_PROCESSOR_H
+#define CARD_PROCESSOR_H
+
 typedef struct {
   bool holes[13];
 } punchReading;
@@ -19,4 +22,6 @@ void sendPunchReading(punchReading reading);
 
 #ifdef TESTING
 fullCardProcState updateCardProcState(fullCardProcState currState, punchReading punched);
-#endif
+#endif // TESTING
+
+#endif // CARD_PROCESSOR_H
