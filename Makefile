@@ -21,7 +21,7 @@ CXXFLAGS += -MMD -MP
 SIM_DEPS = $(SIM_OBJECTS:.o=.d)
 
 .PHONY: help arduino-board-list arduino-core-update-index arduino-core-install \
-	arduino-core-list arduino-compile arduino-upload \
+	arduino-core-list arduino-compile arduino-compile-and-upload \
 	sim-build sim-format sim-clean sim-test sim-test-binary-mode
 
 arduino-board-list:
@@ -40,9 +40,10 @@ arduino-compile:
 	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make compile FILE=$(SKETCH_DIR)/Blink.ino)" >&2; exit 1; }
 	$(CLI) compile --fqbn $(FQBN) $(FILE)
 
-arduino-upload:
+arduino-compile-and-upload:
 	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
 	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
+	$(CLI) compile --fqbn $(FQBN) $(FILE)
 	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(FILE)
 
 $(SIM_BIN_DIR):
