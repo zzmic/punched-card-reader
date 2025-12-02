@@ -84,7 +84,7 @@ help:
 	@printf '  %-30s %s\n' 'arduino-core-install' 'Install the core for the Arduino® UNO R4 WiFi board.'
 	@printf '  %-30s %s\n' 'arduino-core-list' 'List installed/available cores.'
 	@printf '  %-30s %s\n' 'arduino-compile' 'Compile the Arduino sketch specified in FILE.'
-	@printf '  %-30s %s\n' 'arduino-upload' 'Upload the sketch in FILE to the board on PORT.'
+	@printf '  %-30s %s\n' 'arduino-compile-and-upload' 'Compile and upload the Arduino sketch specified in FILE to the board at PORT.'
 	@printf '  %-30s %s\n' 'sim-build' 'Build the punched card reader simulator.'
 	@printf '  %-30s %s\n' 'sim-format' 'Format the simulator source code using clang-format.'
 	@printf '  %-30s %s\n' 'sim-clean' 'Clean the simulator build artifacts.'

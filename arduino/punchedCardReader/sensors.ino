@@ -30,7 +30,10 @@ void printBuffer(const int *start_addr, size_t size) {
 }
 
 void initSensors() {
-    pinMode(c_SENSE_EMITTER_PIN, OUTPUT);
+    for (int i = 0; i < EMITTER_PINS_COUNT; ++i) {
+      pinMode(c_DIGITAL_PINS[i], OUTPUT);
+    }
+    pinMode(c_SENSE_EMITTER_PIN, INPUT);
     writePins(c_DIGITAL_PINS, c_DIGITAL_PINS + EMITTER_PINS_COUNT, HIGH);
 }
 
@@ -39,6 +42,7 @@ SensorReading readSensors() {
   SensorReading result;
   readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT,
            (int *)result.readings);
+  result.readings[6] = (uint16_t)digitalRead(c_SENSE_EMITTER_PIN);
   return result;
 }
 #endif // SOFTWARE_INTEGRATION_TESTING
