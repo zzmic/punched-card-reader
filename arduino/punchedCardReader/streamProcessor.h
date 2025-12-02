@@ -1,3 +1,6 @@
+#ifndef STREAM_PROCESSOR_H
+#define STREAM_PROCESSOR_H
+
 typedef enum {
   s_TEXT = 0,
   s_BINARY = 1,
@@ -13,4 +16,6 @@ void sendCardEnd();
 
 #ifdef TESTING
 streamProcState updateStreamProcState(streamProcState curState, uint16_t col, bool cardEnded);
-#endif
+#endif // TESTING
+
+#endif // STREAM_PROCESSOR_H

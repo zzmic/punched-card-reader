@@ -465,7 +465,7 @@ cardProcTest cardProcTests[] = {
 };
 
 bool runCardProcTest(cardProcTest test) {
-  resetMockedInterfaceTracking();  
+  resetMockedInterfaceTracking();
 
   punchReading prevPunched = stringToPunchReading(test.prevPunched);
   punchReading prevPunchedAfter = stringToPunchReading(test.prevPunchedAfter);
@@ -761,4 +761,4 @@ void runUnitTests() {
   }
 }
 
-#endif
+#endif // UNIT_TESTING

@@ -2,4 +2,4 @@
 void sendByte(char b) {
   Serial.write(b);
 }
-#endif
+#endif // PRODUCTION

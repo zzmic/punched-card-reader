@@ -72,7 +72,7 @@ void sendPunchReading(punchReading reading) {
 
   #ifndef UNIT_TESTING
   cpState = updateCardProcState(cpState, reading);
-  #endif
+  #endif // UNIT_TESTING
 }
 
 void sendColumn(uint16_t col) {
@@ -81,7 +81,7 @@ void sendColumn(uint16_t col) {
 
   #ifndef UNIT_TESTING
   spState = updateStreamProcState(spState, col, false);
-  #endif
+  #endif // UNIT_TESTING
 }
 
 void sendCardEnd() {
@@ -89,7 +89,7 @@ void sendCardEnd() {
 
   #ifndef UNIT_TESTING
   spState = updateStreamProcState(spState, 0, true);
-  #endif
+  #endif // UNIT_TESTING
 }
 
 void sendByte(char c) {
@@ -97,4 +97,4 @@ void sendByte(char c) {
   sentByte = c;
 }
 
-#endif
+#endif // TESTING

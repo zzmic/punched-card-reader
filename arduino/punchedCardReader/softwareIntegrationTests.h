@@ -1,3 +1,6 @@
+#ifndef SOFTWARE_INTEGRATION_TESTS_H
+#define SOFTWARE_INTEGRATION_TESTS_H
+
 typedef struct {
   uint8_t stepNum;
   uint16_t reading[7];
@@ -19,3 +22,5 @@ typedef struct {
 } integrationTestTimeStep;
 
 bool checkMessages();
+
+#endif // SOFTWARE_INTEGRATION_TESTS_H

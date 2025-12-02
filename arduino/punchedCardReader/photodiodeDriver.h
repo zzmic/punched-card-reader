@@ -1,3 +1,6 @@
+#ifndef PHOTODIODE_DRIVER_H
+#define PHOTODIODE_DRIVER_H
+
 typedef enum {
   s_ALL_OFF = 0,
   s_EVEN_ON = 1,
@@ -19,4 +22,6 @@ void sendSensorReading(sensorReading reading);
 
 #ifdef TESTING
 fullPhotodiodeState updatePhotodiodeState(fullPhotodiodeState curState, sensorReading reading);
-#endif
+#endif // TESTING
+
+#endif // PHOTODIODE_DRIVER_H

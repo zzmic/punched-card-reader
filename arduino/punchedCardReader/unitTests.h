@@ -1,3 +1,6 @@
+#ifndef UNIT_TESTS_H
+#define UNIT_TESTS_H
+
 typedef struct {
   uint8_t testNum;
   photodiodeDriverState startState;
@@ -38,3 +41,5 @@ typedef struct {
 } streamProcTest;
 
 void runUnitTests();
+
+#endif // UNIT_TESTS_H
