@@ -78,5 +78,5 @@ void calibrate();
 
 #ifdef defined(UNIT_TESTING_H) || defined(SOFTWARE_INTEGRATION_TESTING_H)
 PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readings);
-#endif
-#endif
+#endif // defined(UNIT_TESTING_H) || defined(SOFTWARE_INTEGRATION_TESTING_H)
+#endif // PHOTODIODE_DRIVER_H

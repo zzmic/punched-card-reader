@@ -26,4 +26,4 @@ void runAllTests();
 
 PunchReadings stringToPunchReading(char *str);
 
-#endif
+#endif // CARD_PROCESSOR_TESTS_H

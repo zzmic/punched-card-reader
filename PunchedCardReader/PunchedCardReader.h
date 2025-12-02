@@ -8,4 +8,4 @@ int readings[13] = { 1023 };
 bool data_leds[12] = { false };
 bool sense_led = false;
 
-#endif
+#endif // PUNCHED_CARD_READER_H

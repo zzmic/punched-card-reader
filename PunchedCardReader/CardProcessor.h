@@ -25,4 +25,4 @@ const PunchReadings c_ZEROED_READINGS = { .holes = { false } };
 
 ProcessorData updateProcessorData(ProcessorData current, PunchReadings punched);
 
-#endif
+#endif // CARD_PROCESSOR_H
