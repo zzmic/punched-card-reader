@@ -3,41 +3,40 @@
 
 uint16_t punchedReadingToBinary(PunchReadings punched) {
   uint16_t output = 0;
-  for (int i = 1; i < 13; i++) {
-    output = output << 1;
-    if (punched.holes[i]) output += 1;
+  for (int i = 0; i < DATA_BITS_COUNT; i++) {
+    if (punched.holes[i]) output += 1 << i;
   }
   return output;
 }
 
-ProcessorData updateData(ProcessorData current, PunchReadings punched) {
+ProcessorData updateProcessorData(ProcessorData current, PunchReadings punched) {
   PunchReadings previous = current.prevPunched;
   ProcessorState state = current.state;
   ProcessorData ret = current;
 
-  bool allHigh = true;
-  bool allLow = true;
-  bool anyFalling = false;
+  bool all_high = true;
+  bool all_low = true;
+  bool any_falling = false;
 
-  for (int i = 0; i < 13; i++) {
-    allHigh = allHigh && punched.holes[i];
-    allLow = allLow && !punched.holes[i];
-    anyFalling = anyFalling || (previous.holes[i] && !punched.holes[i]);
+  for (int i = 0; i < HOLES_COUNT; i++) {
+    all_high = all_high && punched.holes[i];
+    all_low = all_low && !punched.holes[i];
+    any_falling = any_falling || (previous.holes[i] && !punched.holes[i]);
   }
 
   switch(state) {
     case s_WAIT_FOR_CARD:
-    if (allLow) {
+    if (all_low) {
       ret.state = s_WAIT_FOR_COLUMN;
-      ret.prevPunched = punched;
+      ret.prevPunched = c_ZEROED_READINGS;
     }
     break;
 
     case s_WAIT_FOR_COLUMN:
-    if (allHigh) {
+    if (all_high) {
       ret.state = s_WAIT_FOR_CARD;
       emitEOF();
-    } else if (anyFalling) {
+    } else if (any_falling) {
       ret.state = s_COLUMN_ENDED;
       emitColumn(punchedReadingToBinary(previous));
     } else {
@@ -46,9 +45,9 @@ ProcessorData updateData(ProcessorData current, PunchReadings punched) {
     break;
 
     case s_COLUMN_ENDED:
-    if (allLow) {
+    if (all_low) {
       ret.state = s_WAIT_FOR_COLUMN;
-      ret.prevPunched = punched;
+      ret.prevPunched = c_ZEROED_READINGS;
     }
     break;
   }

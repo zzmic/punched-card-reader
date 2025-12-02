@@ -187,7 +187,7 @@ bool runTest(CardProcessorTest test) {
 
   ProcessorData current = {test.startState, previous};
 
-  ProcessorData result = updateData(current, punched);
+  ProcessorData result = updateProcessorData(current, punched);
 
   bool correct = true;
 

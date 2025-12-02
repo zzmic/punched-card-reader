@@ -3,6 +3,9 @@
 
 #include "stdint.h"
 
+#define HOLES_COUNT 13
+#define DATA_BITS_COUNT 12
+
 typedef enum {
   s_WAIT_FOR_CARD = 0,
   s_WAIT_FOR_COLUMN = 1,
@@ -10,7 +13,7 @@ typedef enum {
 } ProcessorState;
 
 typedef struct {
-  bool holes[13];
+  bool holes[HOLES_COUNT];
 } PunchReadings;
 
 typedef struct {
@@ -18,6 +21,8 @@ typedef struct {
   PunchReadings prevPunched;
 } ProcessorData;
 
-ProcessorData updateData(ProcessorData current, PunchReadings punched);
+const PunchReadings c_ZEROED_READINGS = { .holes = { false } };
+
+ProcessorData updateProcessorData(ProcessorData current, PunchReadings punched);
 
 #endif
