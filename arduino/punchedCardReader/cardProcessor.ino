@@ -34,10 +34,10 @@ fullCardProcState updateCardProcState(fullCardProcState currState, punchReading 
     case s_WAIT_FOR_COLUMN:
     if (allHigh) {
       ret.state = s_WAIT_FOR_CARD;
-      emitEOF();
+      sendCardEnd();
     } else if (anyFalling) {
       ret.state = s_COLUMN_ENDED;
-      emitColumn(punchedReadingToBinary(prevPunched));
+      sendColumn(punchedReadingToBinary(prevPunched));
     } else {
       ret.prevPunched = punched;
     }
@@ -53,3 +53,18 @@ fullCardProcState updateCardProcState(fullCardProcState currState, punchReading 
 
   return ret;
 }
+
+fullCardProcState curCardProcState;
+
+void initCardProcessor() {
+  curCardProcState.state = s_WAIT_FOR_CARD;
+  for (int i = 0; i < 13; i++) {
+    curCardProcState.prevPunched.holes[i] = true;
+  }
+}
+
+#ifdef PRODUCTION
+void sendPunchReading(punchReading reading) {
+  curCardProcState = updateCardProcState(curCardProcState, reading);
+}
+#endif
