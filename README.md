@@ -24,20 +24,20 @@ Punched Card Reader:
 ->  Notify card read end over serial
 ```
 
-## Project Hierarchy
+## Project Directory Hierarchy
 ```
-punched-card-reader/
-|-- .github/                   # GitHub Actions configuration files.
-|-- arduino/                   # Arduino-related files.
-    |-- PhotodiodeReadTest/    # Arduino sketch directory for testing photodiode readings.
-|-- cad/                       # CAD files for the punched card reader.
-    |-- v1/                    # V1 prototype CAD files.
-|-- dafny/                     # Dafny verification files.
-|-- modules/                   # Arduino sketch modules.
-    |-- cardProcessor/         # Main punched card processor Arduino sketch, including source and test files.
-|-- sim/                       # Simulation files.
-    |-- test-cards/            # Sample punched card files for testing the simulation.
-|-- README.md                  # Project documentation.
+.
+├── .github/                # GitHub Actions configuration files.
+├── arduino/                # Arduino files for various sketches.
+│   ├── PhotodiodeReadTest/ # Arduino sketch directory for testing photodiode readings.
+│   └── punchedCardReader/  # Arduino sketch directory for the punched card reader.
+├── cad/                    # CAD files for the punched card reader.
+│   └── v1/                 # V1 prototype CAD files.
+├── dafny/                  # Dafny verification files.
+├── punchcard-generator/    # Punched card generator utility.
+├── PunchedCardReader/      # Arduino sketch directory for the punched card reader.
+└── sim/                    # Simulation files.
+    └── test-cards/         # Sample punched card files for testing the simulation.
 ```
 
 ## CAD

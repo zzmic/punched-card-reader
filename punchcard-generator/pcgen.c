@@ -289,7 +289,7 @@ int inch_to_image(double original) {
     return round((original + IMG_MARGIN) * scale_factor);
 }
 
-void print_prologue() {
+void print_prologue(void) {
     int card_begin_x = inch_to_image(0.0);
     int card_begin_y = inch_to_image(0.0);
     int card_end_x = inch_to_image(CARD_WIDTH);
@@ -343,7 +343,7 @@ void punch_hole(int column, int row) {
 }
 
 void punch_char(int column, char c) {
-    for (const int* hole_to_punch = hollerith[c]; *hole_to_punch >= 0; hole_to_punch++) {
+    for (const int* hole_to_punch = hollerith[(unsigned char)c]; *hole_to_punch >= 0; hole_to_punch++) {
         punch_hole(column, *hole_to_punch);
     }
 }
@@ -354,7 +354,7 @@ void punch_str(char* str) {
     }
 }
 
-void print_epilogue() {
+void print_epilogue(void) {
     printf("\n</svg>\n");
 }
 
