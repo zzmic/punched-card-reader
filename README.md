@@ -52,7 +52,7 @@ Unit tests for the punched card reader can be found in the `...` directory.
 ## Build and Run the Punched Card Reader Simulation
 Before building the simulation, ensure that a compatible [GCC](https://gcc.gnu.org) compiler that [supports C++11 or later](https://gcc.gnu.org/projects/cxx-status.html#cxx11) is [installed](https://gcc.gnu.org/install/) and available in the system's PATH.
 
-The simulation of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
+The simulation of the first version of the punched card reader's design is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary-mode` flag for binary output mode).
 3. "Insert" a card file containing a 12 (row) * 80 (column) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.

@@ -1,6 +1,9 @@
 #include "PunchedCardReaderSimulator.h"
 #include "PunchedCard.h"
 
+/**
+ * Constructor that initializes the punched card reader simulator.
+ */
 PunchedCardReaderSimulator::PunchedCardReaderSimulator(bool isBinaryMode)
     : currCPState(CardProcessorState::WAIT_FOR_CARD),
       currPDState(PhotodiodeState::LEDS_OFF), currCol(0U), sensorCol(0U),
@@ -9,6 +12,12 @@ PunchedCardReaderSimulator::PunchedCardReaderSimulator(bool isBinaryMode)
     currCard.reset();
 }
 
+/**
+ * Simulate a clock tick (next-state action) for the punched card reader.
+ *
+ * This method alternates the photodiode state between `LEDS_OFF` and `LEDS_ON`,
+ * computes the punched data, and updates the card processor state accordingly.
+ */
 void PunchedCardReaderSimulator::tick() {
     if (currPDState == PhotodiodeState::LEDS_OFF) {
         ledSampling = false;
@@ -22,6 +31,11 @@ void PunchedCardReaderSimulator::tick() {
     }
 }
 
+/**
+ * Insert a punched card into the reader from the specified file.
+ *
+ * @param cardFilePath The path to the file containing punched card data.
+ */
 void PunchedCardReaderSimulator::insertCard(const std::string &cardFilePath) {
     if (currCard) {
         return;
@@ -38,6 +52,9 @@ void PunchedCardReaderSimulator::insertCard(const std::string &cardFilePath) {
     ledSampling = false;
 }
 
+/**
+ * Eject the currently inserted punched card from the reader.
+ */
 void PunchedCardReaderSimulator::ejectCard() {
     if (!currCard) {
         return;
@@ -57,10 +74,18 @@ void PunchedCardReaderSimulator::ejectCard() {
     ledSampling = false;
 }
 
+/**
+ * Convert the last column data to a 32-bit unsigned integer.
+ *
+ * @return The last column data as a `uint32_t`.
+ */
 std::uint32_t PunchedCardReaderSimulator::lastColumnDataToUint32() const {
     return static_cast<std::uint32_t>(lastColumnData.to_ulong());
 }
 
+/**
+ * Compute the punched data based on the current sensor column and phase.
+ */
 void PunchedCardReaderSimulator::computePunched() {
     if (!currCard) {
         punched.reset();
@@ -94,6 +119,10 @@ void PunchedCardReaderSimulator::computePunched() {
     }
 }
 
+/**
+ * Update the card processor state based on the current punched data and card
+ * presence.
+ */
 void PunchedCardReaderSimulator::updateCPState() {
     if (currCard && punched.all()) {
         if (onCardEjected) {

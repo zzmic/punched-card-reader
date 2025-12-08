@@ -34,6 +34,12 @@ int main(int argc, char *argv[]) {
 
     PunchedCardReaderSimulator simulator(binaryMode);
 
+    /**
+     * Lambda to run the simulation for a given card file path.
+     *
+     * @param cardFilePath The file path of the punched card to simulate.
+     * @return true if the simulation ran successfully, false otherwise.
+     */
     const auto runSimulation = [&](const std::string &cardFilePath) -> bool {
         try {
             std::array<std::uint32_t, CARD_COLUMNS>

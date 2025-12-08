@@ -2,6 +2,11 @@
 #include <fstream>
 #include <iostream>
 
+/**
+ * Constructor that reads punched card data from a specified file.
+ *
+ * @param filePath The path to the file containing punched card data.
+ */
 PunchedCard::PunchedCard(const std::string &filePath) {
     for (auto &col : cardData) {
         col.reset();
@@ -37,6 +42,12 @@ PunchedCard::PunchedCard(const std::string &filePath) {
     }
 }
 
+/**
+ * Retrieve the punched data for a specific column.
+ *
+ * @param colIdx The index of the column (0 to 79).
+ * @return A bitset representing the punched data for the specified column.
+ */
 std::bitset<CARD_ROWS> PunchedCard::getColData(size_t colIdx) const {
     if (colIdx >= CARD_COLUMNS) {
         throw std::out_of_range("Column index out of range: " +
