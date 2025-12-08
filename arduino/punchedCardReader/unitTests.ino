@@ -462,6 +462,17 @@ CardProcTest cardProcTests[] = {
     0,
     false,
   },
+  CardProcTest {
+    15,
+    s_WAIT_FOR_COLUMN,
+    "110000001010",
+    "000000000000",
+    s_WAIT_FOR_COLUMN,
+    "110000001010",
+    false,
+    0,
+    false,
+  },
 };
 
 bool runCardProcTest(CardProcTest test) {
