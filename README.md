@@ -60,14 +60,14 @@ The simulation of the punched card reader is implemented in C++ and can be built
 5. Alternatively, do `make sim-test` (or `make sim-test-binary`) to run the simulation on *ALL* the test cards in the `sim/test-cards/` directory.
 
 ## Verification with Dafny
-The Dafny files in the `dafny/` directory *aim* to formally verify, at the algorithmic level, the correctness of the logic of core components of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
-They do not directly interact with the Arduino hardware or the Arduino framework; instead, they focus solely on verifying the algorithms and data structures used in the punched card reader.
-Due to time constraints, the Dafny programs might not cover every aspect of the punched card reader's functionality (i.e., we do *not* claim full verification of the entire system), but they still serve as a useful tool for spotting potential issues we might encounter during system design, specification, and implementation.
+The Dafny files in the `dafny/v1/` directory *aim* to formally verify, at the algorithmic level, the correctness of the logic of core components of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
+They do not directly interact with the Arduino hardware or the Arduino framework; instead, they focus solely on verifying the algorithms and data structures used in the first version of the punched card reader's design.
+Due to time constraints, the Dafny programs might not cover every aspect of the up-to-date punched card reader's functionality (i.e., we do *not* claim full verification of the entire system), but they still serve as a useful tool for spotting potential issues we might encounter during system design, specification, and implementation.
 
 To verify the Dafny programs, ensure that [the Dafny binary build or the VSCode extension for Dafny (Dafny VSCode)](https://dafny.org/latest/Installation) is installed.
 If using the command line, run the following command from the project's root directory:
 ```bash
-dafny verify dafny/*
+dafny verify dafny/v1/*.dfy
 ```
 
 ## Group Members
