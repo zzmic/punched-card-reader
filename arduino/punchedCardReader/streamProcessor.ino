@@ -1,5 +1,11 @@
+/**
+ * Array mapping 8-bit values to characters.
+ */
 char eightBitToChar[256];
 
+/**
+ * Initialize the stream processor by setting up the character mapping.
+ */
 void initStreamProcessor() {
   for (int i = 0; i < 256; i++) {
     eightBitToChar[i] = unknownChar;
@@ -31,7 +37,7 @@ void initStreamProcessor() {
   eightBitToChar[0x16] = 'F';
   eightBitToChar[0x17] = 'G';
   eightBitToChar[0x18] = 'H';
-  //eightBitToChar[0x19] = 
+  //eightBitToChar[0x19] =
   eightBitToChar[0x1A] = '[';
   eightBitToChar[0x1B] = '.';
   eightBitToChar[0x1C] = '<';
@@ -279,6 +285,12 @@ void initStreamProcessor() {
 
 }
 
+/**
+ * Convert a 16-bit column representation to its corresponding character.
+ *
+ * @param col The 16-bit column representation.
+ * @return The corresponding character.
+ */
 char colToByte(uint16_t col) {
   uint8_t eightBitCode = (0b1 & col) << 7;
   for (int codeBitNum = 4; codeBitNum < 7; codeBitNum++) {
@@ -329,10 +341,18 @@ char colToByte(uint16_t col) {
 // }
 
 #ifndef TESTING
+/**
+ * Send a column's character representation.
+ *
+ * @param col The 16-bit column representation.
+ */
 void sendColumn(uint16_t col) {
   sendByte(colToByte(col));
 }
 
+/**
+ * Send a newline character to indicate the end of a card.
+ */
 void sendCardEnd() {
   sendByte('\n');
 }

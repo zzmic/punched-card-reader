@@ -34,15 +34,28 @@
   #include "softwareIntegrationTests.h"
 #endif // SOFTWARE_INTEGRATION_TESTING
 
+/**
+ * Constants for setting up the GPT3 timer interrupt.
+ *
+ * c_TIMER_INT: The interrupt number for GPT3.
+ * c_PERIOD_MILLISECONDS: The period of the timer interrupt in milliseconds.
+ * c_COUNTER: The counter value calculated based on the desired period and clock settings.
+ */
 const unsigned int c_TIMER_INT = 31;
 const unsigned int c_PERIOD_MILLISECONDS = 10;
 //  period in ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
 const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
 
+/**
+ * Timer interrupt handler for processing sensor readings.
+ */
 void TimerHandler() {
   Serial.println("inside TimerHandler");
 }
 
+/**
+ * Timer interrupt service routine (ISR) for handling GPT3 interrupts.
+ */
 void timerISR() {
   // stop the GPT3 counter
   R_GPT3->GTCR_b.CST = 0;
@@ -71,6 +84,9 @@ void timerISR() {
   NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
 }
 
+/**
+ * Initialize the system and peripherals.
+ */
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -109,7 +125,7 @@ void setup() {
   R_GPT3->GTCR_b.CST = 1;
 
   // ITimer2.init();
-  
+
   // if (ITimer2.attachInterruptInterval(TIMER_INTERVAL_MS, TimerHandler))
   //   Serial.println("Starting  ITimer OK, millis() = " + String(millis()));
   // else

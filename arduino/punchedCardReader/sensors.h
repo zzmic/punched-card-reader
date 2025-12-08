@@ -1,10 +1,16 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
+/**
+ * Pin configurations.
+ *
+ * READ_PINS_COUNT: Number of analog pins used for reading sensor values.
+ * HALF_EMITTER_PINS_COUNT: Number of emitter pins for even or odd LEDs.
+ * EMITTER_PINS_COUNT: Total number of emitter pins.
+ */
 #define READ_PINS_COUNT 6
 #define HALF_EMITTER_PINS_COUNT 6
 #define EMITTER_PINS_COUNT 13
-
 
 // const int c_SENSE_EMITTER_PIN = D12;
 // const int c_ANALOG_PINS[6] = {A0, A1, A2, A3, A4, A5};
@@ -13,6 +19,9 @@
 // const int c_EVEN_PINS[6] = {D0, D2, D4, D6, D8, D10};
 // const int c_ODD_PINS[6] = {D1, D3, D5, D7, D9, D11};
 
+/**
+ * Structure to hold sensor readings.
+ */
 typedef struct {
   uint16_t readings[6];
 } SensorReading;

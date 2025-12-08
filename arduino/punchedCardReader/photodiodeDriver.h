@@ -1,6 +1,9 @@
 #ifndef PHOTODIODE_DRIVER_H
 #define PHOTODIODE_DRIVER_H
 
+/**
+ * Enumeration for the photodiode driver states.
+ */
 typedef enum {
   s_ALL_OFF = 0,
   s_EVEN_ON = 1,
@@ -8,12 +11,19 @@ typedef enum {
   s_CALC = 3,
 } PhotodiodeDriverState;
 
+/**
+ * Structure to hold the full state of the photodiode driver, which includes
+ * the current state and the on and off values for each photodiode.
+ */
 typedef struct {
   PhotodiodeDriverState state;
   uint16_t onVals[12];
   uint16_t offVals[12];
 } FullPhotodiodeState;
 
+/**
+ * Threshold (minimum difference) to determine if a hole is present.
+ */
 const uint16_t minDiff = 700;
 
 void initPhotodiodeDriver();
