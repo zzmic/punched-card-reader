@@ -63,7 +63,7 @@ sim-format:
 	clang-format -i sim/*.h sim/*.cpp
 
 sim-clean:
-	rm -r $(SIM_BIN_DIR)/*
+	rm -rf $(SIM_BIN_DIR)/*
 
 sim-test: sim-clean $(SIM_EXECUTABLE)
 	python3 $(SIM_DIR)/run-tests.py
