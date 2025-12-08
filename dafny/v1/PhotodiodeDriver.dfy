@@ -1,16 +1,28 @@
 include "Utilities.dfy"
 
+/**
+  * Module for controlling the photodiode driver.
+  */
 module PhotodiodeDriverModule {
   import Utils = UtilitiesModule
 
+  /**
+    * State type(s) for the photodiode driver.
+    */
   datatype DriverState = LEDS_ON | LEDS_OFF
 
+  /**
+    * Class for controlling the photodiode driver.
+    */
   class PhotodiodeDriver {
     var state: DriverState
     var off_vals: Utils.arrayOfLength13<int>
     var punched: Utils.arrayOfLength13<bool>
     const THRESHOLD: int := 4
 
+    /**
+      * Constructor that initializes the photodiode driver.
+      */
     constructor ()
       ensures state == LEDS_OFF
       ensures fresh(off_vals) && off_vals.Length == 13
@@ -23,6 +35,11 @@ module PhotodiodeDriverModule {
       punched  := new bool[13](_ => false);
     }
 
+    /**
+      * Tick the photodiode driver with the current readings.
+      *
+      * @param reading An array of length 13 representing the current photodiode readings.
+      */
     method Tick(reading: Utils.arrayOfLength13<int>)
       modifies this, off_vals, punched
       ensures old(state) == LEDS_OFF ==>

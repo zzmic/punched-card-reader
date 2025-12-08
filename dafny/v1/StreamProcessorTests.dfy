@@ -1,6 +1,9 @@
 include "Utilities.dfy"
 include "StreamProcessor.dfy"
 
+/**
+  * Module for testing the `StreamProcessor` module.
+  */
 module StreamProcessorTestsModule {
   import Utils = UtilitiesModule
   import SP = StreamProcessorModule

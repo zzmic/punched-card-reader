@@ -1,6 +1,9 @@
 include "Utilities.dfy"
 include "PhotodiodeDriver.dfy"
 
+/**
+  * Module for testing the `PhotodiodeDriver` module.
+  */
 module PhotodiodeDriverTestsModule {
   import Utils = UtilitiesModule
   import PD = PhotodiodeDriverModule

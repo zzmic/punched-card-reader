@@ -1,20 +1,35 @@
 include "Utilities.dfy"
 
+/**
+  * Module for processing punched card events.
+  */
 module CardProcessorModule {
   import Utils = UtilitiesModule
 
+  /**
+    * State type(s) for the card processor.
+    */
   datatype CardState = WAIT_FOR_CARD | WAIT_FOR_COLUMN | COLUMN_ENDED
 
+  /**
+    * Result type for the `ProcessEvent` method.
+    */
   datatype ProcessEventResult = ProcessEventResult(
     column: Utils.arrayOfLength12<bool>,
     card_ended: bool,
     output_ready: bool
   )
 
+  /**
+    * Class for processing punched card events.
+    */
   class CardProcessor {
     var state: CardState
     var prev_punched: Utils.arrayOfLength13<bool>
 
+    /**
+      * Constructor that initializes the card processor.
+      */
     constructor ()
       ensures state == WAIT_FOR_CARD
       ensures fresh(prev_punched) && prev_punched.Length == 13
@@ -24,6 +39,12 @@ module CardProcessorModule {
       prev_punched := new bool[13](_ => false);
     }
 
+    /**
+      * Process a punched card event.
+      *
+      * @param punched An array of length 13 representing the current punched state.
+      * @returns A `ProcessEventResult` containing the column data, card ended flag, and output ready flag.
+      */
     method ProcessEvent(punched: Utils.arrayOfLength13<bool>) returns (res: ProcessEventResult)
       modifies this, prev_punched
       ensures (&& old(state) == WAIT_FOR_CARD

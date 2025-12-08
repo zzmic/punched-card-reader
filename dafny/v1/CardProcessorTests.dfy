@@ -1,6 +1,9 @@
 include "Utilities.dfy"
 include "CardProcessor.dfy"
 
+/**
+  * Module for testing the `CardProcessor` module.
+  */
 module CardProcessorTestsModule {
   import Utils = UtilitiesModule
   import CP = CardProcessorModule

@@ -1,19 +1,34 @@
 include "Utilities.dfy"
 
+/**
+  * Module for controlling the stream processor.
+  */
 module StreamProcessorModule {
   import Utils = UtilitiesModule
 
+  /**
+    * Stream mode type(s) for the stream processor.
+    */
   datatype StreamMode = TEXT | BINARY
 
+  /**
+    * Result type for the `HandleInput` method.
+    */
   datatype HandleInputResult = HandleInputResult(
     output_char: char,
     output_bytes: seq<bv8>,
     output_ready: bool
   )
 
+  /**
+    * Class for controlling the stream processor.
+    */
   class StreamProcessor {
     var stream_mode: StreamMode
 
+    /**
+      * Constructor that initializes the stream processor.
+      */
     constructor()
       ensures stream_mode == TEXT
     {
@@ -21,13 +36,26 @@ module StreamProcessorModule {
       stream_mode := TEXT;
     }
 
-    // Reference: https://stackoverflow.com/a/75557519.
+    /**
+      * Helper function to compute base^exp.
+      *
+      * @param base The base integer.
+      * @param exp The exponent (natural number).
+      * @returns The result of base raised to the power of exp.
+      */
     function pow(base: int, exp: nat): int
       decreases exp
     {
+      // Reference: https://stackoverflow.com/a/75557519.
       if exp == 0 then 1 else base * pow(base, exp - 1)
     }
 
+    /**
+      * Helper function to convert a sequence of booleans to an integer.
+      *
+      * @param s The sequence of booleans.
+      * @returns The integer representation of the boolean sequence.
+      */
     function BoolSeqToInteger(s: seq<bool>): int
       ensures 0 <= BoolSeqToInteger(s)
       ensures BoolSeqToInteger(s) < pow(2, |s|)
@@ -39,6 +67,12 @@ module StreamProcessorModule {
         (if s[0] then 1 else 0) + 2 * BoolSeqToInteger(s[1..])
     }
 
+    /**
+      * Helper function to convert a column (array of length 12 booleans) to an integer.
+      *
+      * @param column The column represented as an array of length 12 booleans.
+      * @returns The integer representation of the column.
+      */
     function ColumnToInteger(column: Utils.arrayOfLength12<bool>): int
       reads column
       ensures 0 <= ColumnToInteger(column)
@@ -47,6 +81,12 @@ module StreamProcessorModule {
       BoolSeqToInteger(column[..12])
     }
 
+    /**
+      * Helper function to convert a column (array of length 12 booleans) to a sequence of 2 bytes.
+      *
+      * @param column The column represented as an array of length 12 booleans.
+      * @returns The sequence of 2 bytes representing the column.
+      */
     function ColumnToBytes(column: Utils.arrayOfLength12<bool>): seq<bv8>
       reads column
     {
@@ -56,6 +96,12 @@ module StreamProcessorModule {
       [b_high, b_low]
     }
 
+    /**
+      * Helper function to get the EBCDIC character for a given code.
+      *
+      * @param code The EBCDIC code as an integer.
+      * @returns The corresponding EBCDIC character.
+      */
     function GetEBCDICChar(code: int): char
     {
       // Reference 1: https://en.wikipedia.org/wiki/EBCDIC.
@@ -93,6 +139,14 @@ module StreamProcessorModule {
       case _ => '?'
     }
 
+    /**
+      * Method to handle input based on the current stream mode, column data, and card ended flag.
+      *
+      * @param mode The current stream mode (`TEXT` or `BINARY`).
+      * @param column The column represented as an array of length 12 booleans.
+      * @param card_ended A boolean flag indicating whether the card has ended.
+      * @returns A `HandleInputResult` containing the output character, output bytes, and output ready flag.
+      */
     method HandleInput(mode: StreamMode, column: Utils.arrayOfLength12<bool>, card_ended: bool) returns (res : HandleInputResult)
       modifies this
       ensures (mode == TEXT) ==> (stream_mode == TEXT)
