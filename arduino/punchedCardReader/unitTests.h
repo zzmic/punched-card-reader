@@ -1,3 +1,5 @@
+#ifdef UNIT_TESTING
+
 #ifndef UNIT_TESTS_H
 #define UNIT_TESTS_H
 
@@ -48,3 +50,5 @@ typedef struct {
 void runUnitTests();
 
 #endif // UNIT_TESTS_H
+
+#endif // UNIT_TESTING

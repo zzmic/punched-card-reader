@@ -11,8 +11,8 @@
 // #include <TimerInterrupt.hpp>         //https://github.com/khoih-prog/TimerInterrupt
 // #include <ISR_Timer.hpp>              //https://github.com/khoih-prog/TimerInterrupt
 
-#define UNIT_TESTING
-//#define SOFTWARE_INTEGRATION_TESTING
+//#define UNIT_TESTING
+#define SOFTWARE_INTEGRATION_TESTING
 
 #if defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
   #define TESTING
@@ -54,7 +54,7 @@ void timerISR() {
     if (checkMessages()) {
       R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
       NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
-      Serial.println("\nfinished software integration test");
+      Serial.println("\nfinished software integration test (if nothing else was printed out, it passed)");
       return;
     }
   #endif

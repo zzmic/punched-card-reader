@@ -1,3 +1,5 @@
+#ifdef TESTING
+
 #ifndef TEST_UTILS_H
 #define TEST_UTILS_H
 
@@ -29,3 +31,5 @@ void printPunchReading(PunchReading punched);
 void printSavedSensorVals(uint16_t *vals);
 
 #endif // TEST_UTILS_H
+
+#endif // TESTING

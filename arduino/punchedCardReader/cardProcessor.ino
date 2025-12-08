@@ -51,11 +51,17 @@ FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading 
       sendCardEnd();
     }
     /* 1-2. */
-    else if (anyFalling) {
+    else if (anyFalling && !allLow) {
       ret.state = s_COLUMN_ENDED;
       sendColumn(punchedReadingToBinary(prevPunched));
     }
-    /* 1-1. */
+    /* 1-1a. */
+    else if (allLow) {
+      ret.state = s_WAIT_FOR_COLUMN;
+      ret.prevPunched = punched;
+      sendColumn(punchedReadingToBinary(prevPunched));
+    }
+    /* 1-1b. */
     else {
       ret.prevPunched = punched;
     }

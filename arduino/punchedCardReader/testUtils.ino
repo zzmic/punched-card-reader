@@ -80,7 +80,8 @@ void sendColumn(uint16_t col) {
   sentCol = col;
 
   #ifndef UNIT_TESTING
-  spState = updateStreamProcState(spState, col, false);
+  sendByte(colToByte(col));
+  //spState = updateStreamProcState(spState, col, false);
   #endif // UNIT_TESTING
 }
 
@@ -88,7 +89,8 @@ void sendCardEnd() {
   sendCardEndCalled = true;
 
   #ifndef UNIT_TESTING
-  spState = updateStreamProcState(spState, 0, true);
+  sendByte('\n');
+  //spState = updateStreamProcState(spState, 0, true);
   #endif // UNIT_TESTING
 }
 
