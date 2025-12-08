@@ -1,3 +1,9 @@
+/**
+ * Convert a punched card reading to its binary representation.
+ *
+ * @param punched The punched card reading to convert.
+ * @return The binary representation of the punched card reading as a 16-bit unsigned integer.
+ */
 uint16_t punchedReadingToBinary(PunchReading punched) {
   uint16_t output = 0;
   for (int i = 0; i < 12; i++) {
@@ -9,6 +15,12 @@ uint16_t punchedReadingToBinary(PunchReading punched) {
   return output;
 }
 
+/**
+ * Update the state of the card processor based on the current state and the new punched reading.
+ *
+ * @param currState The current state of the card processor.
+ * @param punched The new punched reading to process.
+ */
 FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading punched) {
   PunchReading prevPunched = currState.prevPunched;
   CardProcState state = currState.state;
@@ -25,6 +37,7 @@ FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading 
 
   switch(state) {
     case s_WAIT_FOR_CARD:
+    /* 0-1. */
     if (allLow) {
       ret.state = s_WAIT_FOR_COLUMN;
       ret.prevPunched = punched;
@@ -32,20 +45,28 @@ FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading 
     break;
 
     case s_WAIT_FOR_COLUMN:
+    /* 1-0. */
     if (allHigh) {
       ret.state = s_WAIT_FOR_CARD;
       sendCardEnd();
-    } else if (anyFalling) {
+    }
+    /* 1-2. */
+    else if (anyFalling) {
       ret.state = s_COLUMN_ENDED;
       sendColumn(punchedReadingToBinary(prevPunched));
-    } else {
+    }
+    /* 1-1. */
+    else {
       ret.prevPunched = punched;
     }
     break;
 
     case s_COLUMN_ENDED:
+    /* 2-1. */
     if (allLow) {
       ret.state = s_WAIT_FOR_COLUMN;
+      // Since `allLow` is true, meaning that `punched` is all holes not punched (i.e., all zeros),
+      // `ret.prevPunched = punched` is effectively resetting the previous punched reading (to all zeros).
       ret.prevPunched = punched;
     }
     break;
@@ -56,6 +77,9 @@ FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading 
 
 FullCardProcState curCardProcState;
 
+/**
+ * Initialize the card processor state.
+ */
 void initCardProcessor() {
   curCardProcState.state = s_WAIT_FOR_CARD;
   for (int i = 0; i < 12; i++) {
@@ -64,6 +88,11 @@ void initCardProcessor() {
 }
 
 #ifndef TESTING
+/**
+ * Send a punched reading to the card processor, updating its state.
+ *
+ * @param reading The punched reading to send.
+ */
 void sendPunchReading(PunchReading reading) {
   curCardProcState = updateCardProcState(curCardProcState, reading);
 }
