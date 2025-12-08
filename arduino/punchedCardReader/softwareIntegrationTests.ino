@@ -1,6 +1,10 @@
 #ifdef SOFTWARE_INTEGRATION_TESTING
 
-// simulates reading a card that represents this single line of a program: "};"
+/**
+ * Array of `IntegrationTestTimeStep` structs representing each time step in the software integration test.
+ *
+ * It simulates reading a card that represents this single line of a program: "};".
+ */
 IntegrationTestTimeStep softwareIntTestSteps[] {
   IntegrationTestTimeStep {
     1,
@@ -992,14 +996,25 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
 };
 
+/**
+ * Current time step index in the software integration test.
+ */
 int curTimeStep = 0;
 
+/**
+ * Read the sensors and return the simulated sensor reading for the current time step.
+ *
+ * @return SensorReading struct containing the simulated sensor readings.
+ */
 SensorReading readSensors() {
   SensorReading output;
   memcpy(&(output.readings), &(softwareIntTestSteps[curTimeStep].reading), 2 * 7);
   return output;
 }
 
+/**
+ * Check if the mocked interface function calls and parameters match the expected values for the current time step.
+ */
 bool checkMessages() {
   IntegrationTestTimeStep expected = softwareIntTestSteps[curTimeStep];
 

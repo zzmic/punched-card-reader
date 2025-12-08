@@ -1,6 +1,9 @@
 #ifndef UNIT_TESTS_H
 #define UNIT_TESTS_H
 
+/**
+ * Structure encapsulating a photodiode driver unit test.
+ */
 typedef struct {
   uint8_t testNum;
   PhotodiodeDriverState startState;
@@ -18,6 +21,9 @@ typedef struct {
   PunchReading sentPunchReading;
 } PhotodiodeTest;
 
+/**
+ * Structure encapsulating a card processing unit test.
+ */
 typedef struct {
   uint8_t testNum;
   CardProcState startState;
@@ -40,6 +46,9 @@ typedef struct {
 //   char sentByte;
 // } StreamProcTest;
 
+/**
+ * Structure encapsulating a Hollerith encoding unit test.
+ */
 typedef struct {
   uint16_t code;
   char expectedChar;

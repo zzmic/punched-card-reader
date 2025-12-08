@@ -1,5 +1,8 @@
 #ifdef TESTING
 
+/**
+ * Reset all tracking variables for the mocked interface functions.
+ */
 void resetMockedInterfaceTracking() {
   evenLEDsOnCalled = false;
   evenLEDsOffCalled = false;
@@ -14,6 +17,12 @@ void resetMockedInterfaceTracking() {
   sendByteCalled = false;
 }
 
+/**
+ * Convert a string of '1's and '0's to a `PunchReading` struct.
+ *
+ * @param str A string of length 12 consisting of '1's and '0's.
+ * @return PunchReading struct representing the punched holes.
+ */
 PunchReading stringToPunchReading(char *str) {
   PunchReading output;
   for (int i = 0; i < 12; i++) {
@@ -26,6 +35,11 @@ PunchReading stringToPunchReading(char *str) {
   return output;
 }
 
+/**
+ * Print a `PunchReading` struct as a string of '1's and '0's.
+ *
+ * @param punched The PunchReading struct to print.
+ */
 void printPunchReading(PunchReading punched) {
   for (int i = 0; i < 12; i++) {
     if (punched.holes[i]) {
@@ -36,6 +50,11 @@ void printPunchReading(PunchReading punched) {
   }
 }
 
+/**
+ * Print an array of saved sensor values.
+ *
+ * @param vals An array of 13 uint16_t sensor values.
+ */
 void printSavedSensorVals(uint16_t *vals) {
   Serial.print("[");
   for (int i = 0; i < 12; i++) {
@@ -46,26 +65,44 @@ void printSavedSensorVals(uint16_t *vals) {
   Serial.print("]");
 }
 
+/**
+ * Mocked function for turning on even LEDs.
+ */
 void evenLEDsOn() {
   evenLEDsOnCalled = true;
 }
 
+/**
+ * Mocked function for turning off even LEDs.
+ */
 void evenLEDsOff() {
   evenLEDsOffCalled = true;
 }
 
+/**
+ * Mocked function for turning on odd LEDs.
+ */
 void oddLEDsOn() {
   oddLEDsOnCalled = true;
 }
 
+/**
+ * Mocked function for turning off odd LEDs.
+ */
 void oddLEDsOff() {
   oddLEDsOffCalled = true;
 }
 
+/**
+ * Mocked function for sending a sensor reading to the photodiode state machine.
+ */
 void sendSensorReading(SensorReading reading) {
   pdState = updatePhotodiodeState(pdState, reading);
 }
 
+/**
+ * Mocked function for sending a punch reading to the card processing state machine.
+ */
 void sendPunchReading(PunchReading reading) {
   sendPunchReadingCalled = true;
   sentPunchReading = reading;
@@ -75,6 +112,9 @@ void sendPunchReading(PunchReading reading) {
   #endif // UNIT_TESTING
 }
 
+/**
+ * Mocked function for sending a column value to the stream processing state machine.
+ */
 void sendColumn(uint16_t col) {
   sendColumnCalled = true;
   sentCol = col;
@@ -84,6 +124,9 @@ void sendColumn(uint16_t col) {
   #endif // UNIT_TESTING
 }
 
+/**
+ * Mocked function for signaling the end of a card to the stream processing state machine.
+ */
 void sendCardEnd() {
   sendCardEndCalled = true;
 
@@ -92,6 +135,9 @@ void sendCardEnd() {
   #endif // UNIT_TESTING
 }
 
+/**
+ * Mocked function for sending a byte to the serial interface.
+ */
 void sendByte(char c) {
   sendByteCalled = true;
   sentByte = c;

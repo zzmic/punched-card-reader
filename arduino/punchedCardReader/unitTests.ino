@@ -1,6 +1,9 @@
 #ifdef UNIT_TESTING
 
 int numPhotodiodeTests = 12;
+/**
+ * Array of `PhotodiodeTest` structs representing photodiode driver unit tests.
+ */
 PhotodiodeTest photodiodeTests[] = {
   PhotodiodeTest {
     1,
@@ -464,6 +467,11 @@ CardProcTest cardProcTests[] = {
   },
 };
 
+/**
+ * Run a single card processing unit test.
+ *
+ * @param test The `CardProcTest` struct defining the unit test.
+ */
 bool runCardProcTest(CardProcTest test) {
   resetMockedInterfaceTracking();
 
@@ -710,6 +718,9 @@ bool runCardProcTest(CardProcTest test) {
 
 // int numHollerithTests = 96;
 int numHollerithTests = 7;
+/**
+ * Struct representing the Hollerith encoding test cases.
+ */
 EncodingTest hollerithTests[] = {
   EncodingTest {
     0b101100000011,
@@ -741,6 +752,11 @@ EncodingTest hollerithTests[] = {
   },
 };
 
+/**
+ * Run a single Hollerith encoding unit test.
+ *
+ * @param test The `EncodingTest` struct defining the unit test.
+ */
 bool runEncodingTest(EncodingTest test) {
   char actual = colToByte(test.code);
   bool success = actual == test.expectedChar;
@@ -755,6 +771,9 @@ bool runEncodingTest(EncodingTest test) {
   return success;
 }
 
+/**
+ * Run all Hollerith encoding unit tests and report results to the serial monitor.
+ */
 void runUnitTests() {
   int numWrong = 0;
 
@@ -817,9 +836,9 @@ void runUnitTests() {
   if (numWrong) {
     Serial.print("\nFailed ");
     Serial.print(numWrong);
-    Serial.println(" hollerith tests...");
+    Serial.println(" Hollerith tests...");
   } else {
-    Serial.println("\nAll hollerith unit tests passed :)");
+    Serial.println("\nAll Hollerith unit tests passed :)");
   }
 }
 

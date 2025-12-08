@@ -1,7 +1,14 @@
+/**
+ * Update the photodiode state machine based on the current state and sensor reading.
+ * @param curState The current state of the photodiode driver.
+ * @param reading The current sensor reading from the photodiodes.
+ * @return The updated state of the photodiode driver.
+ */
 FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorReading reading) {
   FullPhotodiodeState ret = curState;
 
   switch(curState.state) {
+    /* 0-1. */
     case s_ALL_OFF:
     for (int i = 0; i < 6; i++) {
       ret.offVals[2 * i] = reading.readings[i];
@@ -12,6 +19,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
     evenLEDsOn();
     break;
 
+    /* 1-2. */
     case s_EVEN_ON:
     for (int i = 0; i < 6; i++) {
       ret.onVals[2 * i] = reading.readings[i];
@@ -21,6 +29,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
     oddLEDsOn();
     break;
 
+    /* 2-3. */
     case s_ODD_ON:
     for (int i = 0; i < 6; i++) {
       ret.onVals[(2 * i) + 1] = reading.readings[i];
@@ -29,6 +38,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
     oddLEDsOff();
     break;
 
+    /* 3-0. */
     case s_CALC:
     PunchReading punched;
     for (int i = 0; i < 12; i++) {
@@ -43,8 +53,14 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
   return ret;
 }
 
+/**
+ * Current state of the photodiode driver.
+ */
 FullPhotodiodeState curPhotodiodeState;
 
+/**
+ * Initialize the photodiode driver.
+ */
 void initPhotodiodeDriver() {
   curPhotodiodeState.state = s_ALL_OFF;
 }
