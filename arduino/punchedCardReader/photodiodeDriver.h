@@ -10,8 +10,8 @@ typedef enum {
 
 typedef struct {
   PhotodiodeDriverState state;
-  uint16_t onVals[13];
-  uint16_t offVals[13];
+  uint16_t onVals[12];
+  uint16_t offVals[12];
 } FullPhotodiodeState;
 
 const uint16_t minDiff = 700;

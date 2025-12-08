@@ -16,7 +16,7 @@ void resetMockedInterfaceTracking() {
 
 PunchReading stringToPunchReading(char *str) {
   PunchReading output;
-  for (int i = 0; i < 13; i++) {
+  for (int i = 0; i < 12; i++) {
     if (str[i] == '1') {
       output.holes[i] = true;
     } else {
@@ -27,7 +27,7 @@ PunchReading stringToPunchReading(char *str) {
 }
 
 void printPunchReading(PunchReading punched) {
-  for (int i = 0; i < 13; i++) {
+  for (int i = 0; i < 12; i++) {
     if (punched.holes[i]) {
       Serial.print("1");
     } else {

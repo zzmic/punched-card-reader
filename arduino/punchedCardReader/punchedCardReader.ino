@@ -1,5 +1,18 @@
+// // Select the timers you're using, here ITimer1
+// #define USE_TIMER_2     true
+// #define TIMER_INTERVAL_MS        50L
+
+// // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+// #include "TimerInterrupt.h"           //https://github.com/khoih-prog/TimerInterrupt
+
+// // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+// #include "ISR_Timer.h"                //https://github.com/khoih-prog/TimerInterrupt
+
+// #include <TimerInterrupt.hpp>         //https://github.com/khoih-prog/TimerInterrupt
+// #include <ISR_Timer.hpp>              //https://github.com/khoih-prog/TimerInterrupt
+
 #define UNIT_TESTING
-#define SOFTWARE_INTEGRATION_TESTING
+//#define SOFTWARE_INTEGRATION_TESTING
 
 #if defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
   #define TESTING
@@ -25,6 +38,10 @@ const unsigned int c_TIMER_INT = 31;
 const unsigned int c_PERIOD_MILLISECONDS = 10;
 //  period in ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
 const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
+
+void TimerHandler() {
+  Serial.println("inside TimerHandler");
+}
 
 void timerISR() {
   // stop the GPT3 counter
@@ -90,6 +107,13 @@ void setup() {
   // kick off first noteISR by setting a counter value and turning on the counter
   R_GPT3->GTPR = 1;
   R_GPT3->GTCR_b.CST = 1;
+
+  // ITimer2.init();
+  
+  // if (ITimer2.attachInterruptInterval(TIMER_INTERVAL_MS, TimerHandler))
+  //   Serial.println("Starting  ITimer OK, millis() = " + String(millis()));
+  // else
+  //   Serial.println("Can't set ITimer. Select another freq. or timer");
 }
 
 void loop() {

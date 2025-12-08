@@ -3,7 +3,7 @@
 
 typedef struct {
   uint8_t stepNum;
-  uint16_t reading[7];
+  uint16_t reading[6];
 
   bool evenLEDsOnCalled;
   bool evenLEDsOffCalled;
@@ -23,4 +23,4 @@ typedef struct {
 
 bool checkMessages();
 
-#endif // SOFTWARE_INTEGRATION_TESTS_H
+#endif SOFTWARE_INTEGRATION_TESTS_H

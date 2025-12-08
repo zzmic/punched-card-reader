@@ -1,6 +1,6 @@
 uint16_t punchedReadingToBinary(PunchReading punched) {
   uint16_t output = 0;
-  for (int i = 1; i < 13; i++) {
+  for (int i = 0; i < 12; i++) {
     output = output << 1;
     if (punched.holes[i]) {
       output += 1;
@@ -17,7 +17,7 @@ FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading 
   bool allHigh = true;
   bool allLow = true;
   bool anyFalling = false;
-  for (int i = 0; i < 13; i++) {
+  for (int i = 0; i < 12; i++) {
     allHigh = allHigh && punched.holes[i];
     allLow = allLow && !punched.holes[i];
     anyFalling = anyFalling || (prevPunched.holes[i] && !punched.holes[i]);
@@ -58,7 +58,7 @@ FullCardProcState curCardProcState;
 
 void initCardProcessor() {
   curCardProcState.state = s_WAIT_FOR_CARD;
-  for (int i = 0; i < 13; i++) {
+  for (int i = 0; i < 12; i++) {
     curCardProcState.prevPunched.holes[i] = true;
   }
 }

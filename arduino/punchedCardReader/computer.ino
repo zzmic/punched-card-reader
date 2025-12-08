@@ -1,5 +1,5 @@
-#ifdef PRODUCTION
+#ifndef TESTING
 void sendByte(char b) {
   Serial.write(b);
 }
-#endif // PRODUCTION
+#endif // TESTING

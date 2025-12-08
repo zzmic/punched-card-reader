@@ -13,7 +13,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
     break;
 
     case s_EVEN_ON:
-    for (int i = 0; i <= 6; i++) {
+    for (int i = 0; i < 6; i++) {
       ret.onVals[2 * i] = reading.readings[i];
     }
     ret.state = s_ODD_ON;
@@ -31,7 +31,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
 
     case s_CALC:
     PunchReading punched;
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 12; i++) {
       punched.holes[i] = (curState.onVals[i] - curState.offVals[i]) > minDiff;
     }
     sendPunchReading(punched);
