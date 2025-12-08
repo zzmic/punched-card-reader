@@ -6,8 +6,8 @@
 	(paper "USLetter")
 	(title_block
 		(title "Punched Card Reader")
-		(date "2025-12-01")
-		(rev "1.2")
+		(date "2025-12-08")
+		(rev "1.3")
 		(company "Brown University")
 		(comment 1 "Configure pin D13 on the UNO R4 to be analog input with the Renesas API")
 		(comment 2 "Resistor values are subject to change")
@@ -2158,12 +2158,6 @@
 		(uuid "5197f195-4bdf-412c-8aaf-bc2f3fb98783")
 	)
 	(junction
-		(at 223.52 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5329eacc-6983-4823-8b41-482d8f1517c0")
-	)
-	(junction
 		(at 96.52 114.3)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2365,16 +2359,6 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 100.33) (xy 223.52 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "00ac39d0-8cb0-40bd-b45f-176b5c00f696")
-	)
-	(wire
-		(pts
 			(xy 71.12 128.27) (xy 83.82 128.27)
 		)
 		(stroke
@@ -2465,16 +2449,6 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 81.28) (xy 223.52 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0f66faa2-579f-4f75-831e-a8a1efd52b63")
-	)
-	(wire
-		(pts
 			(xy 83.82 127) (xy 83.82 128.27)
 		)
 		(stroke
@@ -2482,16 +2456,6 @@
 			(type default)
 		)
 		(uuid "12074392-34f5-42ab-b684-357080db8dfc")
-	)
-	(wire
-		(pts
-			(xy 210.82 91.44) (xy 210.82 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "14271b89-9df1-4631-b9bc-37e6acd3a0f0")
 	)
 	(wire
 		(pts
@@ -2702,16 +2666,6 @@
 			(type default)
 		)
 		(uuid "2b917249-343b-42d5-a2d5-2cc9a24b8273")
-	)
-	(wire
-		(pts
-			(xy 210.82 81.28) (xy 210.82 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e1f9fd2-082e-4cfc-938f-0bd44943b19d")
 	)
 	(wire
 		(pts
@@ -3025,16 +2979,6 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 100.33) (xy 210.82 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "65180f4f-8bfa-4a93-8a9b-847c7fa04d92")
-	)
-	(wire
-		(pts
 			(xy 238.76 63.5) (xy 248.92 63.5)
 		)
 		(stroke
@@ -3132,16 +3076,6 @@
 			(type default)
 		)
 		(uuid "7af5a291-3ab2-4cac-9b84-05f8dab89b08")
-	)
-	(wire
-		(pts
-			(xy 223.52 91.44) (xy 223.52 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7b4a9ce9-05f5-4586-bd46-7be0cbca0c74")
 	)
 	(wire
 		(pts
@@ -3422,16 +3356,6 @@
 			(type default)
 		)
 		(uuid "b36fabba-a28b-44f0-8ebe-b5db0c90740c")
-	)
-	(wire
-		(pts
-			(xy 210.82 101.6) (xy 223.52 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b6084a4b-1d61-4ce1-83d4-8b20d4bc153a")
 	)
 	(wire
 		(pts
@@ -3947,28 +3871,6 @@
 			)
 		)
 	)
-	(global_label "D12"
-		(shape output)
-		(at 76.2 30.48 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3576eb10-2b99-4ee6-8fc3-d048a015c17c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 23.8058 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "A1"
 		(shape input)
 		(at 76.2 81.28 270)
@@ -4387,28 +4289,6 @@
 			)
 		)
 	)
-	(global_label "D12"
-		(shape input)
-		(at 223.52 81.28 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b8f17036-431c-47f1-8913-9b1f69d5418a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 223.52 74.6058 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "D6"
 		(shape input)
 		(at 198.12 43.18 90)
@@ -4598,50 +4478,6 @@
 		(uuid "eca422e2-969c-40c7-96f1-1dc3a7564e28")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 167.64 37.7153 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "D13"
-		(shape output)
-		(at 78.74 30.48 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f045b9dd-868a-4e00-aeff-d9b12aef37fa")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 78.74 23.8058 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "D13"
-		(shape output)
-		(at 210.82 81.28 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f33667aa-a1a7-4ad1-8ec7-b54e072652e3")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 210.82 74.6058 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4913,7 +4749,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 162.56 134.6199 0)
 			(effects
 				(font
@@ -5565,7 +5401,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 231.14 59.6899 0)
 			(effects
 				(font
@@ -5635,7 +5471,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 124.46 134.6199 0)
 			(effects
 				(font
@@ -5681,77 +5517,6 @@
 			(project ""
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
 					(reference "R5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Photo")
-		(at 210.82 88.9 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "46bc512f-5d71-4e24-b4bb-2eb9670d48de")
-		(property "Reference" "D13"
-			(at 215.9 87.9474 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "D_Photo"
-			(at 208.28 86.6776 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 210.82 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 210.82 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Photodiode"
-			(at 210.82 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "f376f7d1-7617-4b3b-a65c-d2db4b93fa0b")
-		)
-		(pin "1"
-			(uuid "f6e4afcc-6043-4022-88f5-17b0585bb27b")
-		)
-		(instances
-			(project "PunchedCardReader"
-				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "D13")
 					(unit 1)
 				)
 			)
@@ -5842,7 +5607,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 238.76 134.6199 0)
 			(effects
 				(font
@@ -5973,85 +5738,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:LED")
-		(at 223.52 87.63 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "53adadf5-1287-42d9-a20e-3dae788a28df")
-		(property "Reference" "LED13"
-			(at 225.806 87.63 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "LED"
-			(at 227.33 90.4874 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 223.52 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 223.52 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Light emitting diode"
-			(at 223.52 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 223.52 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fd67d543-54f0-46a1-94cf-e9e65ee82f9a")
-		)
-		(pin "2"
-			(uuid "69d4ff8b-e644-4b8d-a23f-9d405e220d45")
-		)
-		(instances
-			(project "PunchedCardReader"
-				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "LED13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:D_Photo")
 		(at 58.42 124.46 270)
 		(unit 1)
@@ -6141,7 +5827,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 210.82 59.6899 0)
 			(effects
 				(font
@@ -6211,7 +5897,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 170.18 59.6899 0)
 			(effects
 				(font
@@ -6281,7 +5967,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 190.5 59.6899 0)
 			(effects
 				(font
@@ -6351,7 +6037,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 220.98 59.6899 0)
 			(effects
 				(font
@@ -6500,7 +6186,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 251.46 134.6199 0)
 			(effects
 				(font
@@ -6841,7 +6527,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 149.86 59.6899 0)
 			(effects
 				(font
@@ -6990,7 +6676,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 139.7 59.6899 0)
 			(effects
 				(font
@@ -7126,7 +6812,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 200.66 134.6199 0)
 			(effects
 				(font
@@ -7267,7 +6953,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 160.02 59.6899 0)
 			(effects
 				(font
@@ -7337,7 +7023,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 60.96 134.6199 0)
 			(effects
 				(font
@@ -7460,76 +7146,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_US")
-		(at 210.82 96.52 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9f4592d4-d0ba-464d-a6f0-24a34c216d63")
-		(property "Reference" "R26"
-			(at 213.36 95.2499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "330"
-			(at 213.36 97.7899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 211.836 96.774 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 210.82 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 210.82 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "65da0e19-2c1c-48f7-af14-d7aacfac313a")
-		)
-		(pin "1"
-			(uuid "b6d4f2cc-2373-434d-b99c-f3b4400b5a08")
-		)
-		(instances
-			(project "PunchedCardReader"
-				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R26")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:D_Photo")
 		(at 248.92 124.46 270)
 		(unit 1)
@@ -7619,7 +7235,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 86.36 134.6199 0)
 			(effects
 				(font
@@ -7689,7 +7305,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 180.34 59.6899 0)
 			(effects
 				(font
@@ -7735,72 +7351,6 @@
 			(project "PunchedCardReader"
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
 					(reference "R17")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 223.52 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "aab087a2-5442-4725-8955-c70f377cf32b")
-		(property "Reference" "#PWR06"
-			(at 223.52 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 223.52 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 223.52 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 223.52 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 223.52 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f606a179-bae7-4c7e-94fa-d7354cdb21db")
-		)
-		(instances
-			(project ""
-				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -7880,76 +7430,6 @@
 			(project ""
 				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
 					(reference "LED1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
-		(at 223.52 96.52 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ae90afec-82de-4187-8e7f-e0927dcf1116")
-		(property "Reference" "R25"
-			(at 226.06 95.2499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1k"
-			(at 226.06 97.7899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 224.536 96.774 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 223.52 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 223.52 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e59887b3-9ce0-44ae-b8de-68a10ed6e30d")
-		)
-		(pin "2"
-			(uuid "4fe90548-7af9-4012-b8c0-ae1f563eaa2c")
-		)
-		(instances
-			(project "PunchedCardReader"
-				(path "/111b8190-4ed9-4f5f-a67b-08bb7c2eb253"
-					(reference "R25")
 					(unit 1)
 				)
 			)
@@ -8195,7 +7675,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 48.26 134.6199 0)
 			(effects
 				(font
@@ -8265,7 +7745,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 213.36 134.6199 0)
 			(effects
 				(font
@@ -8335,7 +7815,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 175.26 134.6199 0)
 			(effects
 				(font
@@ -8563,7 +8043,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 251.46 59.6899 0)
 			(effects
 				(font
@@ -8633,7 +8113,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 99.06 134.6199 0)
 			(effects
 				(font
@@ -8774,7 +8254,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 241.3 59.6899 0)
 			(effects
 				(font
@@ -8844,7 +8324,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "${PHOTODIODE_R}"
+		(property "Value" "220"
 			(at 200.66 59.6899 0)
 			(effects
 				(font
@@ -8993,7 +8473,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "${PHOTODIODE_R}"
 			(at 137.16 134.6199 0)
 			(effects
 				(font

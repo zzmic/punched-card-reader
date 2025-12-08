@@ -4,7 +4,7 @@
 #include "Arduino.h"
 #include "CardProcessor.h"
 
-int readings[13] = { 1023 };
+int readings[12] = { 1023 };
 bool data_leds[12] = { false };
 bool sense_led = false;
 
