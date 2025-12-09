@@ -27,7 +27,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     2,
-    {900,900,900,900,900,900},
+    {1000,1000,1000,1000,1000,1000},
 
     false,
     true,
@@ -46,7 +46,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     3,
-    {900,900,900,900,900,900},
+    {1000,1000,1000,1000,1000,1000},
 
     false,
     false,
@@ -103,7 +103,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     6,
-    {900,900,900,900,900,500},
+    {1000,1000,1000,1000,1000,500},
 
     false,
     true,
@@ -122,7 +122,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     7,
-    {900,900,900,900,500,500},
+    {1000,1000,1000,1000,500,500},
 
     false,
     false,
@@ -274,7 +274,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     15,
-    {900,500,500,500,500,500},
+    {1000,500,500,500,500,500},
 
     false,
     false,
@@ -331,7 +331,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     18,
-    {500,900,500,500,500,500},
+    {500,1000,500,500,500,500},
 
     false,
     true,
@@ -350,7 +350,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     19,
-    {900,500,500,500,500,500},
+    {1000,500,500,500,500,500},
 
     false,
     false,
@@ -407,7 +407,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     22,
-    {500,900,500,500,500,500},
+    {500,1000,500,500,500,500},
 
     false,
     true,
@@ -559,7 +559,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     30,
-    {500,500,500,500,900,900},
+    {500,500,500,500,1000,1000},
 
     false,
     true,
@@ -635,7 +635,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     34,
-    {500,500,500,500,900,900},
+    {500,500,500,500,1000,1000},
 
     false,
     true,
@@ -654,7 +654,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     35,
-    {900,500,500,500,500,500},
+    {1000,500,500,500,500,500},
 
     false,
     false,
@@ -787,7 +787,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     42,
-    {900,900,900,900,900,900},
+    {500,500,500,500,500,500},
 
     false,
     true,
@@ -806,7 +806,7 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
   },
   IntegrationTestTimeStep {
     43,
-    {900,900,900,900,900,900},
+    {500,500,500,500,500,500},
 
     false,
     false,
@@ -833,6 +833,82 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
     false,
 
     true,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    45,
+    {0,0,0,0,0,0},
+
+    true,
+    false,
+    false,
+    false,
+
+    false,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    46,
+    {1000,1000,1000,1000,1000,1000},
+
+    false,
+    true,
+    true,
+    false,
+
+    false,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    47,
+    {1000,1000,1000,1000,1000,1000},
+
+    false,
+    false,
+    false,
+    true,
+
+    false,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    48,
+    {0,0,0,0,0,0},
+
+    false,
+    false,
+    false,
+    false,
+
+    true,
     stringToPunchReading("111111111111"),
 
     false,
@@ -841,6 +917,82 @@ IntegrationTestTimeStep softwareIntTestSteps[] {
 
     true,
     '\n',
+  },
+  IntegrationTestTimeStep {
+    49,
+    {0,0,0,0,0,0},
+
+    true,
+    false,
+    false,
+    false,
+
+    false,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    50,
+    {1000,1000,1000,1000,1000,1000},
+
+    false,
+    true,
+    true,
+    false,
+
+    false,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    51,
+    {1000,1000,1000,1000,1000,1000},
+
+    false,
+    false,
+    false,
+    true,
+
+    false,
+    stringToPunchReading("000000000000"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
+  },
+  IntegrationTestTimeStep {
+    52,
+    {0,0,0,0,0,0},
+
+    false,
+    false,
+    false,
+    false,
+
+    true,
+    stringToPunchReading("111111111111"),
+
+    false,
+    0,
+    false,
+
+    false,
+    '\0',
   },
 };
 
@@ -975,7 +1127,7 @@ bool checkMessages() {
 
   resetMockedInterfaceTracking();
 
-  return (++curTimeStep == 44);
+  return (++curTimeStep == 52);
 }
 
 #endif // SOFTWARE_INTEGRATION_TESTING

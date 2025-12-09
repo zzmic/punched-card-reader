@@ -50,62 +50,54 @@ int end = 0;
  * c_PERIOD_MILLISECONDS: The period of the timer interrupt in milliseconds.
  * c_COUNTER: The counter value calculated based on the desired period and clock settings.
  */
-const unsigned int c_TIMER_INT = 31;
-const unsigned int c_PERIOD_MILLISECONDS = 1;
-//  period in ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
-const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
-
-// /**
-//  * Timer interrupt handler for processing sensor readings.
-//  */
-// void TimerHandler() {
-//   Serial.println("inside TimerHandler");
-// }
+// const unsigned int c_TIMER_INT = 31;
+// const unsigned int c_PERIOD_MILLISECONDS = 1;
+// //  period in ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
+// const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
 
 FspTimer myTimer;
-//volatile int cycle;
-volatile bool go;
+volatile bool triggerReading;
 
 static void timerISR2(timer_callback_args_t *p_args) {
-  if (!go) {
-    go = true;
+  if (!triggerReading) {
+    triggerReading = true;
   }
 }
 
-/**
- * Timer interrupt service routine (ISR) for handling GPT3 interrupts.
- */
-void timerISR() {
-  unsigned long start = millis();
-  // stop the GPT3 counter
-  R_GPT3->GTCR_b.CST = 0;
+// /**
+//  * Timer interrupt service routine (ISR) for handling GPT3 interrupts.
+//  */
+// void timerISR() {
+//   unsigned long start = millis();
+//   // stop the GPT3 counter
+//   R_GPT3->GTCR_b.CST = 0;
 
-  SensorReading curReading = readSensors();
-  //Serial.println(curReading.readings[0]);
-  sendSensorReading(curReading);
+//   SensorReading curReading = readSensors();
+//   //Serial.println(curReading.readings[0]);
+//   sendSensorReading(curReading);
 
-  #ifdef SOFTWARE_INTEGRATION_TESTING
-    if (checkMessages()) {
-      R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
-      NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
-      Serial.println("\nfinished software integration test (if nothing else was printed out, it passed)");
-      return;
-    }
-  #endif
+//   #ifdef SOFTWARE_INTEGRATION_TESTING
+//     if (checkMessages()) {
+//       R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
+//       NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
+//       Serial.println("\nfinished software integration test (if nothing else was printed out, it passed)");
+//       return;
+//     }
+//   #endif
 
-  // Set up the next noteISR by setting a counter value and turning on GPT3 counter
-  R_GPT3->GTPR = c_COUNTER;
-  R_ICU->IELSR[c_TIMER_INT] = (0x075 << R_ICU_IELSR_IELS_Pos);
-  R_GPT3->GTCR_b.CST = 1;
+//   // Set up the next noteISR by setting a counter value and turning on GPT3 counter
+//   R_GPT3->GTPR = c_COUNTER;
+//   R_ICU->IELSR[c_TIMER_INT] = (0x075 << R_ICU_IELSR_IELS_Pos);
+//   R_GPT3->GTCR_b.CST = 1;
 
-  // Clear any pending flags
-  // MCU side
-  R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
-  // Clear the pending interrupt on the CPU side
-  NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
-  unsigned long end = millis();
-  Serial.println(end - start);
-}
+//   // Clear any pending flags
+//   // MCU side
+//   R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
+//   // Clear the pending interrupt on the CPU side
+//   NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
+//   unsigned long end = millis();
+//   Serial.println(end - start);
+// }
 
 /**
  * Initialize the system and peripherals.
@@ -137,7 +129,7 @@ void setup() {
 
   // Configure the timer
   // Parameters: mode, type, channel, frequency (Hz), dutyCycle (for PWM, 50% for periodic), callback function
-  bool ok = myTimer.begin(TIMER_MODE_PERIODIC, GPT_TIMER, channel, 1000, 50.0, &timerISR2); // 1 Hz frequency
+  bool ok = myTimer.begin(TIMER_MODE_PERIODIC, GPT_TIMER, channel, 2000, 50.0, &timerISR2); // 1 Hz frequency
 
   if (!ok) {
     Serial.println("Timer initialization failed");
@@ -150,7 +142,6 @@ void setup() {
   
   // Start the timer
   myTimer.start();
-  Serial.println("Timer started!");
 
   // // Enable GPT peripheral
   // R_MSTP->MSTPCRD_b.MSTPD6 = 0;
@@ -183,21 +174,20 @@ void setup() {
 }
 
 void loop() {
-  if (go) {
+  if (triggerReading) {
     SensorReading curReading = readSensors();
     sendSensorReading(curReading);
-
     #ifdef SOFTWARE_INTEGRATION_TESTING
       if (checkMessages()) {
         Serial.println("integration testing done");
         while(1);
       }
     #endif
-    go = false;
-  }  
+    triggerReading = false;
+  }
   
-  // if (start != end) {
-  //   Serial.print(buffer[start]);
-  //   start = (start + 1) & 0x7F;
-  // }
+  if (start != end) {
+    R_SCI9->TDR = buffer[start];
+    start = (start + 1) & 0x7F;
+  }
 }
