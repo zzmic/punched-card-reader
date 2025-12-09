@@ -861,7 +861,10 @@ SensorReading readSensors() {
 }
 
 /**
- * Check if the mocked interface function calls and parameters match the expected values for the current time step.
+ * Check if the mocked interface function calls and parameters match the expected 
+ * values for the current time step, printing an error message if they don't match.
+ *
+ * @return whether the software integration test has finished.
  */
 bool checkMessages() {
   IntegrationTestTimeStep expected = softwareIntTestSteps[curTimeStep];
