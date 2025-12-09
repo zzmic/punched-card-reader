@@ -292,6 +292,9 @@ void initStreamProcessor() {
  * @return The corresponding character.
  */
 char colToByte(uint16_t col) {
+  if (col == 0b000100000100) {
+    return ' ';
+  }
   // Serial.print(col, BIN);
   // Serial.println("");
   uint8_t eightBitCode = (0b1 & col) << 7;

@@ -1,4 +1,4 @@
-void printPunchReading(PunchReading punched);
+void printPunchReading(PunchReading& punched);
 #ifdef TESTING
 
 #ifndef TEST_UTILS_H

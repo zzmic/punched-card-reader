@@ -199,7 +199,7 @@ PhotodiodeTest photodiodeTests[] = {
   },
 };
 
-bool runPhotodiodeTest(PhotodiodeTest test) {
+bool runPhotodiodeTest(PhotodiodeTest& test) {
   resetMockedInterfaceTracking();
 
   FullPhotodiodeState curState;
@@ -297,10 +297,10 @@ bool runPhotodiodeTest(PhotodiodeTest test) {
       if (sentPunchReading.holes[i] != test.sentPunchReading.holes[i]) {
         Serial.print("\nFailed test #");
         Serial.println(test.testNum);
-        Serial.println("incorrect sent punch reading\n\tExpected: ");
+        Serial.print("incorrect sent punch reading\n\tExpected: ");
         printPunchReading(test.sentPunchReading);
         Serial.print("\n\tActual: ");
-        printPunchReading(test.sentPunchReading);
+        printPunchReading(sentPunchReading);
         return false;
       }
     }
@@ -483,7 +483,7 @@ CardProcTest cardProcTests[] = {
  *
  * @param test The `CardProcTest` struct defining the unit test.
  */
-bool runCardProcTest(CardProcTest test) {
+bool runCardProcTest(CardProcTest& test) {
   resetMockedInterfaceTracking();
 
   PunchReading prevPunched = stringToPunchReading(test.prevPunched);

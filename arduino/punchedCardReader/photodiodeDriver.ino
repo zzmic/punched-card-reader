@@ -4,7 +4,7 @@
  * @param reading The current sensor reading from the photodiodes.
  * @return The updated state of the photodiode driver.
  */
-FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorReading reading) {
+FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorReading& reading) {
   FullPhotodiodeState ret = curState;
 
   switch(curState.state) {
@@ -49,6 +49,15 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
     sendPunchReading(punched);
     ret.state = s_ALL_OFF;
     // TODO: pet watchdog here?
+    #ifdef HARDWARE_TESTING
+    for (int i = 0; i < 12; i++) {
+      if (punched.holes[i]) {
+        curReading[i] = '1';
+      } else {
+        curReading[i] = '0';
+      }
+    }
+    #endif
     break;
   }
 
@@ -58,7 +67,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
 /**
  * Current state of the photodiode driver.
  */
-FullPhotodiodeState curPhotodiodeState;
+volatile FullPhotodiodeState curPhotodiodeState;
 
 /**
  * Initialize the photodiode driver.
@@ -73,7 +82,20 @@ void initPhotodiodeDriver() {
  *
  * @param reading The punched reading to send.
  */
-void sendSensorReading(SensorReading reading) {
-  curPhotodiodeState = updatePhotodiodeState(curPhotodiodeState, reading);
+void sendSensorReading(SensorReading& reading) {
+  FullPhotodiodeState curState;
+  curState.state = curPhotodiodeState.state;
+  for (int i = 0; i < 12; i++) {
+    curState.onVals[i] = curPhotodiodeState.onVals[i];
+    curState.offVals[i] = curPhotodiodeState.offVals[i];
+  }
+
+  FullPhotodiodeState nextState = updatePhotodiodeState(curState, reading);
+
+  curPhotodiodeState.state = nextState.state;
+  for (int i = 0; i < 12; i++) {
+    curPhotodiodeState.onVals[i] = nextState.onVals[i];
+    curPhotodiodeState.offVals[i] = nextState.offVals[i];
+  }
 }
 #endif TESTING

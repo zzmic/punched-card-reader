@@ -4,7 +4,7 @@
  * @param punched The punched card reading to convert.
  * @return The binary representation of the punched card reading as a 16-bit unsigned integer.
  */
-uint16_t punchedReadingToBinary(PunchReading punched) {
+uint16_t punchedReadingToBinary(PunchReading& punched) {
   uint16_t output = 0;
   for (int i = 0; i < 12; i++) {
     output = output << 1;
@@ -21,7 +21,7 @@ uint16_t punchedReadingToBinary(PunchReading punched) {
  * @param currState The current state of the card processor.
  * @param punched The new punched reading to process.
  */
-FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading punched) {
+FullCardProcState updateCardProcState(FullCardProcState& currState, PunchReading& punched) {
   PunchReading prevPunched = currState.prevPunched;
   CardProcState state = currState.state;
   FullCardProcState ret = currState;
@@ -81,7 +81,7 @@ FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading 
   return ret;
 }
 
-FullCardProcState curCardProcState;
+volatile FullCardProcState curCardProcState;
 
 /**
  * Initialize the card processor state.
@@ -99,7 +99,18 @@ void initCardProcessor() {
  *
  * @param reading The punched reading to send.
  */
-void sendPunchReading(PunchReading reading) {
-  curCardProcState = updateCardProcState(curCardProcState, reading);
+void sendPunchReading(PunchReading& reading) {
+  FullCardProcState curState;
+  curState.state = curCardProcState.state;
+  for (int i = 0; i < 12; i++) {
+    curState.prevPunched.holes[i] = curCardProcState.prevPunched.holes[i];
+  }
+
+  FullCardProcState nextState = updateCardProcState(curState, reading);
+
+  curCardProcState.state = nextState.state;
+  for (int i = 0; i < 12; i++) {
+    curCardProcState.prevPunched.holes[i] = nextState.prevPunched.holes[i];
+  }
 }
 #endif // TESTING

@@ -12,7 +12,8 @@
 // #include <ISR_Timer.hpp>              //https://github.com/khoih-prog/TimerInterrupt
 
 //#define UNIT_TESTING
-#define SOFTWARE_INTEGRATION_TESTING
+//#define SOFTWARE_INTEGRATION_TESTING
+//#define HARDWARE_TESTING
 
 #include <Arduino.h>
 #include <FspTimer.h>
@@ -39,9 +40,9 @@
 #endif // SOFTWARE_INTEGRATION_TESTING
 
 #define BUF_LEN 128
-char buffer[BUF_LEN];
-int start = 0;
-int end = 0;
+volatile char buffer[BUF_LEN];
+volatile int start = 0;
+volatile int end = 0;
 
 /**
  * Constants for setting up the GPT3 timer interrupt.
@@ -56,12 +57,17 @@ int end = 0;
 // const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
 
 FspTimer myTimer;
-volatile bool triggerReading;
+volatile bool finished_software_integration_tests;
+volatile char curReading[12];
 
 static void timerISR2(timer_callback_args_t *p_args) {
-  if (!triggerReading) {
-    triggerReading = true;
-  }
+  SensorReading curReading = readSensors();
+  sendSensorReading(curReading);
+  #ifdef SOFTWARE_INTEGRATION_TESTING
+    if (!finished_software_integration_tests && checkMessages()) {
+      finished_software_integration_tests = true;
+    }
+  #endif
 }
 
 // /**
@@ -80,7 +86,7 @@ static void timerISR2(timer_callback_args_t *p_args) {
 //     if (checkMessages()) {
 //       R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
 //       NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
-//       Serial.println("\nfinished software integration test (if nothing else was printed out, it passed)");
+//       Serial.println("finished software integration test (if nothing else was printed out, it passed)");
 //       return;
 //     }
 //   #endif
@@ -95,8 +101,6 @@ static void timerISR2(timer_callback_args_t *p_args) {
 //   R_ICU->IELSR_b[c_TIMER_INT].IR = 0;
 //   // Clear the pending interrupt on the CPU side
 //   NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
-//   unsigned long end = millis();
-//   Serial.println(end - start);
 // }
 
 /**
@@ -129,7 +133,7 @@ void setup() {
 
   // Configure the timer
   // Parameters: mode, type, channel, frequency (Hz), dutyCycle (for PWM, 50% for periodic), callback function
-  bool ok = myTimer.begin(TIMER_MODE_PERIODIC, GPT_TIMER, channel, 2000, 50.0, &timerISR2); // 1 Hz frequency
+  bool ok = myTimer.begin(TIMER_MODE_PERIODIC, GPT_TIMER, channel, 4000, 50.0, &timerISR2); // 1 kHz frequency
 
   if (!ok) {
     Serial.println("Timer initialization failed");
@@ -174,20 +178,27 @@ void setup() {
 }
 
 void loop() {
-  if (triggerReading) {
-    SensorReading curReading = readSensors();
-    sendSensorReading(curReading);
-    #ifdef SOFTWARE_INTEGRATION_TESTING
-      if (checkMessages()) {
-        Serial.println("integration testing done");
-        while(1);
-      }
-    #endif
-    triggerReading = false;
-  }
-  
   if (start != end) {
-    R_SCI9->TDR = buffer[start];
+    Serial.print(buffer[start]);
     start = (start + 1) & 0x7F;
   }
+
+  #ifdef SOFTWARE_INTEGRATION_TESTING
+  if (finished_software_integration_tests) {
+    Serial.println("finished software integration test (if only '};\n' was printed out, it passed)");
+    while(1);
+  }
+  #endif
+
+  #ifdef HARDWARE_TESTING
+  for (int i = 0; i < 12; i++) {
+    Serial.print(curReading[i]);
+  }
+  Serial.println("");
+  #endif
+
+  // if (start != end) {
+  //   R_SCI9->TDR = buffer[start];
+  //   start = (start + 1) & 0x7F;
+  // }
 }

@@ -24,14 +24,18 @@ typedef struct {
 /**
  * Threshold (minimum difference) to determine if a hole is present.
  */
-const uint16_t minDiff = 900;
+#ifdef TESTING
+const uint16_t minDiff = 700;
+#else
+const uint16_t minDiff = 800;
+#endif
 
 void initPhotodiodeDriver();
 
-void sendSensorReading(SensorReading reading);
+void sendSensorReading(SensorReading& reading);
 
 #ifdef TESTING
-FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorReading reading);
+FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorReading& reading);
 #endif // TESTING
 
 #endif // PHOTODIODE_DRIVER_H

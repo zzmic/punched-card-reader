@@ -3,7 +3,7 @@
  *
  * @param punched The PunchReading struct to print.
  */
-void printPunchReading(PunchReading punched) {
+void printPunchReading(PunchReading& punched) {
   for (int i = 0; i < 12; i++) {
     if (punched.holes[i]) {
       Serial.print("1");
@@ -97,14 +97,14 @@ void oddLEDsOff() {
 /**
  * Mocked function for sending a sensor reading to the photodiode state machine.
  */
-void sendSensorReading(SensorReading reading) {
+void sendSensorReading(SensorReading& reading) {
   pdState = updatePhotodiodeState(pdState, reading);
 }
 
 /**
  * Mocked function for sending a punch reading to the card processing state machine.
  */
-void sendPunchReading(PunchReading reading) {
+void sendPunchReading(PunchReading& reading) {
   sendPunchReadingCalled = true;
   sentPunchReading = reading;
 
