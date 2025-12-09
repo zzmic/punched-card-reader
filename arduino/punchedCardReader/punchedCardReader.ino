@@ -12,7 +12,7 @@
 // #include <ISR_Timer.hpp>              //https://github.com/khoih-prog/TimerInterrupt
 
 //#define UNIT_TESTING
-#define SOFTWARE_INTEGRATION_TESTING
+//#define SOFTWARE_INTEGRATION_TESTING
 
 #if defined(UNIT_TESTING) || defined(SOFTWARE_INTEGRATION_TESTING)
   #define TESTING
@@ -42,7 +42,7 @@
  * c_COUNTER: The counter value calculated based on the desired period and clock settings.
  */
 const unsigned int c_TIMER_INT = 31;
-const unsigned int c_PERIOD_MILLISECONDS = 10;
+const unsigned int c_PERIOD_MILLISECONDS = 5;
 //  period in ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
 const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
 

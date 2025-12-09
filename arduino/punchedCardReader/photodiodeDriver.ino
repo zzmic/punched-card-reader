@@ -64,3 +64,14 @@ FullPhotodiodeState curPhotodiodeState;
 void initPhotodiodeDriver() {
   curPhotodiodeState.state = s_ALL_OFF;
 }
+
+#ifndef TESTING
+/**
+ * Send a sensor reading to the photodiode driver, updating its state.
+ *
+ * @param reading The punched reading to send.
+ */
+void sendSensorReading(SensorReading reading) {
+  curPhotodiodeState = updatePhotodiodeState(curPhotodiodeState, reading);
+}
+#endif TESTING
