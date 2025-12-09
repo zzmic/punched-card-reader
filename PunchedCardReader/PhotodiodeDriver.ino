@@ -2,51 +2,6 @@
 
 PhotodiodeData CurrentState;
 
-void calibrate() {
-  int on_vals_a[6] = { 1023 };
-  int off_vals_a[6] = { 1023 };
-
-  int on_vals_b[6] = { 1023 };
-  int off_vals_b[6] = { 1023 };
-
-  int on_vals_sense = 1023;
-  int off_vals_sense = 1023;
-
-  // First half
-
-  allLEDsOff();
-  readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, off_vals_a);
-
-  evenLEDsOn();
-  readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, on_vals_a);
-
-  // Second half
-
-  allLEDsOff();
-  readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, off_vals_a);
-
-  oddLEDsOn();
-  readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, on_vals_b);
-
-  // Sense
-
-  allLEDsOff();
-  off_vals_sense = analogRead(c_ARDUINO_SENSE_PIN);
-
-  digitalWrite(c_SENSE_EMITTER_PIN, HIGH);
-  on_vals_sense = analogRead(c_ARDUINO_SENSE_PIN);
-
-  // Feed into readings
-
-  for (int i = 0; i < HALF_EMITTER_PINS_COUNT; i++) {
-    readings_buffer[i * 2] = on_vals_a[i] - off_vals_a[i];
-    readings_buffer[i * 2 + 1] = on_vals_b[i] - off_vals_b[i];
-  }
-  readings_buffer[EMITTER_PINS_COUNT - 1] = on_vals_sense - off_vals_sense;
-
-  allLEDsOff();
-}
-
 PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readings) {
   PhotodiodeData ret = current;
 

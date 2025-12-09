@@ -35,45 +35,6 @@ void timerISR() {
   NVIC_ClearPendingIRQ((IRQn_Type) c_TIMER_INT);
 }
 
-void hardwareTest() {
-    Serial.println("Hardware test begin...");
-
-    Serial.println("Testing analog pins...");
-
-    writePins(c_DIGITAL_PINS, c_DIGITAL_PINS + EMITTER_PINS_COUNT, HIGH);
-    delay(250);
-    readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
-
-    delay(250);
-    printPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
-
-    writePins(c_DIGITAL_PINS, c_DIGITAL_PINS + EMITTER_PINS_COUNT, LOW);
-    delay(250);
-    readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
-
-    delay(250);
-    printPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT, readings_buffer);
-
-    Serial.println("Testing read ready pin...");
-
-    int read_ready_val = 1023;
-
-    delay(250);
-    digitalWrite(c_SENSE_EMITTER_PIN, HIGH);
-    read_ready_val = analogRead(c_ARDUINO_SENSE_PIN);
-    Serial.println(read_ready_val);
-    delay(250);
-    digitalWrite(c_SENSE_EMITTER_PIN, LOW);
-    read_ready_val = analogRead(c_ARDUINO_SENSE_PIN);
-    Serial.println(read_ready_val);
-    delay(250);
-
-    calibrate();
-    printBuffer(readings_buffer, EMITTER_PINS_COUNT);
-
-    Serial.println("Hardware test ok...");
-}
-
 void setup() {
   Serial.begin(9600);
   // initialize digital pin LED_BUILTIN as an output.
@@ -105,8 +66,6 @@ void setup() {
   // kick off first noteISR by setting a counter value and turning on the counter
   R_GPT3->GTPR = 1;
   R_GPT3->GTCR_b.CST = 1;
-
-  hardwareTest();
 }
 
 void loop() {}

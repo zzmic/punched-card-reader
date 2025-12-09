@@ -38,6 +38,5 @@ PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readi
 
 void initPhotodiodeDriver();
 void sendSensorReading(SensorReadings readings);
-void calibrate();
 
 #endif // PHOTODIODE_DRIVER_H
