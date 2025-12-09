@@ -12,6 +12,10 @@
 #define EMITTER_PINS_COUNT 4
 #define HALF_EMITTER_PINS_COUNT EMITTER_PINS_COUNT / 2
 
+
+/**
+ * Analog and digital pin configurations for sensors and LEDs.
+ */
 const int c_ANALOG_PINS[6] = { A0, A1, A2, A3, A4, A5 };
 const int c_DIGITAL_PINS[4] = { D2, D3, D4, D5 };
 // const int c_EVEN_PINS[2] = { D2, D4 };

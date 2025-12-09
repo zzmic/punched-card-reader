@@ -123,7 +123,7 @@ void setup() {
   // TODO: set up watchdog
 
   // Define timer type and find an available channel
-  uint8_t timerType = GPT_TIMER; 
+  uint8_t timerType = GPT_TIMER;
   int8_t channel = FspTimer::get_available_timer(timerType);
 
   if (channel < 0) {
@@ -142,8 +142,8 @@ void setup() {
 
   myTimer.setup_overflow_irq();
   // Open the timer (necessary for the R4)
-  myTimer.open(); 
-  
+  myTimer.open();
+
   // Start the timer
   myTimer.start();
 
@@ -177,6 +177,9 @@ void setup() {
   //   Serial.println("Can't set ITimer. Select another freq. or timer");
 }
 
+/**
+ * Main loop function.
+ */
 void loop() {
   if (start != end) {
     Serial.print(buffer[start]);

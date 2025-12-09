@@ -20,6 +20,7 @@ uint16_t punchedReadingToBinary(PunchReading& punched) {
  *
  * @param currState The current state of the card processor.
  * @param punched The new punched reading to process.
+ * @return The updated state of the card processor.
  */
 FullCardProcState updateCardProcState(FullCardProcState& currState, PunchReading& punched) {
   PunchReading prevPunched = currState.prevPunched;
@@ -81,6 +82,10 @@ FullCardProcState updateCardProcState(FullCardProcState& currState, PunchReading
   return ret;
 }
 
+/**
+ * The current state of the card processor.
+ * It is declared as volatile since it may be modified in an interrupt context.
+ */
 volatile FullCardProcState curCardProcState;
 
 /**

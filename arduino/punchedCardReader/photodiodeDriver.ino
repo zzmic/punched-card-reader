@@ -1,5 +1,6 @@
 /**
  * Update the photodiode state machine based on the current state and sensor reading.
+ *
  * @param curState The current state of the photodiode driver.
  * @param reading The current sensor reading from the photodiodes.
  * @return The updated state of the photodiode driver.
@@ -65,7 +66,8 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
 }
 
 /**
- * Current state of the photodiode driver.
+ * The current state of the photodiode driver.
+ * It is declared as volatile since it may be modified in an interrupt context.
  */
 volatile FullPhotodiodeState curPhotodiodeState;
 
