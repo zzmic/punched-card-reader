@@ -1,3 +1,4 @@
+void printPunchReading(PunchReading punched);
 #ifdef TESTING
 
 #ifndef TEST_UTILS_H
@@ -25,8 +26,6 @@ char sentByte;
 void resetMockedInterfaceTracking();
 
 PunchReading stringToPunchReading(char *str);
-
-void printPunchReading(PunchReading punched);
 
 void printSavedSensorVals(uint16_t *vals);
 

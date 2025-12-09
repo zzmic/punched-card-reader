@@ -1,3 +1,18 @@
+/**
+ * Print a `PunchReading` struct as a string of '1's and '0's.
+ *
+ * @param punched The PunchReading struct to print.
+ */
+void printPunchReading(PunchReading punched) {
+  for (int i = 0; i < 12; i++) {
+    if (punched.holes[i]) {
+      Serial.print("1");
+    } else {
+      Serial.print("0");
+    }
+  }
+}
+
 #ifdef TESTING
 
 /**
@@ -35,20 +50,6 @@ PunchReading stringToPunchReading(char *str) {
   return output;
 }
 
-/**
- * Print a `PunchReading` struct as a string of '1's and '0's.
- *
- * @param punched The PunchReading struct to print.
- */
-void printPunchReading(PunchReading punched) {
-  for (int i = 0; i < 12; i++) {
-    if (punched.holes[i]) {
-      Serial.print("1");
-    } else {
-      Serial.print("0");
-    }
-  }
-}
 
 /**
  * Print an array of saved sensor values.

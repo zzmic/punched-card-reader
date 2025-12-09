@@ -24,7 +24,7 @@ typedef struct {
 /**
  * Threshold (minimum difference) to determine if a hole is present.
  */
-const uint16_t minDiff = 700;
+const uint16_t minDiff = 900;
 
 void initPhotodiodeDriver();
 

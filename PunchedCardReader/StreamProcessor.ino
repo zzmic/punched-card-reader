@@ -1,3 +1,5 @@
+#include "StreamProcessor.h"
+
 /**
  * Array mapping 8-bit values to characters.
  */
@@ -8,7 +10,7 @@ char eightBitToChar[256];
  */
 void initStreamProcessor() {
   for (int i = 0; i < 256; i++) {
-    eightBitToChar[i] = unknownChar;
+    eightBitToChar[i] = c_UNKNOWN;
   }
 
   eightBitToChar[0x00] = ' ';
@@ -292,8 +294,6 @@ void initStreamProcessor() {
  * @return The corresponding character.
  */
 char colToByte(uint16_t col) {
-  Serial.print(col, BIN);
-  Serial.println("");
   uint8_t eightBitCode = (0b1 & col) << 7;
   for (int codeBitNum = 4; codeBitNum < 7; codeBitNum++) {
     int colBitNum = 15 - codeBitNum;
@@ -311,38 +311,15 @@ char colToByte(uint16_t col) {
   return eightBitToChar[eightBitCode];
 }
 
-// StreamProcState updateStreamProcState(StreamProcState curState, uint16_t col, bool cardEnded) {
-//   StreamProcState nextState = curState;
-//   bool isBinary = isBinaryCol(col);
+/**
+ * Send/write a byte to the serial port.
+ *
+ * @param b The byte (in char) to send.
+ */
+void sendByte(char b) {
+  Serial.write(b);
+}
 
-//   switch(curState) {
-//     case s_TEXT:
-//     if (cardEnded) {
-//       sendByte('\n');
-//     } else if (!cardEnded && !isBinary) {
-//       sendByte(colToByte(col));
-//     } else if (!cardEnded && isBinary) {
-//       sendByte(colToByte(col));
-//       nextState = s_BINARY;
-//     }
-//     break;
-
-//     case s_BINARY:
-//     if (cardEnded) {
-//       nextState = s_TEXT;
-//     } else if (!cardEnded && !isBinary) {
-//       sendByte(colToByte(col));
-//       nextState = s_TEXT;
-//     } else if (!cardEnded && isBinary) {
-//       sendByte(colToByte(col));
-//     }
-//     break;
-//   }
-
-//   return nextState;
-// }
-
-#ifndef TESTING
 /**
  * Send a column's character representation.
  *
@@ -358,4 +335,3 @@ void sendColumn(uint16_t col) {
 void sendCardEnd() {
   sendByte('\n');
 }
-#endif // TESTING

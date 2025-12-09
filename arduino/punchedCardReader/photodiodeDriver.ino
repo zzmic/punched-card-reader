@@ -44,6 +44,8 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState curState, SensorRe
     for (int i = 0; i < 12; i++) {
       punched.holes[i] = (curState.onVals[i] - curState.offVals[i]) > minDiff;
     }
+    // printPunchReading(punched);
+    // Serial.println("\n");
     sendPunchReading(punched);
     ret.state = s_ALL_OFF;
     // TODO: pet watchdog here?
