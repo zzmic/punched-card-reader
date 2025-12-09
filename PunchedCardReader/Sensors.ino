@@ -1,3 +1,5 @@
+#include "Sensors.h"
+
 /**
  * Write a value to a range of pins.
  *
@@ -57,16 +59,15 @@ void printBuffer(const int *start_addr, size_t size) {
  * Initialize sensor pins.
  */
 void initSensors() {
-  for (int i = 0; i < EMITTER_PINS_COUNT; ++i) {
-    pinMode(c_DIGITAL_PINS[i], OUTPUT);
-  }
+    for (int i = 0; i < EMITTER_PINS_COUNT; ++i) {
+      pinMode(c_DIGITAL_PINS[i], OUTPUT);
+    }
 
-  for (int i = 0; i < READ_PINS_COUNT; ++i) {
-    pinMode(c_DIGITAL_PINS[i], OUTPUT);
-  }
+    for (int i = 0; i < READ_PINS_COUNT; ++i) {
+      pinMode(c_DIGITAL_PINS[i], OUTPUT);
+    }
 }
 
-#ifndef SOFTWARE_INTEGRATION_TESTING
 /**
  * Read sensor values and return a `SensorReading` struct.
  *
@@ -79,9 +80,7 @@ SensorReading readSensors() {
   }
   return result;
 }
-#endif // SOFTWARE_INTEGRATION_TESTING
 
-#ifndef TESTING
 /**
  * Turn on even LEDs.
  */
@@ -109,4 +108,3 @@ void oddLEDsOn() {
 void oddLEDsOff() {
   writePins(c_ODD_PINS, c_ODD_PINS + HALF_EMITTER_PINS_COUNT, LOW);
 }
-#endif // TESTING

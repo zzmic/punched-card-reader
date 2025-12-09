@@ -1,5 +1,7 @@
 #include "PhotodiodeDriver.h"
 
+PhotodiodeData CurrentState;
+
 void calibrate() {
   int on_vals_a[6] = { 1023 };
   int off_vals_a[6] = { 1023 };
@@ -84,7 +86,6 @@ PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readi
     }
     sendPunchReading(punched);
     ret.state = s_ALL_OFF;
-    // TODO: pet watchdog here?
     break;
   }
 
@@ -93,4 +94,13 @@ PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readi
 
 void initPhotodiodeDriver() {
   CurrentState.state = s_ALL_OFF;
+}
+
+/**
+ * Send a sensor reading to the photodiode driver, updating its state.
+ *
+ * @param punched The punched reading to send.
+ */
+void sendSensorReading(SensorReading punched) {
+  CurrentState = updatePhotodiodeData(CurrentState, punched);
 }
