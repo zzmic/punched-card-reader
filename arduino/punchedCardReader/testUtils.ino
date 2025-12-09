@@ -144,6 +144,9 @@ void sendCardEnd() {
 void sendByte(char c) {
   sendByteCalled = true;
   sentByte = c;
+  #ifdef SOFTWARE_INTEGRATION_TESTING
+    Serial.write(c);
+  #endif
 }
 
 #endif // TESTING

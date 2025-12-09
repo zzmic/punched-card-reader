@@ -31,7 +31,7 @@ void initCardProcessor();
 void sendPunchReading(PunchReading reading);
 
 #ifdef TESTING
-FullCardProcState updateCardProcState(FullCardProcState currState, PunchReading punched);
+FullCardProcState updateCardProcState(volatile FullCardProcState currState, PunchReading punched);
 #endif // TESTING
 
 #endif // CARD_PROCESSOR_H
