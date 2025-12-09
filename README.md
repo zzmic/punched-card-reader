@@ -1,5 +1,5 @@
 # punched-card-reader
-![Punched Card Reader Schematic](cad/v1/punchedcardreadersch.png)
+![Punched Card Reader Schematic](cad/v2/punchedcardreadersch.png)
 
 ## Overview
 This project is an Arduino‑based punched card reader that optically senses holes in punched cards and streams the decoded information via serial communication. It is intended to illustrate operating-system and low‑level I/O concepts by recreating the characteristics of historical slow peripheral devices.
