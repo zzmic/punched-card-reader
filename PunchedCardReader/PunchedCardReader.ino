@@ -20,7 +20,7 @@ void timerISR() {
   // stop the GPT3 counter
   R_GPT3->GTCR_b.CST = 0;
 
-  SensorReading cur_reading = readSensors();
+  SensorReadings cur_reading = readSensors();
   sendSensorReading(cur_reading);
 
   // Set up the next noteISR by setting a counter value and turning on GPT3 counter

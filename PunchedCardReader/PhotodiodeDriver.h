@@ -26,7 +26,7 @@ typedef struct {
 } PhotodiodeData;
 
 typedef struct {
-  int readings[7];
+  int readings[6];
 } SensorReadings;
 
 /**

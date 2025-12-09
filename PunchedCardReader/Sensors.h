@@ -26,7 +26,7 @@ typedef struct {
 
 void initSensors();
 
-SensorReading readSensors();
+SensorReadings readSensors();
 
 void evenLEDsOn();
 

@@ -86,14 +86,14 @@ SensorReading readSensors() {
  * Turn on even LEDs.
  */
 void evenLEDsOn() {
-  writePins(c_EVEN_PINS, c_EVEN_PINS + HALF_EMITTER_PINS_COUNT, LOW);
+  writePins(c_EVEN_PINS, c_EVEN_PINS + HALF_EMITTER_PINS_COUNT, HIGH);
 }
 
 /**
  * Turn off even LEDs.
  */
 void evenLEDsOff() {
-  writePins(c_EVEN_PINS, c_EVEN_PINS + HALF_EMITTER_PINS_COUNT, HIGH);
+  writePins(c_EVEN_PINS, c_EVEN_PINS + HALF_EMITTER_PINS_COUNT, LOW);
 }
 
 /**

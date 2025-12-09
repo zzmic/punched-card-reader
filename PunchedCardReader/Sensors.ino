@@ -73,8 +73,8 @@ void initSensors() {
  *
  * @return SensorReading containing the readings from the sensors.
  */
-SensorReading readSensors() {
-  SensorReading result;
+SensorReadings readSensors() {
+  SensorReadings result;
   for (int i = 0; i < READ_PINS_COUNT; i++) {
     result.readings[i] = analogRead(c_ANALOG_PINS[i]);
   }

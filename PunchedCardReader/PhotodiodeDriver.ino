@@ -1,6 +1,6 @@
 #include "PhotodiodeDriver.h"
 
-PhotodiodeData CurrentState;
+PhotodiodeData CurrentPhotodiodeState;
 
 PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readings) {
   PhotodiodeData ret = current;
@@ -18,26 +18,26 @@ PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readi
 
     case s_EVEN_ON:
     for (int i = 0; i < 6; i++) {
-      ret.onVals[2 * i] = reading.readings[i];
+      ret.onVals[2 * i] = readings.readings[i];
     }
-    ret.onVals[12] = reading.readings[6];
+    ret.onVals[12] = readings.readings[6];
     ret.state = s_ODD_ON;
-    allLEDsOff();
+    evenLEDsOff();
     oddLEDsOn();
     break;
 
     case s_ODD_ON:
     for (int i = 0; i < 6; i++) {
-      ret.onVals[(2 * i) + 1] = reading.readings[i];
+      ret.onVals[(2 * i) + 1] = readings.readings[i];
     }
     ret.state = s_CALC;
-    allLEDsOff();
+    oddLEDsOff();
     break;
 
     case s_CALC:
     PunchReadings punched;
     for (int i = 0; i < 13; i++) {
-      punched.holes[i] = (curState.onVals[i] - curState.offVals[i]) > c_MIN_DIFF;
+      punched.holes[i] = (current.onVals[i] - current.offVals[i]) > c_MIN_DIFF;
     }
     sendPunchReading(punched);
     ret.state = s_ALL_OFF;
@@ -48,7 +48,7 @@ PhotodiodeData updatePhotodiodeData(PhotodiodeData current, SensorReadings readi
 }
 
 void initPhotodiodeDriver() {
-  CurrentState.state = s_ALL_OFF;
+  CurrentPhotodiodeState.state = s_ALL_OFF;
 }
 
 /**
@@ -56,6 +56,6 @@ void initPhotodiodeDriver() {
  *
  * @param punched The punched reading to send.
  */
-void sendSensorReading(SensorReading punched) {
-  CurrentState = updatePhotodiodeData(CurrentState, punched);
+void sendSensorReading(SensorReadings punched) {
+  CurrentPhotodiodeState = updatePhotodiodeData(CurrentPhotodiodeState, punched);
 }

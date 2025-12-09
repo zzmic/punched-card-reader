@@ -292,6 +292,8 @@ void initStreamProcessor() {
  * @return The corresponding character.
  */
 char colToByte(uint16_t col) {
+  Serial.print(col, BIN);
+  Serial.println("");
   uint8_t eightBitCode = (0b1 & col) << 7;
   for (int codeBitNum = 4; codeBitNum < 7; codeBitNum++) {
     int colBitNum = 15 - codeBitNum;

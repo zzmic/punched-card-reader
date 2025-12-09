@@ -1,7 +1,7 @@
 #include "CardProcessor.h"
 #include "StreamProcessor.h"
 
-CardProcessorData CurrentState;
+CardProcessorData CurrentCardState;
 
 /**
  * Convert a punched card reading to its binary representation.
@@ -86,9 +86,9 @@ CardProcessorData updateCardProcessorData(CardProcessorData current, PunchReadin
  * Initialize the card processor state.
  */
 void initCardProcessor() {
-  CurrentState.state = s_WAIT_FOR_CARD;
+  CurrentCardState.state = s_WAIT_FOR_CARD;
   for (int i = 0; i < HOLES_COUNT; i++) {
-    CurrentState.prevPunched.holes[i] = true;
+    CurrentCardState.prevPunched.holes[i] = true;
   }
 }
 
@@ -98,5 +98,5 @@ void initCardProcessor() {
  * @param reading The punched reading to send.
  */
 void sendPunchReading(PunchReadings punched) {
-  CurrentState = updateCardProcessorData(CurrentState, punched);
+  CurrentCardState = updateCardProcessorData(CurrentCardState, punched);
 }

@@ -34,6 +34,11 @@
   #include "softwareIntegrationTests.h"
 #endif // SOFTWARE_INTEGRATION_TESTING
 
+#define BUF_LEN 128
+char buffer[BUF_LEN];
+int start = 0;
+int end = 0;
+
 /**
  * Constants for setting up the GPT3 timer interrupt.
  *
@@ -42,7 +47,7 @@
  * c_COUNTER: The counter value calculated based on the desired period and clock settings.
  */
 const unsigned int c_TIMER_INT = 31;
-const unsigned int c_PERIOD_MILLISECONDS = 5;
+const unsigned int c_PERIOD_MILLISECONDS = 1;
 //  period in ms * 1/1000 sec/ms (48 * 1000 * 1000) cycles/sec * (1/1024) scaling factor
 const uint32_t c_COUNTER = (c_PERIOD_MILLISECONDS * (48 * 1000 * 1000 / 1024)) / (1000);
 
@@ -61,6 +66,7 @@ void timerISR() {
   R_GPT3->GTCR_b.CST = 0;
 
   SensorReading curReading = readSensors();
+  //Serial.println(curReading.readings[0]);
   sendSensorReading(curReading);
 
   #ifdef SOFTWARE_INTEGRATION_TESTING
@@ -89,7 +95,7 @@ void timerISR() {
  */
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial);
 
   initSensors();
@@ -134,5 +140,8 @@ void setup() {
 }
 
 void loop() {
-
+  if (start != end) {
+    Serial.print(buffer[start]);
+    start = (start + 1) & 0x7F;
+  }
 }
