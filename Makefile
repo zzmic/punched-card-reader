@@ -3,7 +3,7 @@ FQBN ?= arduino:renesas_uno:unor4wifi
 SKETCH_DIR ?= modules/cardProcessor
 
 CXX = /usr/bin/g++
-STDFLAGS = -std=c++23
+STDFLAGS = -std=c++14
 STDLIBFLAGS = -stdlib=libc++
 WARNFLAGS = -Werror -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnull-dereference \
   -Wsign-conversion -Wimplicit-fallthrough -Wrange-loop-analysis

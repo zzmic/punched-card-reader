@@ -1,5 +1,5 @@
 # punched-card-reader
-![Punched Card Reader Schematic](cad/v1/punchedcardreadersch.png)
+![Punched Card Reader Schematic](cad/v2/punchedcardreadersch.png)
 
 ## Overview
 This project is an Arduino‑based punched card reader that optically senses holes in punched cards and streams the decoded information via serial communication. It is intended to illustrate operating-system and low‑level I/O concepts by recreating the characteristics of historical slow peripheral devices.
@@ -50,7 +50,7 @@ We have created some preliminary CAD prototypes just to virtually explore the ph
 Unit tests for the punched card reader can be found in the `...` directory.
 
 ## Build and Run the Punched Card Reader Simulation
-Before building the simulation, ensure that a compatible [GCC](https://gcc.gnu.org) compiler that [supports C++11 or later](https://gcc.gnu.org/projects/cxx-status.html#cxx11) is [installed](https://gcc.gnu.org/install/) and available in the system's PATH.
+Before building the simulation, ensure that a compatible [GCC](https://gcc.gnu.org) compiler that [supports C++14 or later](https://gcc.gnu.org/projects/cxx-status.html#cxx14) is [installed](https://gcc.gnu.org/install/) and available in the system's PATH.
 
 The simulation of the first version of the punched card reader's design is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
 1. Run `make sim-build` to build the simulation.
