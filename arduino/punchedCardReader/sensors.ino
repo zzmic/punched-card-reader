@@ -1,3 +1,9 @@
+const int c_ANALOG_PINS[6] = {A0, A1, A2, A3, A4, A5};
+// const int c_DIGITAL_PINS[12] = {
+//     D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, c_SENSE_EMITTER_PIN};
+// const int c_EVEN_PINS[6] = {D0, D2, D4, D6, D8, D10};
+// const int c_ODD_PINS[6] = {D1, D3, D5, D7, D9, D11};
+
 /**
  * Write a value to a range of pins.
  *
@@ -71,11 +77,11 @@ void initSensors() {
  * @return SensorReading containing the readings from the sensors.
  */
 SensorReading readSensors() {
-  // SensorReading result;
-  // readPins(c_ANALOG_PINS, c_ANALOG_PINS + READ_PINS_COUNT,
-  //          (int *)result.readings);
-  // result.readings[6] = (uint16_t)digitalRead(c_SENSE_EMITTER_PIN);
-  // return result;
+  SensorReading result;
+  for (int i = 0; i < READ_PINS_COUNT; i++) {
+    result.readings[i] = analogRead(c_ANALOG_PINS[i]);
+  }
+  return result;
 }
 #endif // SOFTWARE_INTEGRATION_TESTING
 
