@@ -783,7 +783,7 @@ bool runEncodingTest(EncodingTest test) {
 }
 
 /**
- * Run all Hollerith encoding unit tests and report results to the serial monitor.
+ * Run all unit tests for the punched card reader.
  */
 void runUnitTests() {
   int numWrong = 0;

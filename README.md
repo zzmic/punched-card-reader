@@ -52,14 +52,20 @@ We have created some preliminary CAD prototypes just to virtually explore the ph
 The easiest way to set up the environment for compiling and uploading the Arduino sketches is to use the [Arduino IDE](https://www.arduino.cc/en/software/).
 
 ## Unit Testing
-Unit tests for the punched card reader can be found at `arduino/punchedCardReader/unitTests.h` and `arduino/punchedCardReader/unitTests.ino`.
-To run the unit tests, we must first enable the unit testing and testing modes by uncommenting the `#define UNIT_TESTING` macro in `arduino/punchedCardReader/punchedCardReader.ino`.
-Once this macro is enabled, compiling and uploading the sketch to the Arduino board will cause the `runUnitTests()` function to execute automatically within the `setup()` phase.
-The test results, including pass/fail status for the photodiode driver, card processor, and Hollerith encoding modules, are then output to the serial monitor.
-The testing framework utilizes mock functions defined in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, which are activated by the `#define TESTING` macro; these mocks intercept hardware calls to set state flags (e.g., `evenLEDsOnCalled`), allowing the unit tests to verify that the correct hardware control logic is executed without actual physical interaction.
+Unit tests for the punched card reader are located in `arduino/punchedCardReader/unitTests.h` and `arduino/punchedCardReader/unitTests.ino`.
+To run these tests, first enable unit testing and testing modes by uncommenting the `#define UNIT_TESTING` macro in `arduino/punchedCardReader/punchedCardReader.ino`.
+After doing so, compiling and uploading the sketch to the Arduino board will automatically execute the `runUnitTests()` function within the `setup()` phase.
+The test results, showing pass/fail status for the photodiode driver, card processor, and stream processor modules, are displayed on the serial monitor, with a clean run ending with the messages `All photodiode driver unit tests passed :)`, `All card processor unit tests passed :)`, `All stream processor unit tests passed :)`, and `All Hollerith unit tests passed :)`.
+The testing framework uses mock functions defined in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, which are activated by the `#define TESTING` macro.
+These mocks intercept hardware calls to set state flags (e.g., `evenLEDsOnCalled`), enabling the unit tests to verify that the correct hardware control logic runs without requiring physical interaction.
 
 ## Integration Testing
 Integration tests for the punched card reader can be found at `arduino/punchedCardReader/softwareIntegrationTests.h` and `arduino/punchedCardReader/softwareIntegrationTests.ino`.
+To run the integration tests, first enable integration testing and testing modes by uncommenting the `#define SOFTWARE_INTEGRATION_TESTING` macro in `arduino/punchedCardReader/punchedCardReader.ino`.
+After doing so, compiling and uploading the sketch to the Arduino board drives the timer-based test harness that feeds a scripted sequence of sensor readings (simulating the card text `};`) into the system under test.
+The harness invokes `checkMessages()` on each time step to compare the expected LED control, punch-reading generation, column/byte transmission, and card-end signaling against the actual mocked calls.
+Results are printed to the serial monitor; any mismatch includes the expected and actual values, while a clean run ends with the message `finished software integration test (if only '};\n' was printed out, it passed)`.
+The integration tests reuse the mock interfaces in `arduino/punchedCardReader/testUtils.ino`, such as such as `evenLEDsOn` and `sendPunchReading`, letting the tests validate the full sensing-to-streaming pipeline without actual hardware.
 
 ## Group Members
 - Yi Lyo
@@ -100,16 +106,16 @@ The following make commands (`make help` for help) built on `arduino-cli` can be
 ## Appendix B: Build and Run the Punched Card Reader Simulation (Optional)
 Before building the simulation, ensure that a compatible [GCC](https://gcc.gnu.org) compiler that [supports C++14 or later](https://gcc.gnu.org/projects/cxx-status.html#cxx14) is [installed](https://gcc.gnu.org/install/) and available in the system's PATH.
 
-The simulation of the first version of the punched card reader's design is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
+The simulation of the early design of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary-mode` flag for binary output mode).
-3. "Insert" a card file containing a 12 (row) * 80 (column) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
+3. "Insert" a card file containing a 80 (column) * 12 (row) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
 4. To exit the simulation, type `done` when prompted for the next card file path. Otherwise, more card files can be input to continue the simulation.
 5. Alternatively, do `make sim-test` (or `make sim-test-binary`) to run the simulation on *ALL* the test cards in the `sim/test-cards/` directory.
 
 ## Appendix C: Verification with Dafny (Optional)
-The Dafny files in the `dafny/v1/` directory *aim* to formally verify, at the algorithmic level, the correctness of the logic of core components of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
-They do not directly interact with the Arduino hardware or the Arduino framework; instead, they focus solely on verifying the algorithms and data structures used in the first version of the punched card reader's design.
+The Dafny files in the `dafny/v1/` directory *aim* to formally verify, at the algorithmic level, the correctness of the logic of core components (based on the early design) of the punched card reader using [the Dafny programming and verification language](https://dafny.org).
+They do not directly interact with the Arduino hardware or the Arduino framework; instead, they focus solely on verifying the algorithms and data structures used in the punched card reader's software design.
 Due to time constraints, the Dafny programs might not comprehensively cover the up-to-date punched card reader's functionality (i.e., we do *not* claim full verification of the entire system), but they still serve as a useful tool for spotting potential issues we might encounter during system design, specification, and implementation.
 
 To verify the Dafny programs, ensure that [the Dafny binary build or the VSCode extension for Dafny (Dafny VSCode)](https://dafny.org/latest/Installation) is installed.
