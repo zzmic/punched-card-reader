@@ -23,6 +23,7 @@ typedef struct {
 
 /**
  * Threshold (minimum difference) to determine if a hole is present.
+ * It will be compared against the difference between off and on readings.
  */
 #ifdef TESTING
 const uint16_t minDiff = 700;
