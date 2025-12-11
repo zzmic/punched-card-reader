@@ -293,7 +293,7 @@ void initStreamProcessor() {
  * @return The corresponding character.
  */
 char colToByte(uint16_t col) {
-  if (col == 0b000100000100) {
+  if (col == SPACE_COLUMN_PATTERN) {
     return ' ';
   }
   // Serial.print(col, BIN);

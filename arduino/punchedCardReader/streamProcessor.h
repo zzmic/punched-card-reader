@@ -14,6 +14,11 @@ typedef enum {
  */
 const char unknownChar = 0xEF;
 
+/**
+ * Pattern representing a space column in punched card encoding.
+ */
+const uint16_t SPACE_COLUMN_PATTERN = 0b000100000100;
+
 void initStreamProcessor();
 
 void sendColumn(uint16_t col);
