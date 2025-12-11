@@ -9,7 +9,7 @@ char eightBitToChar[256];
  */
 void initStreamProcessor() {
   for (int i = 0; i < 256; i++) {
-    eightBitToChar[i] = unknownChar;
+    eightBitToChar[i] = UNKNOWN_CHAR;
   }
 
   eightBitToChar[0x00] = ' ';
@@ -315,13 +315,32 @@ char colToByte(uint16_t col) {
   return eightBitToChar[eightBitCode];
 }
 
+/**
+ * Check if a column representation is valid (not all-holes or all-blank except space).
+ *
+ * @param col The 16-bit column representation.
+ * @return True if the column is valid, false otherwise.
+ */
+bool isValidColumn(uint16_t col) {
+  if (col == 0xFFF || col == 0x000) {
+    return false;
+  }
+  return true;
+}
+
 #ifndef TESTING
 /**
  * Send a column's character representation.
  *
+ * If the column is invalid, sends the `UNKNOWN_CHAR` instead.
+ *
  * @param col The 16-bit column representation.
  */
 void sendColumn(uint16_t col) {
+  if (!isValidColumn(col)) {
+    sendByte(UNKNOWN_CHAR);
+    return;
+  }
   sendByte(colToByte(col));
 }
 

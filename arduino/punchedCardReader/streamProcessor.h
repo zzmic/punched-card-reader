@@ -12,7 +12,7 @@ typedef enum {
 /**
  * Character used to represent an unknown or unrecognized character.
  */
-const char unknownChar = 0xEF;
+const char UNKNOWN_CHAR = 0xEF;
 
 /**
  * Pattern representing a space column in punched card encoding.

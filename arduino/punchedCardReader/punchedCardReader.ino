@@ -1,5 +1,5 @@
-//#define UNIT_TESTING
-//#define SOFTWARE_INTEGRATION_TESTING
+// #define UNIT_TESTING
+// #define SOFTWARE_INTEGRATION_TESTING
 //#define HARDWARE_TESTING
 
 #include <Arduino.h>
