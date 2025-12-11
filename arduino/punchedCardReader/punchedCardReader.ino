@@ -11,8 +11,8 @@
 // #include <TimerInterrupt.hpp>         //https://github.com/khoih-prog/TimerInterrupt
 // #include <ISR_Timer.hpp>              //https://github.com/khoih-prog/TimerInterrupt
 
-//#define UNIT_TESTING
-//#define SOFTWARE_INTEGRATION_TESTING
+// #define UNIT_TESTING
+// #define SOFTWARE_INTEGRATION_TESTING
 //#define HARDWARE_TESTING
 
 #include <Arduino.h>

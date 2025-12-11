@@ -62,7 +62,8 @@ The easiest way to set up the environment for compiling and uploading the Arduin
 4. In the Arduino IDE, navigate to `Tools` > `Board` > `Board Manager...`, search for `Arduino UNO R4 WiFi`, and install the board core.
 5. Nevigate to `File` > `Open...`, and open the `arduino/punchedCardReader/punchedCardReader.ino` file from the cloned repository.
 6. In the Arduino IDE, navigate to `Tools` > `Port`, and select the port corresponding to the connected Arduino® UNO R4 WiFi board.
-7. Click the `Upload` button (right arrow icon) in the Arduino IDE to compile and upload the sketch to the Arduino board.
+7. Set the baud rate of the serial monitor to `115200` by navigating to `Tools` > `Serial Monitor` and selecting `115200` from the dropdown menu at the top right of the serial monitor window.
+8. Click the `Upload` button (right arrow icon) in the Arduino IDE to compile and upload the sketch to the Arduino board.
 
 ## Unit Testing
 Unit tests for the punched card reader are located in `arduino/punchedCardReader/unitTests.h` and `arduino/punchedCardReader/unitTests.ino`.

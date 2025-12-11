@@ -1,5 +1,6 @@
-/* Initialize the WDT peripheral */
-
+/**
+ * Initialize the WDT peripheral.
+ */
 void initWDT() {
   // TODO step 3 (prelab Qs6.1-6.2)
   R_WDT->WDTCR_b.CKS = 0b1000;
@@ -22,13 +23,17 @@ void initWDT() {
   NVIC_EnableIRQ((IRQn_Type) WDT_INT);
 }
 
-/* pet the watchdog */
+/**
+ * Pet (reset) the watchdog timer to prevent it from triggering.
+ */
 void petWDT() {
   R_WDT->WDTRR = 0;
   R_WDT->WDTRR = 0xFF;
 }
 
-/* ISR when WDT triggers */
+/**
+ * Watchdog Timer ISR that is called when the WDT triggers.
+ */
 void wdtISR() {
   // Serial.println("Watchdog triggered!");
   NVIC_SystemReset();
