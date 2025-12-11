@@ -28,6 +28,7 @@
 #include "cardProcessor.h"
 #include "streamProcessor.h"
 #include "computer.h"
+#include "wdt.h"
 
 #ifdef TESTING
   #include "testUtils.h"
@@ -63,6 +64,9 @@ volatile char curReading[12];
 static void timerISR2(timer_callback_args_t *p_args) {
   SensorReading curReading = readSensors();
   sendSensorReading(curReading);
+
+  petWDT();
+
   #ifdef SOFTWARE_INTEGRATION_TESTING
     if (!finished_software_integration_tests && checkMessages()) {
       finished_software_integration_tests = true;
@@ -120,7 +124,9 @@ void setup() {
   runUnitTests();
   #endif // UNIT_TESTING
 
-  // TODO watchdog timer
+  // Init and pet WDT to kick it off
+  initWDT();
+  petWDT();
 
   // Define timer type and find an available channel
   uint8_t timerType = GPT_TIMER;
@@ -185,6 +191,8 @@ void loop() {
     Serial.print(buffer[start]);
     start = (start + 1) & 0x7F;
   }
+
+  petWDT();
 
   #ifdef SOFTWARE_INTEGRATION_TESTING
   if (finished_software_integration_tests) {
