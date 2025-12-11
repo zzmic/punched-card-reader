@@ -76,6 +76,10 @@ volatile FullPhotodiodeState curPhotodiodeState;
  */
 void initPhotodiodeDriver() {
   curPhotodiodeState.state = s_ALL_OFF;
+  for (int i = 0; i < 12; i++) {
+    curPhotodiodeState.offVals[i] = 0;
+    curPhotodiodeState.onVals[i] = 0;
+  }
 }
 
 #ifndef TESTING

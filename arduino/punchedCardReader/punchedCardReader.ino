@@ -120,7 +120,7 @@ void setup() {
   runUnitTests();
   #endif // UNIT_TESTING
 
-  // TODO: set up watchdog
+  // TODO watchdog timer
 
   // Define timer type and find an available channel
   uint8_t timerType = GPT_TIMER;
