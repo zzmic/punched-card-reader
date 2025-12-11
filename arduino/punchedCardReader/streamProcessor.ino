@@ -4,7 +4,8 @@
 char eightBitToChar[256];
 
 /**
- * Initialize the stream processor by setting up the character mapping.
+ * Initialize the stream processor by setting up the character mapping (arduino
+ * doesn't allow/implement more complex forms of array literal initialization)
  */
 void initStreamProcessor() {
   for (int i = 0; i < 256; i++) {
@@ -313,37 +314,6 @@ char colToByte(uint16_t col) {
   }
   return eightBitToChar[eightBitCode];
 }
-
-// StreamProcState updateStreamProcState(StreamProcState curState, uint16_t col, bool cardEnded) {
-//   StreamProcState nextState = curState;
-//   bool isBinary = isBinaryCol(col);
-
-//   switch(curState) {
-//     case s_TEXT:
-//     if (cardEnded) {
-//       sendByte('\n');
-//     } else if (!cardEnded && !isBinary) {
-//       sendByte(colToByte(col));
-//     } else if (!cardEnded && isBinary) {
-//       sendByte(colToByte(col));
-//       nextState = s_BINARY;
-//     }
-//     break;
-
-//     case s_BINARY:
-//     if (cardEnded) {
-//       nextState = s_TEXT;
-//     } else if (!cardEnded && !isBinary) {
-//       sendByte(colToByte(col));
-//       nextState = s_TEXT;
-//     } else if (!cardEnded && isBinary) {
-//       sendByte(colToByte(col));
-//     }
-//     break;
-//   }
-
-//   return nextState;
-// }
 
 #ifndef TESTING
 /**

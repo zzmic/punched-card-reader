@@ -38,16 +38,6 @@ typedef struct {
   bool sendCardEndCalled;
 } CardProcTest;
 
-// typedef struct {
-//   uint8_t testNum;
-//   StreamProcState startState;
-//   uint16_t col;
-//   bool cardEnded;
-//   StreamProcState endState;
-//   bool sendByteCalled;
-//   char sentByte;
-// } StreamProcTest;
-
 /**
  * Structure encapsulating a Hollerith encoding unit test.
  */

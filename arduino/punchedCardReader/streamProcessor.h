@@ -22,7 +22,6 @@ void sendCardEnd();
 
 #ifdef TESTING
 char colToByte(uint16_t col);
-//StreamProcState updateStreamProcState(StreamProcState curState, uint16_t col, bool cardEnded);
 #endif // TESTING
 
 #endif // STREAM_PROCESSOR_H

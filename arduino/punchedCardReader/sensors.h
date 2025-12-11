@@ -14,11 +14,6 @@
 
 const int c_ANALOG_PINS[6] = { A0, A1, A2, A3, A4, A5 };
 const int c_DIGITAL_PINS[4] = { D2, D3, D4, D5 };
-// const int c_EVEN_PINS[2] = { D2, D4 };
-// const int c_ODD_PINS[2] = { D3, D5 };
-
-// const int c_ANALOG_PINS[6] = { A5, A4, A3, A2, A1, A0 };
-// const int c_DIGITAL_PINS[4] = { D5, D4, D3, D2 };
 const int c_ODD_PINS[2] = { D2, D4 };
 const int c_EVEN_PINS[2] = { D3, D5 };
 
