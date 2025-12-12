@@ -12,7 +12,7 @@ void initStreamProcessor() {
     eightBitToChar[i] = unknownChar;
   }
 
-  eightBitToChar[0x00] = ' ';
+  //eightBitToChar[0x00] = ' ';
   eightBitToChar[0x01] = '1';
   eightBitToChar[0x02] = '2';
   eightBitToChar[0x03] = '3';

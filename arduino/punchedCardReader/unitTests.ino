@@ -585,6 +585,10 @@ EncodingTest hollerithTests[] = {
     0b101000000001,
     'i',
   },
+  EncodingTest {
+    0b000100000100,
+    ' ',
+  },
 };
 
 /**
