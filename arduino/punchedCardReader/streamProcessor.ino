@@ -293,11 +293,9 @@ void initStreamProcessor() {
  * @return The corresponding character.
  */
 char colToByte(uint16_t col) {
-  if (col == SPACE_COLUMN_PATTERN) {
+  if (col == WHITESPACE_COL) {
     return ' ';
   }
-  // Serial.print(col, BIN);
-  // Serial.println("");
   uint8_t eightBitCode = (0b1 & col) << 7;
   for (int codeBitNum = 4; codeBitNum < 7; codeBitNum++) {
     int colBitNum = 15 - codeBitNum;
@@ -316,10 +314,10 @@ char colToByte(uint16_t col) {
 }
 
 /**
- * Check if a column representation is valid (not all-holes or all-blank except space).
+ * Check if a column representation is valid (not all-holes or all-blanks).
  *
  * @param col The 16-bit column representation.
- * @return True if the column is valid, false otherwise.
+ * @return true if the column is valid, false otherwise.
  */
 bool isValidColumn(uint16_t col) {
   if (col == 0xFFF || col == 0x000) {

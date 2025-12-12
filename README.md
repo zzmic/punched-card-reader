@@ -4,6 +4,12 @@
 ## Overview
 This project is an Arduino‑based punched card reader that optically senses holes in punched cards and streams the decoded information via serial communication. It is intended to illustrate operating-system and low‑level I/O concepts by recreating the characteristics of historical slow peripheral devices.
 
+## Group Members
+- Yi Lyo
+- Patrick McCann
+- Alexander Thaep
+- Zhiwen "Michael" Zheng
+
 ## Specifications
 ```
 Punched Card Diameters
@@ -80,12 +86,6 @@ After doing so, compiling and uploading the sketch to the Arduino board drives t
 The harness invokes `checkMessages()` on each time step to compare the expected LED control, punch-reading generation, column/byte transmission, and card-end signaling against the actual mocked calls.
 Results are printed to the serial monitor; any mismatch includes the expected and actual values, while a clean run ends with the message `finished software integration test (if only '};\n' was printed out, it passed)`.
 The integration tests reuse the mock interfaces in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, letting the tests validate the full sensing-to-streaming pipeline without actual hardware.
-
-## Group Members
-- Yi Lyo
-- Patrick McCann
-- Alexander Thaep
-- Zhiwen "Michael" Zheng
 
 ## Appendix A: Makefile Usage for Arduino Sketches through Arduino CLI (Optional)
 Alternatively, to compile and upload Arduino sketches to the Arduino® UNO R4 WiFi board, ensure that [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/) is installed and available in the system's PATH and that the [Arduino® UNO R4 WiFi board core](https://docs.arduino.cc/hardware/uno-r4-wifi/) is installed. More information about interacting with Arduino CLI can be found in its [official documentation](https://arduino.github.io/arduino-cli/1.3/).

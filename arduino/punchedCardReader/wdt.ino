@@ -32,7 +32,7 @@ void petWDT() {
 }
 
 /**
- * Watchdog Timer ISR that is called when the WDT triggers.
+ * Watchdog timer ISR that is called when the WDT triggers.
  */
 void wdtISR() {
   // Serial.println("Watchdog triggered!");

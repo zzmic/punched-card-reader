@@ -9,7 +9,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
   FullPhotodiodeState ret = curState;
 
   switch(curState.state) {
-    /* 0-1. */
+    /* 0-1 (the guard is always true). */
     case s_ALL_OFF:
     for (int i = 0; i < 6; i++) {
       ret.offVals[2 * i] = reading.readings[i];
@@ -20,7 +20,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
     evenLEDsOn();
     break;
 
-    /* 1-2. */
+    /* 1-2 (the guard is always true). */
     case s_EVEN_ON:
     for (int i = 0; i < 6; i++) {
       ret.onVals[2 * i] = reading.readings[i];
@@ -30,7 +30,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
     oddLEDsOn();
     break;
 
-    /* 2-3. */
+    /* 2-3 (the guard is always true). */
     case s_ODD_ON:
     for (int i = 0; i < 6; i++) {
       ret.onVals[(2 * i) + 1] = reading.readings[i];
@@ -39,17 +39,14 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
     oddLEDsOff();
     break;
 
-    /* 3-0. */
+    /* 3-0 (the guard is always true). */
     case s_CALC:
     PunchReading punched;
     for (int i = 0; i < 12; i++) {
       punched.holes[i] = (curState.onVals[i] - curState.offVals[i]) > minDiff;
     }
-    // printPunchReading(punched);
-    // Serial.println("\n");
     sendPunchReading(punched);
     ret.state = s_ALL_OFF;
-    // TODO: pet watchdog here?
     #ifdef HARDWARE_TESTING
     for (int i = 0; i < 12; i++) {
       if (punched.holes[i]) {
@@ -67,6 +64,7 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
 
 /**
  * The current state of the photodiode driver.
+ *
  * It is declared as volatile since it may be modified in an interrupt context.
  */
 volatile FullPhotodiodeState curPhotodiodeState;

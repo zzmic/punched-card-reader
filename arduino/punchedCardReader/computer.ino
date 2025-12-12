@@ -6,7 +6,7 @@
  * The `end` index is then incremented, wrapping around using a bitwise AND
  * with `BUFFER_MASK` to ensure that it stays within the bounds of the buffer length (128 bytes).
  *
- * @param b The byte (in char) to send.
+ * @param b The byte to send.
  */
 void sendByte(char b) {
   //Serial.print(b);
