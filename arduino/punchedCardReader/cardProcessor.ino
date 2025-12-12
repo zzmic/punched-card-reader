@@ -43,6 +43,8 @@ FullCardProcState updateCardProcState(FullCardProcState& currState, PunchReading
       ret.state = s_WAIT_FOR_COLUMN;
       ret.prevPunched = punched;
     }
+    /* 0-0. */
+    // Do nothing if not `allLow`.
     break;
 
     case s_WAIT_FOR_COLUMN:
@@ -78,6 +80,7 @@ FullCardProcState updateCardProcState(FullCardProcState& currState, PunchReading
 
 /**
  * The current state of the card processor.
+ *
  * It is declared as volatile since it may be modified in an interrupt context.
  */
 volatile FullCardProcState curCardProcState;

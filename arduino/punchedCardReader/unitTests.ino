@@ -199,6 +199,11 @@ PhotodiodeTest photodiodeTests[] = {
   },
 };
 
+/**
+ * Run a single photodiode driver unit test.
+ *
+ * @param test The `PhotodiodeTest` struct defining the unit test.
+ */
 bool runPhotodiodeTest(PhotodiodeTest& test) {
   resetMockedInterfaceTracking();
 
@@ -310,6 +315,9 @@ bool runPhotodiodeTest(PhotodiodeTest& test) {
 }
 
 int numCardProcTests = 14;
+/**
+ * Array of `CardProcTest` structs representing card processing unit tests.
+ */
 CardProcTest cardProcTests[] = {
   CardProcTest {
     1,
@@ -554,7 +562,7 @@ bool runCardProcTest(CardProcTest& test) {
 // int numHollerithTests = 96;
 int numHollerithTests = 7;
 /**
- * Struct representing the Hollerith encoding test cases.
+ * Array of `EncodingTest` structs representing Hollerith encoding unit tests.
  */
 EncodingTest hollerithTests[] = {
   EncodingTest {

@@ -2,8 +2,6 @@
 
 /**
  * Array of `IntegrationTestTimeStep` structs representing each time step in the software integration test.
- *
- * It simulates reading a card that represents this single line of a program: "};".
  */
 IntegrationTestTimeStep softwareIntTestSteps[] {
   IntegrationTestTimeStep {
@@ -1013,7 +1011,7 @@ SensorReading readSensors() {
 }
 
 /**
- * Check if the mocked interface function calls and parameters match the expected 
+ * Check if the mocked interface function calls and parameters match the expected
  * values for the current time step, printing an error message if they don't match.
  *
  * @return whether the software integration test has finished.

@@ -26,15 +26,28 @@
   #include "softwareIntegrationTests.h"
 #endif // SOFTWARE_INTEGRATION_TESTING
 
+/**
+ * Constants and variables for buffering serial output.
+ */
 #define BUF_LEN 128
 volatile char buffer[BUF_LEN];
 volatile int start = 0;
 volatile int end = 0;
 
+/**
+ * Timer object and testing flags.
+ */
 FspTimer myTimer;
 volatile bool finished_software_integration_tests;
 volatile char curReading[12];
 
+/**
+ * Timer interrupt service routine (ISR).
+ *
+ * This function is called at a fixed rate to read sensor data and process it.
+ *
+ * @param p_args Pointer to timer callback arguments (not used).
+ */
 static void timerISR2(timer_callback_args_t *p_args) {
   SensorReading curReading = readSensors();
   sendSensorReading(curReading);
@@ -47,7 +60,7 @@ static void timerISR2(timer_callback_args_t *p_args) {
 }
 
 /**
- * Initialize the system and peripherals.
+ * Setup function.
  */
 void setup() {
   // put your setup code here, to run once:
