@@ -69,7 +69,7 @@ The easiest way to set up the environment for compiling and uploading the Arduin
 Unit tests for the punched card reader are located in `arduino/punchedCardReader/unitTests.h` and `arduino/punchedCardReader/unitTests.ino`.
 To run these tests, first enable unit testing and testing modes by uncommenting the `#define UNIT_TESTING` macro in `arduino/punchedCardReader/punchedCardReader.ino`.
 After doing so, compiling and uploading the sketch to the Arduino board will automatically execute the `runUnitTests()` function within the `setup()` phase.
-The test results, showing pass/fail status for the photodiode driver, card processor, and stream processor modules, are displayed on the serial monitor, with a clean run ending with the messages `All photodiode driver unit tests passed :)`, `All card processor unit tests passed :)`, `All stream processor unit tests passed :)`, and `All Hollerith unit tests passed :)`.
+The test results, showing pass/fail status for the photodiode driver, card processor, and stream processor modules, are displayed on the serial monitor, with a clean run ending with the messages `All photodiode driver unit tests passed :)`, `All card processor unit tests passed :)`, and `All Hollerith unit tests passed :)`.
 The testing framework uses mock functions defined in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, which are activated by the `#define TESTING` macro.
 These mocks intercept hardware calls to set state flags (e.g., `evenLEDsOnCalled`), enabling the unit tests to verify that the correct hardware control logic runs without requiring physical interaction.
 
