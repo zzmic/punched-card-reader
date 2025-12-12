@@ -76,15 +76,15 @@ To run these tests, first enable unit testing and testing modes by uncommenting 
 After doing so, compiling and uploading the sketch to the Arduino board will automatically execute the `runUnitTests()` function within the `setup()` phase.
 The test results, showing pass/fail status for the photodiode driver, card processor, and stream processor modules, are displayed on the serial monitor, with a clean run ending with the messages `All photodiode driver unit tests passed :)`, `All card processor unit tests passed :)`, and `All Hollerith unit tests passed :)`.
 The testing framework uses mock functions defined in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, which are activated by the `#define TESTING` macro.
-These mocks intercept hardware calls to set state flags (e.g., `evenLEDsOnCalled`), enabling the unit tests to verify that the correct hardware control logic runs without requiring physical interaction.
+These mocks intercept hardware calls to set state flags (e.g., `evenLEDsOnCalled`), enabling the unit tests to verify that the correct hardware control logic runs without requiring physical interaction, though the board must be connected and the sketch uploaded.
 
 ## Integration Testing
 Integration tests for the punched card reader can be found at `arduino/punchedCardReader/softwareIntegrationTests.h` and `arduino/punchedCardReader/softwareIntegrationTests.ino`.
 To run the integration tests, first enable integration testing and testing modes by uncommenting the `#define SOFTWARE_INTEGRATION_TESTING` macro in `arduino/punchedCardReader/punchedCardReader.ino`.
-After doing so, compiling and uploading the sketch to the Arduino board drives the timer-based test harness that feeds a scripted sequence of sensor readings (simulating the card text `};`) into the system under test.
+After doing so, compiling and uploading the sketch to the Arduino board drives the timer-based test harness that feeds a scripted sequence of sensor readings (simulating the card text `};\n`) into the system at each time step.
 The harness invokes `checkMessages()` on each time step to compare the expected LED control, punch-reading generation, column/byte transmission, and card-end signaling against the actual mocked calls.
 Results are printed to the serial monitor; any mismatch includes the expected and actual values, while a clean run ends with the message `finished software integration test (if only '};\n' was printed out, it passed)`.
-The integration tests reuse the mock interfaces in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, letting the tests validate the full sensing-to-streaming pipeline without actual hardware.
+The integration tests reuse the mock interfaces in `arduino/punchedCardReader/testUtils.ino`, such as `evenLEDsOn` and `sendPunchReading`, allowing the tests to validate the full sensing-to-streaming pipeline without requiring physical interaction, though the board must be connected and the sketch uploaded.
 
 ## Appendix A: Makefile Usage for Arduino Sketches through Arduino CLI (Optional)
 Alternatively, to compile and upload Arduino sketches to the Arduino® UNO R4 WiFi board, ensure that [Arduino CLI](https://arduino.github.io/arduino-cli/1.3/installation/) is installed and available in the system's PATH and that the [Arduino® UNO R4 WiFi board core](https://docs.arduino.cc/hardware/uno-r4-wifi/) is installed. More information about interacting with Arduino CLI can be found in its [official documentation](https://arduino.github.io/arduino-cli/1.3/).
