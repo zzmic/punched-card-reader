@@ -48,7 +48,7 @@ volatile char curReading[12];
  *
  * @param p_args Pointer to timer callback arguments (not used).
  */
-static void timerISR2(timer_callback_args_t *p_args) {
+static void timerISR(timer_callback_args_t *p_args) {
   SensorReading curReading = readSensors();
   sendSensorReading(curReading);
 
@@ -93,7 +93,7 @@ void setup() {
 
   // Configure the timer
   // Parameters: mode, type, channel, frequency (Hz), dutyCycle (for PWM, 50% for periodic), callback function
-  bool ok = myTimer.begin(TIMER_MODE_PERIODIC, GPT_TIMER, channel, 4000, 50.0, &timerISR2); // complete 4-state cycle at 1 kHz frequency
+  bool ok = myTimer.begin(TIMER_MODE_PERIODIC, GPT_TIMER, channel, 4000, 50.0, &timerISR); // complete 4-state cycle at 1 kHz frequency
 
   if (!ok) {
     Serial.println("Timer initialization failed");
