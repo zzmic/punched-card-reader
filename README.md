@@ -30,13 +30,16 @@ Punched Card Reader:
 ->  Notify card read end over serial
 ```
 
+## CAD
+We have created some preliminary CAD prototypes just to virtually explore the physical design of our system. These files, in `.obj`, `.stl`, and `.f3z` formats, can be found in the respective folders according to their versions.
+
 ## Project Directory Hierarchy
 ```
 .
 ├── arduino/                  # Arduino files for various sketches.
 │   ├── PhotodiodeReadTest/   # Arduino sketch directory for testing photodiode readings.
 │   └── punchedCardReader/    # Arduino sketch directory for the punched card reader ("The Implementation").
-│   └── punchcardReaderDraft/ # Early draft of the punched card reader Arduino sketch.
+│   └── PunchcardReaderDraft/ # Early draft of the punched card reader Arduino sketch.
 ├── cad/                      # CAD files for prototype designs.
 │   └── v1/                   # V1 prototype CAD files.
 │   └── v2/                   # V2 prototype CAD files.
@@ -46,9 +49,6 @@ Punched Card Reader:
 └── sim/                      # Simulation files.
     └── test-cards/           # Sample punched card files for testing the simulation.
 ```
-
-## CAD
-We have created some preliminary CAD prototypes just to virtually explore the physical design of our system. These files, in `.obj`, `.stl`, and `.f3z` formats, can be found in the respective folders according to their versions.
 
 ## Hardware Requirements
 - [Arduino® UNO R4 WiFi Board](https://store-usa.arduino.cc/products/uno-r4-wifi)

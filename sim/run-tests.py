@@ -11,7 +11,7 @@ quiet = 0
 # ------------------------
 # Find build directory
 # ------------------------
-build_dir = Path("sim/bin")
+build_dir = Path("bin")
 
 if not build_dir:
     print("Error: Build directory for the project not found.")
@@ -41,7 +41,7 @@ args = parser.parse_args()
 # ------------------------
 # Loop over card .txt files
 # ------------------------
-cards_dir = Path("sim/test-cards")
+cards_dir = Path("test-cards")
 card_files = sorted(cards_dir.glob("*.txt"))
 
 if not card_files:
