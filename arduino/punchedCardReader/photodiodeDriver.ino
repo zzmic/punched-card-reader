@@ -15,7 +15,6 @@ FullPhotodiodeState updatePhotodiodeState(FullPhotodiodeState& curState, SensorR
       ret.offVals[2 * i] = reading.readings[i];
       ret.offVals[(2 * i) + 1] = reading.readings[i];
     }
-    ret.offVals[12] = reading.readings[6];
     ret.state = s_EVEN_ON;
     evenLEDsOn();
     break;
