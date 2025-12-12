@@ -33,19 +33,18 @@ Punched Card Reader:
 ## Project Directory Hierarchy
 ```
 .
-├── .github/                # GitHub Actions configuration files.
-├── arduino/                # Arduino files for various sketches.
-│   ├── PhotodiodeReadTest/ # Arduino sketch directory for testing photodiode readings.
-│   └── punchedCardReader/  # Arduino sketch directory for the punched card reader.
-├── cad/                    # CAD files for the punched card reader.
-│   └── v1/                 # V1 prototype CAD files.
-│   └── v2/                 # V2 prototype CAD files.
-├── dafny/                  # Dafny verification files.
-├── punchcard-generator/    # Punched card generator utility.
-├── PunchedCardReader/      # Arduino sketch directory for the punched card reader.
-├── serial-reader/         # Serial reader utility for reading data from the punched card reader.
-└── sim/                    # Simulation files.
-    └── test-cards/         # Sample punched card files for testing the simulation.
+├── arduino/                  # Arduino files for various sketches.
+│   ├── PhotodiodeReadTest/   # Arduino sketch directory for testing photodiode readings.
+│   └── punchedCardReader/    # Arduino sketch directory for the punched card reader ("The Implementation").
+│   └── punchcardReaderDraft/ # Early draft of the punched card reader Arduino sketch.
+├── cad/                      # CAD files for prototype designs.
+│   └── v1/                   # V1 prototype CAD files.
+│   └── v2/                   # V2 prototype CAD files.
+├── dafny/v1                  # Dafny verification files.
+├── punchcard-generator/      # Punched card generator utility.
+├── serial-reader/            # Serial reader utility for reading data from the punched card reader.
+└── sim/                      # Simulation files.
+    └── test-cards/           # Sample punched card files for testing the simulation.
 ```
 
 ## CAD
@@ -66,7 +65,7 @@ The easiest way to set up the environment for compiling and uploading the Arduin
 2. Connect the Arduino® UNO R4 WiFi board to the local machine via a cable.
 3. Open the Arduino IDE.
 4. In the Arduino IDE, navigate to `Tools` > `Board` > `Board Manager...`, search for `Arduino UNO R4 WiFi`, and install the board core.
-5. Nevigate to `File` > `Open...`, and open the `arduino/punchedCardReader/punchedCardReader.ino` file from the cloned repository.
+5. Navigate to `File` > `Open...`, and open the `arduino/punchedCardReader/punchedCardReader.ino` file from the cloned repository.
 6. In the Arduino IDE, navigate to `Tools` > `Port`, and select the port corresponding to the connected Arduino® UNO R4 WiFi board.
 7. Set the baud rate of the serial monitor to `115200` by navigating to `Tools` > `Serial Monitor` and selecting `115200` from the dropdown menu at the top right of the serial monitor window.
 8. Click the `Upload` button (right arrow icon) in the Arduino IDE to compile and upload the sketch to the Arduino board.
@@ -123,7 +122,7 @@ Before building the simulation, ensure that a compatible [GCC](https://gcc.gnu.o
 The simulation of the *early design* of the punched card reader is implemented in C++ and can be built and run using the provided `Makefile` (`make help` for help).
 1. Run `make sim-build` to build the simulation.
 2. Run `./sim/bin/main` to start the simulation in interactive mode (specify the `--binary-mode` flag for binary output mode).
-3. "Insert" a card file containing a 80 (column) * 12 (row) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
+3. "Insert" a card file containing an 80 (column) * 12 (row) grid, where each entry represents a punch (any character other than `.` and whitespace) or no punch (`.` or whitespace). Sample card files are available in the `sim/test-cards/` directory.
 4. To exit the simulation, type `done` when prompted for the next card file path. Otherwise, more card files can be input to continue the simulation.
 5. Alternatively, do `make sim-test` (or `make sim-test-binary`) to run the simulation on *ALL* the test cards in the `sim/test-cards/` directory.
 
