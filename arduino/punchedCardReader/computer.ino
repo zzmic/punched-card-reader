@@ -4,13 +4,13 @@
  *
  * The function writes the byte `b` into the end of a circular buffer.
  * The `end` index is then incremented, wrapping around using a bitwise AND
- * with `0x7F` to ensure that it stays within the bounds of the buffer size (128 bytes).
+ * with `BUFFER_MASK` to ensure that it stays within the bounds of the buffer length (128 bytes).
  *
  * @param b The byte (in char) to send.
  */
 void sendByte(char b) {
   //Serial.print(b);
   buffer[end] = b;
-  end = (end + 1) & 0x7F;
+  end = (end + 1) & BUFFER_MASK;
 }
 #endif // TESTING

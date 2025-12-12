@@ -1,5 +1,5 @@
-//#define UNIT_TESTING
-//#define SOFTWARE_INTEGRATION_TESTING
+// #define UNIT_TESTING
+// #define SOFTWARE_INTEGRATION_TESTING
 //#define HARDWARE_TESTING
 
 #include <Arduino.h>
@@ -99,9 +99,17 @@ void setup() {
  * Main loop function.
  */
 void loop() {
-  if (start != end) {
-    Serial.print(buffer[start]);
+  noInterrupts();
+  bool hasData = (start != end);
+  char b = 0;
+  if (hasData) {
+    b = buffer[start];
     start = (start + 1) & 0x7F;
+  }
+  interrupts();
+
+  if (hasData) {
+    Serial.print(b);
   }
 
   petWDT();
