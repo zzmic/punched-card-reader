@@ -1,6 +1,6 @@
 // #define UNIT_TESTING
 // #define SOFTWARE_INTEGRATION_TESTING
-//#define HARDWARE_TESTING
+// #define HARDWARE_TESTING
 
 #include <Arduino.h>
 #include <FspTimer.h>
@@ -39,8 +39,6 @@ static void timerISR2(timer_callback_args_t *p_args) {
   SensorReading curReading = readSensors();
   sendSensorReading(curReading);
 
-  petWDT();
-
   #ifdef SOFTWARE_INTEGRATION_TESTING
     if (!finished_software_integration_tests && checkMessages()) {
       finished_software_integration_tests = true;
@@ -66,8 +64,10 @@ void setup() {
   #endif // UNIT_TESTING
 
   // Init and pet WDT to kick it off
+  #ifndef UNIT_TESTING
   initWDT();
   petWDT();
+  #endif // UNIT_TESTING
 
   // Define timer type and find an available channel
   uint8_t timerType = GPT_TIMER;
@@ -112,11 +112,9 @@ void loop() {
     Serial.print(b);
   }
 
-  petWDT();
-
   #ifdef SOFTWARE_INTEGRATION_TESTING
   if (finished_software_integration_tests) {
-    Serial.println("finished software integration test (if only '};\n' was printed out, it passed)");
+    Serial.println("finished software integration test (if only '};<newline>' was printed out, it passed)");
     while(1);
   }
   #endif
