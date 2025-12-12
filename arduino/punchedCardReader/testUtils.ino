@@ -121,12 +121,7 @@ void sendColumn(uint16_t col) {
   sentCol = col;
 
   #ifndef UNIT_TESTING
-  if (col == 0xFFF || col == 0x000) {
-    sendByte(UNKNOWN_CHAR);
-    return;
-  }
   sendByte(colToByte(col));
-  //spState = updateStreamProcState(spState, col, false);
   #endif // UNIT_TESTING
 }
 
@@ -138,7 +133,6 @@ void sendCardEnd() {
 
   #ifndef UNIT_TESTING
   sendByte('\n');
-  //spState = updateStreamProcState(spState, 0, true);
   #endif // UNIT_TESTING
 }
 
