@@ -1,6 +1,6 @@
 CLI ?= arduino-cli
 FQBN ?= arduino:renesas_uno:unor4wifi
-SKETCH_DIR ?= modules/cardProcessor
+SKETCH_DIR ?= arduino/punchedCardReader
 
 .PHONY: help arduino-board-list arduino-core-update-index arduino-core-install \
 	arduino-core-list arduino-compile arduino-compile-and-upload
@@ -18,13 +18,13 @@ arduino-core-list:
 	$(CLI) core list
 
 arduino-compile:
-	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make compile FILE=$(SKETCH_DIR)/Blink.ino)" >&2; exit 1; }
-	$(CLI) compile --fqbn $(FQBN) $(FILE)
+	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make compile FILE=$(SKETCH_DIR)/punchedCardReader.ino)" >&2; exit 1; }
+	$(CLI) compile --fqbn $(FQBN) --export-binaries $(FILE)
 
 arduino-compile-and-upload:
-	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
-	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload FILE=$(SKETCH_DIR)/Blink.ino PORT=/dev/cu.usbmodemXXXX)" >&2; exit 1; }
-	$(CLI) compile --fqbn $(FQBN) $(FILE)
+	@[ -n "$(FILE)" ] || { echo "error: FILE variable is required (e.g., make upload PORT=/dev/cu.usbmodemXXXX) FILE=$(SKETCH_DIR)/punchedCardReader.ino" >&2; exit 1; }
+	@[ -n "$(PORT)" ] || { echo "error: PORT variable is required (e.g., make upload PORT=/dev/cu.usbmodemXXXX) FILE=$(SKETCH_DIR)/punchedCardReader.ino" >&2; exit 1; }
+	$(CLI) compile --fqbn $(FQBN) --export-binaries $(FILE)
 	$(CLI) upload -p $(PORT) --fqbn $(FQBN) $(FILE)
 
 help:
